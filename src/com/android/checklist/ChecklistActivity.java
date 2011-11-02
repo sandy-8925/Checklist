@@ -8,9 +8,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ChecklistActivity extends ListActivity
@@ -19,6 +21,31 @@ public class ChecklistActivity extends ListActivity
 	private ItemsDbHelper mDbHelper;
 	private Cursor mItemsCursor; 
 	private static final int CREATE_ITEM=1;
+	String[] from;
+    int[] to;
+	
+	class ChecklistItemAdapter extends SimpleCursorAdapter
+	{
+		ChecklistItemAdapter() {
+			super(ChecklistActivity.this, R.layout.item_row, mItemsCursor, from, to);
+		}		
+		
+		public View getView(int position, View convertView, ViewGroup parent)
+		{
+			View item = super.getView(position, convertView, parent);
+			
+			TextView itemText = (TextView) item.findViewById(R.id.itemtext);			
+			long itemRowId = getItemId(position);
+			
+			int itemCheckedColor = 0x88888888;
+			int itemUncheckedColor = 0xFFFFFFFF;	
+			int itemColor = (mDbHelper.getItemStatus(itemRowId)==0)? itemUncheckedColor:itemCheckedColor;		
+			itemText.setTextColor(itemColor);
+			
+			return item;
+		}
+		
+	}
 	
     /** Called when the activity is first created. */
     @Override
@@ -38,9 +65,9 @@ public class ChecklistActivity extends ListActivity
          * use requery to refresh cursor data in other methods
          * use notifyDataSetChanged() to refresh view/adapter
          */
-        String[] from = new String[] {ItemsDbHelper.COL_DESC};
-        int[] to = new int[] {R.id.itemrow};
-        ListAdapter itemListAdapter = new SimpleCursorAdapter(this, R.layout.item_row, mItemsCursor, from, to);
+        from = new String[] {ItemsDbHelper.COL_DESC};
+        to = new int[] {R.id.itemtext};
+        ListAdapter itemListAdapter = new ChecklistItemAdapter();
         setListAdapter(itemListAdapter);
     }
     
@@ -62,29 +89,26 @@ public class ChecklistActivity extends ListActivity
     		Intent createItemIntent = new Intent(this, ItemDescriptionEntryActivity.class);
     		startActivityForResult(createItemIntent, CREATE_ITEM);
     		return true;
-    	case R.id.show_row_ids:
-    		Cursor allItems = mDbHelper.fetchAllItems();
-    		String rowIDs = new String("");
-    		if(allItems.moveToFirst())
-    			rowIDs = rowIDs + allItems.getString(allItems.getColumnIndex(mDbHelper.COL_ID)) + "\n";
-    		while(allItems.moveToNext())
-    			rowIDs = rowIDs + allItems.getString(allItems.getColumnIndex(mDbHelper.COL_ID)) + "\n";
-    		Toast.makeText(this, rowIDs,Toast.LENGTH_LONG).show();
-    		return true;
     	}
-    	
-
     	return super.onOptionsItemSelected(item);
     }
     
     @Override
     protected void onActivityResult(int requestCode,int resultCode, Intent intent)
     {
+    	super.onActivityResult(requestCode, resultCode, intent);
+    	if(resultCode == RESULT_CANCELED)
+    		return;
+    	
     	switch(requestCode)
     	{
     	case CREATE_ITEM:
-    		//get item description string returned by activity 
-    		Bundle extras = intent.getExtras();
+    		//get item description string returned by activity
+    		Bundle extras = intent.getExtras();    		
+    		    		
+    		if(extras == null)
+    			break;
+    		
     		String itemDesc = extras.getString(ItemsDbHelper.COL_DESC);
     		
     		//add item to database
@@ -102,7 +126,7 @@ public class ChecklistActivity extends ListActivity
     protected void onListItemClick(ListView l, View v, int position, long id)
     {    	
     	int result = mDbHelper.flipStatus(id);  	
-    	Toast.makeText(this, "" + result + "\n" + id, Toast.LENGTH_SHORT).show();    //for debugging purposes only. to be removed later 	
+    	//Toast.makeText(this, "" + result + "\n" + id, Toast.LENGTH_SHORT).show();    //for debugging purposes only. to be removed later 	
     	mItemsCursor.requery();
     	
     	SimpleCursorAdapter itemsAdapter = (SimpleCursorAdapter) getListAdapter();

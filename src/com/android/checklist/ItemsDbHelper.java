@@ -84,6 +84,14 @@ public class ItemsDbHelper {
 		values.put(COL_STATUS, status);
 		mDatabase.update(TABLE_NAME, values, "_id="+id, null);
 		return status;
-	}	
+	}
+	
+	public int getItemStatus(long id)
+	{
+		Cursor item = mDatabase.query(TABLE_NAME, new String[] {COL_STATUS}, "_id=" + id, null, null, null, null);
+		item.moveToFirst();
+		int status = item.getInt(item.getColumnIndex(COL_STATUS));		
+		return status;
+	}
 	
 }

@@ -12,6 +12,7 @@ public class ItemDescriptionEntryActivity extends Activity {
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.itemdescentry);
+		
 		Button okButton = (Button) findViewById(R.id.itemdescconfbutton);
 		okButton.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
@@ -25,7 +26,18 @@ public class ItemDescriptionEntryActivity extends Activity {
 					}
 				}
 				);
-	}	
+	}
+		
+	@Override
+	protected void onStop()
+	{
+		super.onStop();
+	}
 	
-	
+	@Override
+	protected void onDestroy()
+	{	
+		super.onDestroy();
+	}
+		
 }

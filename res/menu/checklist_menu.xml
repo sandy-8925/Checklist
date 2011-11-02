@@ -5,9 +5,4 @@
 	android:title="@string/menu_new_item"
 	android:icon="@android:drawable/btn_plus"
 />
-<item
-	android:id="@+id/show_row_ids"
-	android:title="Show row IDs"
-	android:icon="@android:drawable/btn_plus"
-/>
 </menu>

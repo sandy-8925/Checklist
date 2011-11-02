@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-
- 
-<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/itemrow"
+<?xml version="1.0" encoding="utf-8"?> 
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/itemtext"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
-	android:minHeight="40px"
-	android:textSize="30px"
-	android:textColor="@color/viewitemcolor"		
+	android:minHeight="20px"
+	android:textSize="20px"
+	android:textColor="#FFFFFF"	
 />
