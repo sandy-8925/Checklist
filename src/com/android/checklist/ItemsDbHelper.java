@@ -94,4 +94,11 @@ public class ItemsDbHelper {
 		return status;
 	}
 	
+	public void deleteCheckedItems()
+	{
+		mDatabase.delete(TABLE_NAME, COL_STATUS + "=1", null);
+		//mDatabase.setTransactionSuccessful();
+	}
+	
+	
 }

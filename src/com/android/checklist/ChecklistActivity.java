@@ -21,6 +21,7 @@ public class ChecklistActivity extends ListActivity
 	private ItemsDbHelper mDbHelper;
 	private Cursor mItemsCursor; 
 	private static final int CREATE_ITEM=1;
+	private static final int DELETE_CHECKED_ITEMS=2;
 	String[] from;
     int[] to;
 	
@@ -89,6 +90,13 @@ public class ChecklistActivity extends ListActivity
     		Intent createItemIntent = new Intent(this, ItemDescriptionEntryActivity.class);
     		startActivityForResult(createItemIntent, CREATE_ITEM);
     		return true;
+    		
+    	case R.id.menu_delcheckeditems:
+    		mDbHelper.deleteCheckedItems();
+    		mItemsCursor.requery();        	
+        	SimpleCursorAdapter itemsAdapter = (SimpleCursorAdapter) getListAdapter();
+    		itemsAdapter.notifyDataSetChanged();
+    		return true;
     	}
     	return super.onOptionsItemSelected(item);
     }
@@ -111,6 +119,8 @@ public class ChecklistActivity extends ListActivity
     		
     		String itemDesc = extras.getString(ItemsDbHelper.COL_DESC);
     		
+    		if(itemDesc.length() != 0 )
+    		{
     		//add item to database
     		mDbHelper.addItem(itemDesc);
     		
@@ -118,6 +128,7 @@ public class ChecklistActivity extends ListActivity
     		mItemsCursor.requery();
     		SimpleCursorAdapter itemsAdapter = (SimpleCursorAdapter) getListAdapter();
     		itemsAdapter.notifyDataSetChanged();
+    		}
     		break;
     	}
     }

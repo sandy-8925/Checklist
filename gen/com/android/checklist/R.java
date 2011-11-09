@@ -26,6 +26,7 @@ public final class R {
         public static final int itemdescconfbutton=0x7f070002;
         public static final int itemdesctext=0x7f070001;
         public static final int itemtext=0x7f070000;
+        public static final int menu_delcheckeditems=0x7f070004;
         public static final int menu_new_item=0x7f070003;
     }
     public static final class layout {
@@ -41,6 +42,7 @@ public final class R {
         public static final int hello=0x7f040000;
         public static final int itemdesc=0x7f040004;
         public static final int list_empty=0x7f040002;
+        public static final int menu_delcheckitems=0x7f040005;
         public static final int menu_new_item=0x7f040003;
     }
 }
