@@ -1,1 +1,11 @@
-Basic checklist app for Android. Unchecked items are white, checked items are grey. Tap an item to toggle between checked and unchecked state. Press menu button to get a menu for options like adding new items,deleting all checked items etc.
+About: Basic checklist app for Android. Unchecked items are white, checked items are grey. Tap an item to toggle between checked and unchecked state. Press menu button to get a menu for options like adding new items,deleting all checked items etc.
+
+Database description:
+
+Tables:
+
+items
+-----
+
+item id   item description(string)     status(integer: 0-unchecked 1-checked)
+-------   -----------------------      --------------------------------------
