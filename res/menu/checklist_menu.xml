@@ -9,5 +9,15 @@
     android:id="@+id/menu_delcheckeditems"
     android:title="@string/menu_delcheckitems"
     android:icon="@android:drawable/btn_plus"
-    />
+/>
+<item
+	android:id="@+id/menu_checkall"
+	android:title="@string/menu_checkallstring" 
+	android:icon="@android:drawable/btn_plus"   
+/>
+<item
+    android:id="@+id/menu_uncheckall"
+    android:title="@string/menu_uncheckallstring"
+    android:icon="@android:drawable/btn_plus"
+/>
 </menu>

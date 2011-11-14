@@ -6,7 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class ItemsDbHelper {
+public class ItemsDbHelper 
+{
 	private static final String DATABASE_NAME="data";
 	private static int DATABASE_VERSION=1;
 	private static final String TABLE_NAME="items";
@@ -22,18 +23,21 @@ public class ItemsDbHelper {
 	private class DbHelper extends SQLiteOpenHelper
 	{
 		
-		public DbHelper(Context context) {
+		public DbHelper(Context context) 
+		{
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);			
 		}
 
 		@Override
-		public void onCreate(SQLiteDatabase db) {
+		public void onCreate(SQLiteDatabase db)
+		{
 			//create the table
 			db.execSQL(CREATE_DATABASE);
 		}
 
 		@Override
-		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) 
+		{
 			//no upgrade as of now
 		}	
 	}
@@ -96,9 +100,21 @@ public class ItemsDbHelper {
 	
 	public void deleteCheckedItems()
 	{
-		mDatabase.delete(TABLE_NAME, COL_STATUS + "=1", null);
-		//mDatabase.setTransactionSuccessful();
+		mDatabase.delete(TABLE_NAME, COL_STATUS + "=1", null);		
 	}
 	
+	public void checkAllItems()
+	{
+		ContentValues newValue = new ContentValues();
+		newValue.put(COL_STATUS, 1);
+		mDatabase.update(TABLE_NAME, newValue, null, null);
+	}
+	
+	public void uncheckAllItems()
+	{
+		ContentValues newValue = new ContentValues();
+		newValue.put(COL_STATUS, 0);
+		mDatabase.update(TABLE_NAME, newValue, null, null);
+	}
 	
 }

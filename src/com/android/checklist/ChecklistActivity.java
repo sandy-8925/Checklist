@@ -20,8 +20,7 @@ public class ChecklistActivity extends ListActivity
 	
 	private ItemsDbHelper mDbHelper;
 	private Cursor mItemsCursor; 
-	private static final int CREATE_ITEM=1;
-	private static final int DELETE_CHECKED_ITEMS=2;
+	private static final int CREATE_ITEM=1;	
 	String[] from;
     int[] to;
 	
@@ -83,7 +82,7 @@ public class ChecklistActivity extends ListActivity
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
-    {
+    {    	
     	switch(item.getItemId())
     	{
     	case R.id.menu_new_item:    		    		
@@ -93,9 +92,20 @@ public class ChecklistActivity extends ListActivity
     		
     	case R.id.menu_delcheckeditems:
     		mDbHelper.deleteCheckedItems();
-    		mItemsCursor.requery();        	
-        	SimpleCursorAdapter itemsAdapter = (SimpleCursorAdapter) getListAdapter();
-    		itemsAdapter.notifyDataSetChanged();
+    		mItemsCursor.requery();
+    		((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
+    		return true;
+    		
+    	case R.id.menu_checkall:
+    		mDbHelper.checkAllItems();
+    		mItemsCursor.requery();
+    		((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
+    		return true;
+    		
+    	case R.id.menu_uncheckall:
+    		mDbHelper.uncheckAllItems();
+    		mItemsCursor.requery();
+    		((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
     		return true;
     	}
     	return super.onOptionsItemSelected(item);
@@ -126,8 +136,7 @@ public class ChecklistActivity extends ListActivity
     		
     		//refresh the display so new item shows up
     		mItemsCursor.requery();
-    		SimpleCursorAdapter itemsAdapter = (SimpleCursorAdapter) getListAdapter();
-    		itemsAdapter.notifyDataSetChanged();
+    		((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
     		}
     		break;
     	}
@@ -140,7 +149,6 @@ public class ChecklistActivity extends ListActivity
     	//Toast.makeText(this, "" + result + "\n" + id, Toast.LENGTH_SHORT).show();    //for debugging purposes only. to be removed later 	
     	mItemsCursor.requery();
     	
-    	SimpleCursorAdapter itemsAdapter = (SimpleCursorAdapter) getListAdapter();
-		itemsAdapter.notifyDataSetChanged();
+    	((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
 	}
 }

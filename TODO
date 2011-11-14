@@ -2,7 +2,7 @@
 - order. alphabetical,date(requires change in database) or keep unchecked at top
 - option to select text colour for checked and unchecked items
 - context menu to delete an item
-- add menu options to check/uncheck all, reverse all 
+- add menu options to reverse all 
 - design icon for app
 - create proper symbols/icons for menu options
 - have item entry activity directly store notes in database instead of returning to main activity

@@ -6,5 +6,7 @@
     <string name="menu_new_item">New Item</string>
     <string name="itemdesc">Item description</string>
     <string name="menu_delcheckitems">Delete checked items</string>
+    <string name="menu_checkallstring">Check all</string>
+    <string name="menu_uncheckallstring">Uncheck all</string>
     <color name="donecolor">#3399CC</color>
 </resources>
