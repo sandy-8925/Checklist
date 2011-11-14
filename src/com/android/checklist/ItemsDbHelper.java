@@ -72,22 +72,15 @@ public class ItemsDbHelper
 	/*
 	 * Flips the status of an item i from unchecked to checked and vice versa and returns the new status
 	 */
-	public int flipStatus(long id)
+	public void flipStatus(long id)
 	{
 		Cursor item = mDatabase.query(TABLE_NAME, new String[] {COL_STATUS}, "_id=" + id, null, null, null, null);
 		item.moveToFirst();
 		int status = item.getInt(item.getColumnIndex(COL_STATUS));
-		status = 1 - status;
-		/*
-		if(status==0)
-			status = 1;
-		else
-			status=0;
-		*/
+		status = 1 - status;		
 		ContentValues values = new ContentValues();
 		values.put(COL_STATUS, status);
-		mDatabase.update(TABLE_NAME, values, "_id="+id, null);
-		return status;
+		mDatabase.update(TABLE_NAME, values, "_id="+id, null);		
 	}
 	
 	public int getItemStatus(long id)
@@ -115,6 +108,24 @@ public class ItemsDbHelper
 		ContentValues newValue = new ContentValues();
 		newValue.put(COL_STATUS, 0);
 		mDatabase.update(TABLE_NAME, newValue, null, null);
+	}
+	
+	public void flipAllItems()
+	{
+		int status;
+		long id;
+		Cursor items = mDatabase.query(TABLE_NAME, new String[] {COL_ID,COL_STATUS}, null, null, null, null, null);
+		
+		items.moveToFirst();
+		do
+		{
+			status = items.getInt(items.getColumnIndex(COL_STATUS));
+			id = items.getLong(items.getColumnIndex(COL_ID));
+			status = 1 - status;		
+			ContentValues values = new ContentValues();
+			values.put(COL_STATUS, status);
+			mDatabase.update(TABLE_NAME, values, "_id="+id, null);			
+		}while(items.moveToNext());
 	}
 	
 }

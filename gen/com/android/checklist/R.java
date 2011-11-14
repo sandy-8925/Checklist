@@ -29,6 +29,7 @@ public final class R {
         public static final int menu_checkall=0x7f070005;
         public static final int menu_delcheckeditems=0x7f070004;
         public static final int menu_new_item=0x7f070003;
+        public static final int menu_reverseall=0x7f070007;
         public static final int menu_uncheckall=0x7f070006;
     }
     public static final class layout {
@@ -47,6 +48,7 @@ public final class R {
         public static final int menu_checkallstring=0x7f040006;
         public static final int menu_delcheckitems=0x7f040005;
         public static final int menu_new_item=0x7f040003;
+        public static final int menu_reverseallstring=0x7f040008;
         public static final int menu_uncheckallstring=0x7f040007;
     }
 }

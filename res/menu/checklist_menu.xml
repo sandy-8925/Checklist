@@ -20,4 +20,9 @@
     android:title="@string/menu_uncheckallstring"
     android:icon="@android:drawable/btn_plus"
 />
+<item
+    android:id="@+id/menu_reverseall"
+    android:title="@string/menu_reverseallstring"
+    android:icon="@android:drawable/btn_plus"
+/>
 </menu>

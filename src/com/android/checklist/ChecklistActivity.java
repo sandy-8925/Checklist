@@ -107,6 +107,12 @@ public class ChecklistActivity extends ListActivity
     		mItemsCursor.requery();
     		((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
     		return true;
+    		
+    	case R.id.menu_reverseall:
+    		mDbHelper.flipAllItems();
+    		mItemsCursor.requery();
+    		((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
+    		return true;
     	}
     	return super.onOptionsItemSelected(item);
     }
@@ -145,10 +151,9 @@ public class ChecklistActivity extends ListActivity
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id)
     {    	
-    	int result = mDbHelper.flipStatus(id);  	
-    	//Toast.makeText(this, "" + result + "\n" + id, Toast.LENGTH_SHORT).show();    //for debugging purposes only. to be removed later 	
-    	mItemsCursor.requery();
-    	
+    	mDbHelper.flipStatus(id); 	
+    	 	
+    	mItemsCursor.requery();    	
     	((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
 	}
 }

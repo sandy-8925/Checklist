@@ -8,5 +8,6 @@
     <string name="menu_delcheckitems">Delete checked items</string>
     <string name="menu_checkallstring">Check all</string>
     <string name="menu_uncheckallstring">Uncheck all</string>
+    <string name="menu_reverseallstring">Reverse all</string>
     <color name="donecolor">#3399CC</color>
 </resources>
