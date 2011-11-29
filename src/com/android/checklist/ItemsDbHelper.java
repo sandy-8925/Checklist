@@ -145,4 +145,8 @@ public class ItemsDbHelper
 		}while(items.moveToNext());
 	}
 	
+	public void deleteItem(long id)
+	{
+		mDatabase.delete(TABLE_NAME, "_id="+id, null);
+	}
 }

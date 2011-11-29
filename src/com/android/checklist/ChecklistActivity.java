@@ -21,16 +21,18 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class ChecklistActivity extends ListActivity
 {
@@ -77,7 +79,7 @@ public class ChecklistActivity extends ListActivity
         mItemsCursor = mDbHelper.fetchAllItems();
         
         //manage cursor ; create cursor adapter and use it
-        startManagingCursor(mItemsCursor); 
+        startManagingCursor(mItemsCursor);
         /*
          * use requery to refresh cursor data in other methods
          * use notifyDataSetChanged() to refresh view/adapter
@@ -86,6 +88,8 @@ public class ChecklistActivity extends ListActivity
         to = new int[] {R.id.itemtext};
         ListAdapter itemListAdapter = new ChecklistItemAdapter();
         setListAdapter(itemListAdapter);
+        
+        registerForContextMenu(getListView());
     }
     
     @Override
@@ -133,6 +137,30 @@ public class ChecklistActivity extends ListActivity
     	}
     	return super.onOptionsItemSelected(item);
     }
+    
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo 	menuInfo)
+    {
+    	super.onCreateContextMenu(menu, v, menuInfo);
+    	MenuInflater inflater = getMenuInflater();
+    	inflater.inflate(R.menu.checklist_context_menu, menu);
+    }
+    	
+    public boolean onContextItemSelected(MenuItem item)
+    {
+    	AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+    	switch(item.getItemId())
+    	{
+    	case R.id.context_menu_delete:
+    		mDbHelper.deleteItem(info.id);
+    		mItemsCursor.requery();
+    		((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
+    		return true;
+    		
+    	default:
+    		return super.onContextItemSelected(item);
+    	}
+    }
+    
     
     @Override
     protected void onActivityResult(int requestCode,int resultCode, Intent intent)
