@@ -1,6 +1,5 @@
 - add help option to explain how to use app
 - order. alphabetical,date(requires change in database) or keep unchecked at top
 - option to select text colour for checked and unchecked items
-- design icon for app
 - create proper symbols/icons for menu options
 - have item entry activity directly store notes in database instead of returning to main activity
