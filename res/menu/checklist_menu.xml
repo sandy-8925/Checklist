@@ -8,7 +8,7 @@
 <item
     android:id="@+id/menu_delcheckeditems"
     android:title="@string/menu_delcheckitems"
-    android:icon="@android:drawable/btn_plus"
+    android:icon="@android:drawable/btn_minus"
 />
 <item
 	android:id="@+id/menu_checkall"
