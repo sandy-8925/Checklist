@@ -2,4 +2,3 @@
 - order. alphabetical,date(requires change in database) or keep unchecked at top
 - option to select text colour for checked and unchecked items
 - create proper symbols/icons for menu options
-- have item entry activity directly store notes in database instead of returning to main activity
