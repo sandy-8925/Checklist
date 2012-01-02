@@ -1,4 +1,5 @@
 - add help option to explain how to use app
-- order. alphabetical,date(requires change in database) or keep unchecked at top
+- order. alphabetical, date(requires change in database), keep unchecked at top
 - option to select text colour for checked and unchecked items
 - create proper symbols/icons for menu options
+- add ability to edit items
