@@ -108,7 +108,7 @@ public class ChecklistActivity extends ListActivity
     	{
     	case R.id.menu_new_item:    		    		
     		Intent createItemIntent = new Intent(this, ItemDescriptionEntryActivity.class);
-    		startActivityForResult(createItemIntent, CREATE_ITEM);
+    		startActivity(createItemIntent);
     		return true;
     		
     	case R.id.menu_delcheckeditems:
@@ -162,7 +162,7 @@ public class ChecklistActivity extends ListActivity
     }
     
     
-    @Override
+   /* @Override
     protected void onActivityResult(int requestCode,int resultCode, Intent intent)
     {
     	super.onActivityResult(requestCode, resultCode, intent);
@@ -192,7 +192,7 @@ public class ChecklistActivity extends ListActivity
     		break;
     	}
     }
-    
+    */
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id)
     {    	
