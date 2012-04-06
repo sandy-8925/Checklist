@@ -38,8 +38,7 @@ public class ChecklistActivity extends ListActivity
 {
 	
 	private ItemsDbHelper mDbHelper;
-	private Cursor mItemsCursor; 
-	private static final int CREATE_ITEM=1;	
+	private Cursor mItemsCursor;		
 	String[] from;
     int[] to;
 	

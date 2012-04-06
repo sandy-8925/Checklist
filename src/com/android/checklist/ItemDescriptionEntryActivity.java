@@ -18,8 +18,6 @@
 package com.android.checklist;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -27,8 +25,7 @@ import android.widget.EditText;
 
 public class ItemDescriptionEntryActivity extends Activity {
 	
-	private ItemsDbHelper mDbHelper;
-	private Cursor mItemsCursor;
+	private ItemsDbHelper mDbHelper;	
 	
 	protected void onCreate(Bundle savedInstanceState)
 	{
