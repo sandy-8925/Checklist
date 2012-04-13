@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 Sandeep Raghuraman (sandy.8925@gmail.com)
+ * Copyright (C) 2011-2012 Sandeep Raghuraman (sandy.8925@gmail.com)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -41,6 +41,8 @@ public class ChecklistActivity extends ListActivity
 	private Cursor mItemsCursor;		
 	String[] from;
     int[] to;
+    public static final int NEWITEMACTION = 5;
+    public static final int EDITITEMACTION = 6;
 	
 	class ChecklistItemAdapter extends SimpleCursorAdapter
 	{
@@ -107,6 +109,7 @@ public class ChecklistActivity extends ListActivity
     	{
     	case R.id.menu_new_item:    		    		
     		Intent createItemIntent = new Intent(this, ItemDescriptionEntryActivity.class);
+    		createItemIntent.putExtra("action", NEWITEMACTION);    		    		
     		startActivity(createItemIntent);
     		return true;
     		
@@ -155,43 +158,18 @@ public class ChecklistActivity extends ListActivity
     		((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
     		return true;
     		
+    	case R.id.context_menu_edit:
+    		Intent editItemIntent = new Intent(this, ItemDescriptionEntryActivity.class);
+    		editItemIntent.putExtra("action", EDITITEMACTION);
+    		editItemIntent.putExtra("item_id", info.id);
+    		startActivity(editItemIntent);
+    		return true;
+    		
     	default:
     		return super.onContextItemSelected(item);
     	}
-    }
+    }    
     
-    
-   /* @Override
-    protected void onActivityResult(int requestCode,int resultCode, Intent intent)
-    {
-    	super.onActivityResult(requestCode, resultCode, intent);
-    	if(resultCode == RESULT_CANCELED)
-    		return;
-    	
-    	switch(requestCode)
-    	{
-    	case CREATE_ITEM:
-    		//get item description string returned by activity
-    		Bundle extras = intent.getExtras();    		
-    		    		
-    		if(extras == null)
-    			break;
-    		
-    		String itemDesc = extras.getString(ItemsDbHelper.COL_DESC);
-    		
-    		if(itemDesc.length() != 0 )
-    		{
-    		//add item to database
-    		mDbHelper.addItem(itemDesc);
-    		
-    		//refresh the display so new item shows up
-    		mItemsCursor.requery();
-    		((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
-    		}
-    		break;
-    	}
-    }
-    */
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id)
     {    	

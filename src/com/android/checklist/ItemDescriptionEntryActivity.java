@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 Sandeep Raghuraman (sandy.8925@gmail.com)
+ * Copyright (C) 2011-2012 Sandeep Raghuraman (sandy.8925@gmail.com)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -22,50 +22,71 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class ItemDescriptionEntryActivity extends Activity {
 	
-	private ItemsDbHelper mDbHelper;	
+	private ItemsDbHelper mDbHelper;
+	private EditText itemDescText;
+	private int actionType;
+	private String itemText;
+	private long itemId;
 	
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		
+		setContentView(R.layout.itemdescentry);
+		itemDescText = (EditText) findViewById(R.id.itemdesctext);
+		itemId = -1;
 		//initialize database stuff
 		mDbHelper = new ItemsDbHelper(this);
-        mDbHelper.open();
+		mDbHelper.open();
+		
+		actionType = getIntent().getIntExtra("action", -1);		
+		switch(actionType)
+		{		
+		case ChecklistActivity.NEWITEMACTION:
+			break;
+			
+		case ChecklistActivity.EDITITEMACTION:
+			itemId = getIntent().getLongExtra("item_id", -1);
+			itemDescText.setText(mDbHelper.getItemDesc(itemId));
+			if(itemId == -1)
+			{ /*error: show toast and finish activity*/ }
+			break;
+		
+		default:
+			Toast.makeText(getApplicationContext(), "Error. Unable to get action type.", Toast.LENGTH_SHORT).show();
+			setResult(RESULT_OK);
+			finish();
+		}	
         
-                
-		setContentView(R.layout.itemdescentry);
 		
 		Button okButton = (Button) findViewById(R.id.itemdescconfbutton);
-		okButton.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						
-						EditText itemDescText = (EditText) findViewById(R.id.itemdesctext);
-						
-						String itemText = itemDescText.getText().toString(); 
-						
-						if(itemText.length() != 0)
-						{ mDbHelper.addItem(itemText); }
-						
-						setResult(RESULT_OK);
+		okButton.setOnClickListener(new View.OnClickListener()
+		{
+					public void onClick(View v)
+					{						
+						itemText = itemDescText.getText().toString();
+						int resultCode = RESULT_OK;
+						switch(actionType)
+						{
+						case ChecklistActivity.NEWITEMACTION:
+							if(itemText.length() != 0)
+							{ mDbHelper.addItem(itemText); }
+							resultCode = RESULT_OK;
+							break;
+							
+						case ChecklistActivity.EDITITEMACTION:
+							if(itemText.length() != 0)
+							{ mDbHelper.editItemDesc(itemId, itemText); }
+							resultCode = RESULT_OK;
+							break;
+						}						
+						setResult(resultCode);
 						finish();
 					}
-				}
-				);
-	}
-		
-	@Override
-	protected void onStop()
-	{
-		super.onStop();
-	}
-	
-	@Override
-	protected void onDestroy()
-	{	
-		super.onDestroy();
-	}
-		
+		}
+		);
+	}		
 }

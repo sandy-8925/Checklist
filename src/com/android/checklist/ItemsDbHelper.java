@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 Sandeep Raghuraman (sandy.8925@gmail.com)
+ * Copyright (C) 2011-2012 Sandeep Raghuraman (sandy.8925@gmail.com)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -148,5 +148,19 @@ public class ItemsDbHelper
 	public void deleteItem(long id)
 	{
 		mDatabase.delete(TABLE_NAME, "_id="+id, null);
+	}
+	
+	public String getItemDesc(long id)
+	{
+		Cursor itemDescQuery = mDatabase.query(TABLE_NAME, new String[] {COL_DESC}, "_id="+id, null, null, null, null);
+		itemDescQuery.moveToFirst();
+		return itemDescQuery.getString(itemDescQuery.getColumnIndex(COL_DESC));
+	}
+	
+	public void editItemDesc(long id, String newItemDesc)
+	{
+		ContentValues values = new ContentValues();
+		values.put(COL_DESC, newItemDesc);
+		mDatabase.update(TABLE_NAME, values, "_id="+id, null);
 	}
 }

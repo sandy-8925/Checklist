@@ -6,5 +6,10 @@
         android:title="@string/contextmenu_deletestring"
         android:icon="@android:drawable/btn_minus"
         />
+    
+    <item
+        android:id="@+id/context_menu_edit"
+        android:title="@string/contextmenu_editstring"
+    />
 
 </menu>

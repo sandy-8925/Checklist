@@ -10,5 +10,6 @@
     <string name="menu_uncheckallstring">Uncheck all</string>
     <string name="menu_reverseallstring">Reverse all</string>
     <string name="contextmenu_deletestring">Delete</string>
+    <string name="contextmenu_editstring">Edit</string>
     <color name="donecolor">#3399CC</color>
 </resources>
