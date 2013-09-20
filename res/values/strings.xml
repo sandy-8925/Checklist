@@ -12,4 +12,5 @@
     <string name="contextmenu_deletestring">Delete</string>
     <string name="contextmenu_editstring">Edit</string>
     <color name="donecolor">#3399CC</color>
+    <string name="ok">OK</string>
 </resources>
