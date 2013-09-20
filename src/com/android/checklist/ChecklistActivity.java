@@ -52,7 +52,7 @@ public class ChecklistActivity extends ListActivity
 
 		ChecklistItemAdapter() {
 			super(ChecklistActivity.this, R.layout.item_row, mItemsCursor, from, to);
-		}		
+		}
 		
 		public View getView(int position, View convertView, ViewGroup parent)
 		{
@@ -60,10 +60,8 @@ public class ChecklistActivity extends ListActivity
 			
 			TextView itemText = (TextView) item.findViewById(R.id.itemtext);			
 			long itemRowId = getItemId(position);
-			
-			int itemCheckedColor = CHECKLIST_ITEM_CHECKED_COLOUR;
-			int itemUncheckedColor = CHECKLIST_ITEM_UNCHECKED_COLOUR;
-			int itemColor = (mDbHelper.getItemStatus(itemRowId)==0)? itemUncheckedColor:itemCheckedColor;		
+
+			int itemColor = (mDbHelper.getItemStatus(itemRowId)==0)? CHECKLIST_ITEM_UNCHECKED_COLOUR:CHECKLIST_ITEM_CHECKED_COLOUR;
 			itemText.setTextColor(itemColor);
 			
 			return item;
