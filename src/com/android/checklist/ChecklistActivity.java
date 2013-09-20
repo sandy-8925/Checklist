@@ -46,6 +46,9 @@ public class ChecklistActivity extends ListActivity
 	
 	class ChecklistItemAdapter extends SimpleCursorAdapter
 	{
+		private static final int CHECKLIST_ITEM_UNCHECKED_COLOUR = 0xFFFFFFFF;
+		private static final int CHECKLIST_ITEM_CHECKED_COLOUR = 0x88888888;
+
 		ChecklistItemAdapter() {
 			super(ChecklistActivity.this, R.layout.item_row, mItemsCursor, from, to);
 		}		
@@ -57,8 +60,8 @@ public class ChecklistActivity extends ListActivity
 			TextView itemText = (TextView) item.findViewById(R.id.itemtext);			
 			long itemRowId = getItemId(position);
 			
-			int itemCheckedColor = 0x88888888;
-			int itemUncheckedColor = 0xFFFFFFFF;	
+			int itemCheckedColor = CHECKLIST_ITEM_CHECKED_COLOUR;
+			int itemUncheckedColor = CHECKLIST_ITEM_UNCHECKED_COLOUR;
 			int itemColor = (mDbHelper.getItemStatus(itemRowId)==0)? itemUncheckedColor:itemCheckedColor;		
 			itemText.setTextColor(itemColor);
 			
