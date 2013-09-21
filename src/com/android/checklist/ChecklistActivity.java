@@ -34,150 +34,147 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
-public class ChecklistActivity extends ListActivity
-{
-	
+public class ChecklistActivity extends ListActivity {
+
 	private ItemsDbHelper mDbHelper;
-	private Cursor mItemsCursor;		
+	private Cursor mItemsCursor;
 	String[] from;
-    int[] to;
-    public static final int NEWITEMACTION = 5;
-    public static final int EDITITEMACTION = 6;
-	
-	class ChecklistItemAdapter extends SimpleCursorAdapter
-	{
-		//TODO: Check if these colours are better specified in an Android resource 
+	int[] to;
+	public static final int NEWITEMACTION = 5;
+	public static final int EDITITEMACTION = 6;
+
+	class ChecklistItemAdapter extends SimpleCursorAdapter {
+		// TODO: Check if these colours are better specified in an Android
+		// resource
 		private static final int CHECKLIST_ITEM_UNCHECKED_COLOUR = 0xFFFFFFFF;
 		private static final int CHECKLIST_ITEM_CHECKED_COLOUR = 0x88888888;
 
 		ChecklistItemAdapter() {
-			super(ChecklistActivity.this, R.layout.item_row, mItemsCursor, from, to);
+			super(ChecklistActivity.this, R.layout.item_row, mItemsCursor,
+					from, to);
 		}
-		
-		public View getView(int position, View convertView, ViewGroup parent)
-		{
+
+		public View getView(int position, View convertView, ViewGroup parent) {
 			View item = super.getView(position, convertView, parent);
-			
-			TextView itemText = (TextView) item.findViewById(R.id.itemtext);			
+
+			TextView itemText = (TextView) item.findViewById(R.id.itemtext);
 			long itemRowId = getItemId(position);
 
-			int itemColor = (mDbHelper.getItemStatus(itemRowId)==0)? CHECKLIST_ITEM_UNCHECKED_COLOUR:CHECKLIST_ITEM_CHECKED_COLOUR;
+			int itemColor = (mDbHelper.getItemStatus(itemRowId) == 0) ? CHECKLIST_ITEM_UNCHECKED_COLOUR
+					: CHECKLIST_ITEM_CHECKED_COLOUR;
 			itemText.setTextColor(itemColor);
-			
+
 			return item;
 		}
-		
+
 	}
-	
-    /** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.checklist);
-        
-        //create database helper object and fetch all checklist items from database
-        mDbHelper = new ItemsDbHelper(this);
-        mDbHelper.open();
-        mItemsCursor = mDbHelper.fetchAllItems();
-        
-        //manage cursor ; create cursor adapter and use it
-        startManagingCursor(mItemsCursor);
-        /*
-         * use requery to refresh cursor data in other methods
-         * use notifyDataSetChanged() to refresh view/adapter
-         */
-        from = new String[] {ItemsDbHelper.COL_DESC};
-        to = new int[] {R.id.itemtext};
-        ListAdapter itemListAdapter = new ChecklistItemAdapter();
-        setListAdapter(itemListAdapter);
-        
-        registerForContextMenu(getListView());
-    }
-    
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-    	//inflate menu i.e create the menu from a menu layout file
-    	MenuInflater menuInflater = getMenuInflater();
-    	menuInflater.inflate(R.menu.checklist_menu, menu);
-    	return true;
-    }
-    
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {    	
-    	switch(item.getItemId())
-    	{
-    	case R.id.menu_new_item:    		    		
-    		Intent createItemIntent = new Intent(this, ItemDescriptionEntryActivity.class);
-    		createItemIntent.putExtra("action", NEWITEMACTION);    		    		
-    		startActivity(createItemIntent);
-    		return true;
-    		
-    	case R.id.menu_delcheckeditems:
-    		mDbHelper.deleteCheckedItems();
-    		mItemsCursor.requery();
-    		((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
-    		return true;
-    		
-    	case R.id.menu_checkall:
-    		mDbHelper.checkAllItems();
-    		mItemsCursor.requery();
-    		((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
-    		return true;
-    		
-    	case R.id.menu_uncheckall:
-    		mDbHelper.uncheckAllItems();
-    		mItemsCursor.requery();
-    		((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
-    		return true;
-    		
-    	case R.id.menu_reverseall:
-    		mDbHelper.flipAllItems();
-    		mItemsCursor.requery();
-    		((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
-    		return true;
-    	}
-    	return super.onOptionsItemSelected(item);
-    }
-    
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo 	menuInfo)
-    {
-    	super.onCreateContextMenu(menu, v, menuInfo);
-    	MenuInflater inflater = getMenuInflater();
-    	inflater.inflate(R.menu.checklist_context_menu, menu);
-    }
-    	
-    public boolean onContextItemSelected(MenuItem item)
-    {
-    	AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-    	switch(item.getItemId())
-    	{
-    	case R.id.context_menu_delete:
-    		mDbHelper.deleteItem(info.id);
-    		mItemsCursor.requery();
-    		((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
-    		return true;
-    		
-    	case R.id.context_menu_edit:
-    		Intent editItemIntent = new Intent(this, ItemDescriptionEntryActivity.class);
-    		editItemIntent.putExtra("action", EDITITEMACTION);
-    		editItemIntent.putExtra("item_id", info.id);
-    		startActivity(editItemIntent);
-    		return true;
-    		
-    	default:
-    		return super.onContextItemSelected(item);
-    	}
-    }    
-    
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id)
-    {    	
-    	mDbHelper.flipStatus(id); 	
-    	 	
-    	mItemsCursor.requery();    	
-    	((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
+
+	/** Called when the activity is first created. */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.checklist);
+
+		// create database helper object and fetch all checklist items from
+		// database
+		mDbHelper = new ItemsDbHelper(this);
+		mDbHelper.open();
+		mItemsCursor = mDbHelper.fetchAllItems();
+
+		// manage cursor ; create cursor adapter and use it
+		startManagingCursor(mItemsCursor);
+		/*
+		 * use requery to refresh cursor data in other methods use
+		 * notifyDataSetChanged() to refresh view/adapter
+		 */
+		from = new String[] { ItemsDbHelper.COL_DESC };
+		to = new int[] { R.id.itemtext };
+		ListAdapter itemListAdapter = new ChecklistItemAdapter();
+		setListAdapter(itemListAdapter);
+
+		registerForContextMenu(getListView());
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// inflate menu i.e create the menu from a menu layout file
+		MenuInflater menuInflater = getMenuInflater();
+		menuInflater.inflate(R.menu.checklist_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menu_new_item:
+			Intent createItemIntent = new Intent(this,
+					ItemDescriptionEntryActivity.class);
+			createItemIntent.putExtra("action", NEWITEMACTION);
+			startActivity(createItemIntent);
+			return true;
+
+		case R.id.menu_delcheckeditems:
+			mDbHelper.deleteCheckedItems();
+			mItemsCursor.requery();
+			((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
+			return true;
+
+		case R.id.menu_checkall:
+			mDbHelper.checkAllItems();
+			mItemsCursor.requery();
+			((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
+			return true;
+
+		case R.id.menu_uncheckall:
+			mDbHelper.uncheckAllItems();
+			mItemsCursor.requery();
+			((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
+			return true;
+
+		case R.id.menu_reverseall:
+			mDbHelper.flipAllItems();
+			mItemsCursor.requery();
+			((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.checklist_context_menu, menu);
+	}
+
+	public boolean onContextItemSelected(MenuItem item) {
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+				.getMenuInfo();
+		switch (item.getItemId()) {
+		case R.id.context_menu_delete:
+			mDbHelper.deleteItem(info.id);
+			mItemsCursor.requery();
+			((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
+			return true;
+
+		case R.id.context_menu_edit:
+			Intent editItemIntent = new Intent(this,
+					ItemDescriptionEntryActivity.class);
+			editItemIntent.putExtra("action", EDITITEMACTION);
+			editItemIntent.putExtra("item_id", info.id);
+			startActivity(editItemIntent);
+			return true;
+
+		default:
+			return super.onContextItemSelected(item);
+		}
+	}
+
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		mDbHelper.flipStatus(id);
+
+		mItemsCursor.requery();
+		((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
 	}
 }
