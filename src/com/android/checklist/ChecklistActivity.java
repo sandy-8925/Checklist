@@ -115,29 +115,30 @@ public class ChecklistActivity extends ListActivity {
 
 		case R.id.menu_delcheckeditems:
 			mDbHelper.deleteCheckedItems();
-			mItemsCursor.requery();
-			((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
+			refreshChecklistDataAndView();
 			return true;
 
 		case R.id.menu_checkall:
 			mDbHelper.checkAllItems();
-			mItemsCursor.requery();
-			((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
+			refreshChecklistDataAndView();
 			return true;
 
 		case R.id.menu_uncheckall:
 			mDbHelper.uncheckAllItems();
-			mItemsCursor.requery();
-			((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
+			refreshChecklistDataAndView();
 			return true;
 
 		case R.id.menu_reverseall:
 			mDbHelper.flipAllItems();
-			mItemsCursor.requery();
-			((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
+			refreshChecklistDataAndView();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void refreshChecklistDataAndView() {
+		mItemsCursor.requery();
+		((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
 	}
 
 	public void onCreateContextMenu(ContextMenu menu, View v,
@@ -153,8 +154,7 @@ public class ChecklistActivity extends ListActivity {
 		switch (item.getItemId()) {
 		case R.id.context_menu_delete:
 			mDbHelper.deleteItem(info.id);
-			mItemsCursor.requery();
-			((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
+			refreshChecklistDataAndView();
 			return true;
 
 		case R.id.context_menu_edit:
@@ -174,7 +174,6 @@ public class ChecklistActivity extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		mDbHelper.flipStatus(id);
 
-		mItemsCursor.requery();
-		((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
+		refreshChecklistDataAndView();
 	}
 }
