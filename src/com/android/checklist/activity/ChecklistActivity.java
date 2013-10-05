@@ -34,7 +34,6 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
-import com.android.checklist.ItemDescriptionEntryActivity;
 import com.android.checklist.ItemsDbHelper;
 import com.android.checklist.R;
 

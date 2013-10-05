@@ -15,7 +15,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.android.checklist;
+package com.android.checklist.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -24,7 +24,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.checklist.activity.ChecklistActivity;
+import com.android.checklist.ItemsDbHelper;
+import com.android.checklist.R;
+import com.android.checklist.R.id;
+import com.android.checklist.R.layout;
 
 public class ItemDescriptionEntryActivity extends Activity {
 	
