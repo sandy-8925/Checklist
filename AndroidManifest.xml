@@ -6,7 +6,7 @@
     <uses-sdk android:minSdkVersion="3" android:targetSdkVersion="4"/>
 
     <application android:icon="@drawable/launcher_icon" android:label="@string/app_name">
-        <activity android:name=".ChecklistActivity"
+        <activity android:name="com.android.checklist.activity.ChecklistActivity"
                   android:label="@string/app_name"
                   >
             <intent-filter>

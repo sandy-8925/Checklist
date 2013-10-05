@@ -24,6 +24,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.checklist.activity.ChecklistActivity;
+
 public class ItemDescriptionEntryActivity extends Activity {
 	
 	private ItemsDbHelper mDbHelper;
