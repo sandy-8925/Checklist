@@ -3,7 +3,7 @@
 	android:id="@+id/itemtext"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
-	android:minHeight="20px"
-	android:textSize="20px"
+	android:minHeight="20dp"
+	android:textSize="20sp"
 	android:textColor="#FFFFFF"	
 />
