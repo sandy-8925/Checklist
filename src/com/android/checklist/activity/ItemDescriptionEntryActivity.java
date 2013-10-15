@@ -40,7 +40,9 @@ public class ItemDescriptionEntryActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+
 		setContentView(R.layout.itemdescentry);
+
 		itemDescText = (EditText) findViewById(R.id.itemdesctext);
 		itemId = -1;
 
