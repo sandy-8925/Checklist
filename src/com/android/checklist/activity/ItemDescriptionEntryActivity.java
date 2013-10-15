@@ -53,10 +53,7 @@ public class ItemDescriptionEntryActivity extends Activity {
 			break;
 			
 		case ChecklistActivity.EDITITEMACTION:
-			itemId = getIntent().getLongExtra("item_id", -1);
-			itemDescText.setText(mDbHelper.getItemDesc(itemId));
-			if(itemId == -1)
-			{ /*error: show toast and finish activity*/ }
+			fetchChecklistItemDescriptionFromDatabase();
 			break;
 		
 		default:
@@ -92,6 +89,13 @@ public class ItemDescriptionEntryActivity extends Activity {
 					}
 		}
 		);
+	}
+
+	private void fetchChecklistItemDescriptionFromDatabase() {
+		itemId = getIntent().getLongExtra("item_id", -1);
+		itemDescText.setText(mDbHelper.getItemDesc(itemId));
+		if(itemId == -1)
+		{ /*error: show toast and finish activity*/ }
 	}
 
 	private void initalizeDatabaseHelper() {
