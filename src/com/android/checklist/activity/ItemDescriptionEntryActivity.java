@@ -43,9 +43,8 @@ public class ItemDescriptionEntryActivity extends Activity {
 		setContentView(R.layout.itemdescentry);
 		itemDescText = (EditText) findViewById(R.id.itemdesctext);
 		itemId = -1;
-		//initialize database stuff
-		mDbHelper = new ItemsDbHelper(this);
-		mDbHelper.open();
+
+		initalizeDatabaseHelper();
 		
 		actionType = getIntent().getIntExtra("action", -1);		
 		switch(actionType)
@@ -93,5 +92,10 @@ public class ItemDescriptionEntryActivity extends Activity {
 					}
 		}
 		);
+	}
+
+	private void initalizeDatabaseHelper() {
+		mDbHelper = new ItemsDbHelper(this);
+		mDbHelper.open();
 	}		
 }
