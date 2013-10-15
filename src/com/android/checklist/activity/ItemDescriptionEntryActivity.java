@@ -25,8 +25,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.checklist.R;
-import com.android.checklist.R.id;
-import com.android.checklist.R.layout;
 import com.android.checklist.dbhelper.ItemsDbHelper;
 
 public class ItemDescriptionEntryActivity extends Activity {
