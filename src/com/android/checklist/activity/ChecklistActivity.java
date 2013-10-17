@@ -49,8 +49,8 @@ public class ChecklistActivity extends ListActivity {
 	class ChecklistItemAdapter extends SimpleCursorAdapter {
 		// TODO: Check if these colours are better specified in an Android
 		// resource
-		private static final int CHECKLIST_ITEM_UNCHECKED_COLOUR = 0xFFFFFFFF;
-		private static final int CHECKLIST_ITEM_CHECKED_COLOUR = 0x88888888;
+		private static final int CHECKLIST_ITEM_UNCHECKED_COLOUR = R.integer.white;
+		private static final int CHECKLIST_ITEM_CHECKED_COLOUR = R.integer.grey;
 
 		ChecklistItemAdapter() {
 			super(ChecklistActivity.this, R.layout.item_row, mItemsCursor,
