@@ -139,6 +139,10 @@ public class ChecklistActivity extends ListActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/*
+	 * TODO: See if it is possible to have the list view automatically refresh so that this
+	 *       method need not be called
+	 */
 	private void refreshChecklistDataAndView() {
 		mItemsCursor.requery();
 		((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
