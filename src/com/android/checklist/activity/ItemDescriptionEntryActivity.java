@@ -32,7 +32,6 @@ public class ItemDescriptionEntryActivity extends Activity {
 	private ItemsDbHelper mDbHelper;
 	private EditText itemDescText;
 	private int actionType;
-	private String itemText;
 	private long itemId;
 	
 	protected void onCreate(Bundle savedInstanceState)
@@ -67,7 +66,7 @@ public class ItemDescriptionEntryActivity extends Activity {
 		{
 					public void onClick(View view)
 					{
-						itemText = itemDescText.getText().toString();
+					    String itemText = itemDescText.getText().toString();
 						int resultCode = RESULT_OK;
 						switch(actionType)
 						{
