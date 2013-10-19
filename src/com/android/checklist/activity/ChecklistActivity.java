@@ -148,9 +148,9 @@ public class ChecklistActivity extends ListActivity {
 		((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
 	}
 
-	public void onCreateContextMenu(ContextMenu menu, View v,
+	public void onCreateContextMenu(ContextMenu menu, View view,
 			ContextMenuInfo menuInfo) {
-		super.onCreateContextMenu(menu, v, menuInfo);
+		super.onCreateContextMenu(menu, view, menuInfo);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.checklist_context_menu, menu);
 	}
