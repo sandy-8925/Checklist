@@ -66,7 +66,7 @@ public class ItemDescriptionEntryActivity extends Activity {
 		okButton.setOnClickListener(new View.OnClickListener()
 		{
 					public void onClick(View view)
-					{						
+					{
 						itemText = itemDescText.getText().toString();
 						int resultCode = RESULT_OK;
 						switch(actionType)
