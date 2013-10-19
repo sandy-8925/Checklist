@@ -82,7 +82,7 @@ public class ItemDescriptionEntryActivity extends Activity {
 							{ mDbHelper.editItemDesc(itemId, itemText); }
 							resultCode = RESULT_OK;
 							break;
-						}						
+						}
 						setResult(resultCode);
 						finish();
 					}
