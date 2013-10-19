@@ -28,76 +28,77 @@ import com.android.checklist.R;
 import com.android.checklist.dbhelper.ItemsDbHelper;
 
 public class ItemDescriptionEntryActivity extends Activity {
-	
-	private ItemsDbHelper mDbHelper;
-	private EditText itemDescText;
-	private int actionType;
-	private long itemId;
-	
-	protected void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.itemdescentry);
+    private ItemsDbHelper mDbHelper;
+    private EditText itemDescText;
+    private int actionType;
+    private long itemId;
 
-		itemDescText = (EditText) findViewById(R.id.itemdesctext);
-		itemId = -1;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-		initalizeDatabaseHelper();
-		
-		actionType = getIntent().getIntExtra("action", -1);		
-		switch(actionType)
-		{		
-		case ChecklistActivity.NEWITEMACTION:
-			break;
-			
-		case ChecklistActivity.EDITITEMACTION:
-			fetchChecklistItemDescriptionFromDatabase();
-			break;
-		
-		default:
-			Toast.makeText(getApplicationContext(), "Error. Unable to get action type.", Toast.LENGTH_SHORT).show();
-			setResult(RESULT_OK);
-			finish();
-		}	
+        setContentView(R.layout.itemdescentry);
 
-		Button okButton = (Button) findViewById(R.id.itemdescconfbutton);
-		okButton.setOnClickListener(new View.OnClickListener()
-		{
-					public void onClick(View view)
-					{
-					    String itemText = itemDescText.getText().toString();
-						int resultCode = RESULT_OK;
-						switch(actionType)
-						{
-						case ChecklistActivity.NEWITEMACTION:
-							if(itemText.length() != 0)
-							{ mDbHelper.addItem(itemText); }
-							resultCode = RESULT_OK;
-							break;
-							
-						case ChecklistActivity.EDITITEMACTION:
-							if(itemText.length() != 0)
-							{ mDbHelper.editItemDesc(itemId, itemText); }
-							resultCode = RESULT_OK;
-							break;
-						}
-						setResult(resultCode);
-						finish();
-					}
-		}
-		);
-	}
+        itemDescText = (EditText) findViewById(R.id.itemdesctext);
+        itemId = -1;
 
-	private void fetchChecklistItemDescriptionFromDatabase() {
-		itemId = getIntent().getLongExtra("item_id", -1);
-		itemDescText.setText(mDbHelper.getItemDesc(itemId));
-		if(itemId == -1)
-		{ /*error: show toast and finish activity*/ }
-	}
+        initalizeDatabaseHelper();
 
-	private void initalizeDatabaseHelper() {
-		mDbHelper = new ItemsDbHelper(this);
-		mDbHelper.open();
-	}		
+        actionType = getIntent().getIntExtra("action", -1);
+
+        switch (actionType)
+        {
+        case ChecklistActivity.NEWITEMACTION:
+            break;
+
+        case ChecklistActivity.EDITITEMACTION:
+            fetchChecklistItemDescriptionFromDatabase();
+            break;
+
+        default:
+            Toast.makeText(getApplicationContext(),
+                    "Error. Unable to get action type.", Toast.LENGTH_SHORT)
+                    .show();
+            setResult(RESULT_OK);
+            finish();
+        }
+
+        Button okButton = (Button) findViewById(R.id.itemdescconfbutton);
+        okButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                String itemText = itemDescText.getText().toString();
+                int resultCode = RESULT_OK;
+                switch (actionType)
+                {
+                case ChecklistActivity.NEWITEMACTION:
+                    if (itemText.length() != 0) {
+                        mDbHelper.addItem(itemText);
+                    }
+                    resultCode = RESULT_OK;
+                    break;
+
+                case ChecklistActivity.EDITITEMACTION:
+                    if (itemText.length() != 0) {
+                        mDbHelper.editItemDesc(itemId, itemText);
+                    }
+                    resultCode = RESULT_OK;
+                    break;
+                }
+                setResult(resultCode);
+                finish();
+            }
+        });
+    }
+
+    private void fetchChecklistItemDescriptionFromDatabase() {
+        itemId = getIntent().getLongExtra("item_id", -1);
+        itemDescText.setText(mDbHelper.getItemDesc(itemId));
+        if (itemId == -1) { /* error: show toast and finish activity */
+        }
+    }
+
+    private void initalizeDatabaseHelper() {
+        mDbHelper = new ItemsDbHelper(this);
+        mDbHelper.open();
+    }
 }
