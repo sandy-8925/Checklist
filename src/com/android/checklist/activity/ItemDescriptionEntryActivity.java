@@ -61,8 +61,7 @@ public class ItemDescriptionEntryActivity extends Activity {
 			setResult(RESULT_OK);
 			finish();
 		}	
-        
-		
+
 		Button okButton = (Button) findViewById(R.id.itemdescconfbutton);
 		okButton.setOnClickListener(new View.OnClickListener()
 		{
