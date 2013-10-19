@@ -155,10 +155,10 @@ public class ChecklistActivity extends ListActivity {
 		inflater.inflate(R.menu.checklist_context_menu, menu);
 	}
 
-	public boolean onContextItemSelected(MenuItem item) {
-		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+	public boolean onContextItemSelected(MenuItem menuItem) {
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuItem
 				.getMenuInfo();
-		switch (item.getItemId()) {
+		switch (menuItem.getItemId()) {
 		case R.id.context_menu_delete:
 			mDbHelper.deleteItem(info.id);
 			refreshChecklistDataAndView();
@@ -173,7 +173,7 @@ public class ChecklistActivity extends ListActivity {
 			return true;
 
 		default:
-			return super.onContextItemSelected(item);
+			return super.onContextItemSelected(menuItem);
 		}
 	}
 
