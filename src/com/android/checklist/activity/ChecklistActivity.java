@@ -178,7 +178,7 @@ public class ChecklistActivity extends ListActivity {
 	}
 
 	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
+	protected void onListItemClick(ListView listView, View view, int position, long id) {
 		mDbHelper.flipStatus(id);
 
 		refreshChecklistDataAndView();
