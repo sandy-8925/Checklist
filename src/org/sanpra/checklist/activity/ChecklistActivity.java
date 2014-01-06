@@ -17,6 +17,7 @@
 
 package org.sanpra.checklist.activity;
 
+import org.sanpra.checklist.R;
 import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 
 import android.app.ListActivity;
@@ -36,8 +37,6 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-
-import com.android.checklist.R;
 
 public class ChecklistActivity extends ListActivity {
 
