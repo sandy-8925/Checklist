@@ -43,8 +43,8 @@ public class ChecklistActivity extends ListActivity {
 	private Cursor mItemsCursor;
 	String[] from;
 	int[] to;
-	public static final int NEWITEMACTION = 5;
-	public static final int EDITITEMACTION = 6;
+	public static final int NEW_ITEM_ACTION = 5;
+	public static final int EDIT_ITEM_ACTION = 6;
 
 	class ChecklistItemAdapter extends SimpleCursorAdapter {
 		// TODO: Try to use Android colour resources to specify the colour instead of setting
@@ -112,7 +112,7 @@ public class ChecklistActivity extends ListActivity {
 		case R.id.menu_new_item:
 			Intent createItemIntent = new Intent(this,
 					ItemDescriptionEntryActivity.class);
-			createItemIntent.putExtra("action", NEWITEMACTION);
+			createItemIntent.putExtra("action", NEW_ITEM_ACTION);
 			startActivity(createItemIntent);
 			return true;
 
@@ -167,7 +167,7 @@ public class ChecklistActivity extends ListActivity {
 		case R.id.context_menu_edit:
 			Intent editItemIntent = new Intent(this,
 					ItemDescriptionEntryActivity.class);
-			editItemIntent.putExtra("action", EDITITEMACTION);
+			editItemIntent.putExtra("action", EDIT_ITEM_ACTION);
 			editItemIntent.putExtra("item_id", info.id);
 			startActivity(editItemIntent);
 			return true;

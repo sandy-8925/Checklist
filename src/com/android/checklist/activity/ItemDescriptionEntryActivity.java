@@ -48,10 +48,10 @@ public class ItemDescriptionEntryActivity extends Activity {
 
         switch (actionType)
         {
-        case ChecklistActivity.NEWITEMACTION:
+        case ChecklistActivity.NEW_ITEM_ACTION:
             break;
 
-        case ChecklistActivity.EDITITEMACTION:
+        case ChecklistActivity.EDIT_ITEM_ACTION:
             fetchChecklistItemDescriptionFromDatabase();
             break;
 
@@ -70,14 +70,14 @@ public class ItemDescriptionEntryActivity extends Activity {
                 int resultCode = RESULT_OK;
                 switch (actionType)
                 {
-                case ChecklistActivity.NEWITEMACTION:
+                case ChecklistActivity.NEW_ITEM_ACTION:
                     if (itemText.length() != 0) {
                         mDbHelper.addItem(itemText);
                     }
                     resultCode = RESULT_OK;
                     break;
 
-                case ChecklistActivity.EDITITEMACTION:
+                case ChecklistActivity.EDIT_ITEM_ACTION:
                     if (itemText.length() != 0) {
                         mDbHelper.editItemDesc(itemId, itemText);
                     }
