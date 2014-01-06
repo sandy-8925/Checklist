@@ -36,7 +36,6 @@ import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import com.android.checklist.R;
-import com.android.checklist.activity.ItemDescriptionEntryActivity;
 import com.android.checklist.dbhelper.ItemsDbHelper;
 
 public class ChecklistActivity extends ListActivity {

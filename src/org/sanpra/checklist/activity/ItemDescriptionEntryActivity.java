@@ -15,9 +15,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.android.checklist.activity;
-
-import org.sanpra.checklist.activity.ChecklistActivity;
+package org.sanpra.checklist.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
