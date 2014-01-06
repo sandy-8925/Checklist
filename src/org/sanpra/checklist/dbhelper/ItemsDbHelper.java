@@ -59,7 +59,7 @@ public class ItemsDbHelper
 		}	
 	}
 	
-	private DbHelper mDbHelper;
+	private SQLiteOpenHelper mDbHelper;
 	
 	public ItemsDbHelper(Context context)
 	{
