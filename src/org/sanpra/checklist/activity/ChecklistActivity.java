@@ -155,8 +155,7 @@ public class ChecklistActivity extends ListActivity {
 	public void onCreateContextMenu(ContextMenu menu, View view,
 			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, view, menuInfo);
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.checklist_context_menu, menu);
+		getMenuInflater().inflate(R.menu.checklist_context_menu, menu);
 	}
 
 	public boolean onContextItemSelected(MenuItem menuItem) {
