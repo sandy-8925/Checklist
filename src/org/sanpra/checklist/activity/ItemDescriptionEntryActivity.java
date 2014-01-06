@@ -32,7 +32,6 @@ public class ItemDescriptionEntryActivity extends Activity {
 
     private ItemsDbHelper mDbHelper;
     private EditText itemDescText;
-    private int actionType;
     private long itemId;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +44,7 @@ public class ItemDescriptionEntryActivity extends Activity {
 
         initalizeDatabaseHelper();
 
-        actionType = getIntent().getIntExtra("action", -1);
+        final int actionType = getIntent().getIntExtra("action", -1);
 
         switch (actionType)
         {
