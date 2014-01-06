@@ -87,8 +87,8 @@ public class ChecklistActivity extends ListActivity {
 		// manage cursor ; create cursor adapter and use it
 		startManagingCursor(mItemsCursor);
 		/*
-		 * use requery to refresh cursor data in other methods use
-		 * notifyDataSetChanged() to refresh view/adapter
+		 * use requery to refresh cursor data in other methods
+		 * use notifyDataSetChanged() to refresh view/adapter
 		 */
 		from = new String[] { ItemsDbHelper.COL_DESC };
 		to = new int[] { R.id.itemtext };
