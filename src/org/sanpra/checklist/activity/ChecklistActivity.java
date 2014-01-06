@@ -15,7 +15,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.android.checklist.activity;
+package org.sanpra.checklist.activity;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -36,6 +36,7 @@ import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import com.android.checklist.R;
+import com.android.checklist.activity.ItemDescriptionEntryActivity;
 import com.android.checklist.dbhelper.ItemsDbHelper;
 
 public class ChecklistActivity extends ListActivity {
