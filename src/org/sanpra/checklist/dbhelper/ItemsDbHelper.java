@@ -74,8 +74,7 @@ public class ItemsDbHelper
 	
 	public Cursor fetchAllItems()
 	{
-		Cursor c = mDatabase.query(TABLE_NAME, null, null, null, null, null, null);
-		return c;
+		return mDatabase.query(TABLE_NAME, null, null, null, null, null, null);
 	}
 	
 	public void addItem(String itemDesc)
