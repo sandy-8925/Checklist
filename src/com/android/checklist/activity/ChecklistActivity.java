@@ -19,6 +19,7 @@ package com.android.checklist.activity;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -49,12 +50,15 @@ public class ChecklistActivity extends ListActivity {
 	class ChecklistItemAdapter extends SimpleCursorAdapter {
 		// TODO: Try to use Android colour resources to specify the colour instead of setting
 		// the integer colour value
-		private static final int CHECKLIST_ITEM_UNCHECKED_COLOUR = R.integer.white;
-		private static final int CHECKLIST_ITEM_CHECKED_COLOUR = R.integer.grey;
+		private int CHECKLIST_ITEM_UNCHECKED_COLOUR;
+		private int CHECKLIST_ITEM_CHECKED_COLOUR;
 
 		ChecklistItemAdapter() {
 			super(ChecklistActivity.this, R.layout.item_row, mItemsCursor,
 					from, to);
+			Resources appResources = getResources();
+			CHECKLIST_ITEM_UNCHECKED_COLOUR = appResources.getInteger(R.integer.white);
+			CHECKLIST_ITEM_CHECKED_COLOUR = appResources.getInteger(R.integer.grey);
 		}
 
 		public View getView(int position, View convertView, ViewGroup parent) {
