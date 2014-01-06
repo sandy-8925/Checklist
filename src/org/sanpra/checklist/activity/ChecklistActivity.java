@@ -105,8 +105,7 @@ public class ChecklistActivity extends ListActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// inflate menu i.e create the menu from a menu layout file
-		MenuInflater menuInflater = getMenuInflater();
-		menuInflater.inflate(R.menu.checklist_menu, menu);
+	    	getMenuInflater().inflate(R.menu.checklist_menu, menu);
 		return true;
 	}
 
