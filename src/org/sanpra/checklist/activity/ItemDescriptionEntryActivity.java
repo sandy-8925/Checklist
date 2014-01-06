@@ -17,6 +17,8 @@
 
 package org.sanpra.checklist.activity;
 
+import org.sanpra.checklist.dbhelper.ItemsDbHelper;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,7 +27,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.checklist.R;
-import com.android.checklist.dbhelper.ItemsDbHelper;
 
 public class ItemDescriptionEntryActivity extends Activity {
 
