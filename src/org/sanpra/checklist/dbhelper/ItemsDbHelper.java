@@ -128,14 +128,13 @@ public class ItemsDbHelper
 	
 	public void flipAllItems()
 	{
-		int status;
 		long id;
 		Cursor items = mDatabase.query(TABLE_NAME, new String[] {COL_ID,COL_STATUS}, null, null, null, null, null);
 		
 		items.moveToFirst();
 		do
 		{
-			status = items.getInt(items.getColumnIndex(COL_STATUS));
+			int status = items.getInt(items.getColumnIndex(COL_STATUS));
 			id = items.getLong(items.getColumnIndex(COL_ID));
 			status = 1 - status;		
 			ContentValues values = new ContentValues();
