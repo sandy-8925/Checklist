@@ -129,8 +129,8 @@ public class ItemsDbHelper
 	public void flipAllItems()
 	{
 		Cursor items = mDatabase.query(TABLE_NAME, new String[] {COL_ID,COL_STATUS}, null, null, null, null, null);
-		
 		items.moveToFirst();
+
 		do
 		{
 			int status = items.getInt(items.getColumnIndex(COL_STATUS));
