@@ -1,4 +1,3 @@
-- add ability to edit items
 - change some ItemsDbHelper class functions to static functions. simplifies and centralizes usign the database and should prevent simultaneous access conflicts.
 - add help option to explain how to use app
 - order. alphabetical, date(requires change in database), keep unchecked at top
