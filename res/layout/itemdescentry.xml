@@ -15,7 +15,9 @@
 	android:layout_height="wrap_content"
 	android:inputType="text|textAutoCorrect|textCapSentences"
     android:singleLine="true"
-/>
+>
+    <requestFocus />
+</EditText>
 <Button
 	android:id="@+id/itemdescconfbutton"
 	android:layout_width="wrap_content"
