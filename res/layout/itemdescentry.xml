@@ -13,7 +13,7 @@
 	android:id="@+id/itemdesctext"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
-	android:inputType="textAutoComplete"
+	android:inputType="text|textAutoCorrect|textCapSentences"
 />
 <Button
 	android:id="@+id/itemdescconfbutton"
