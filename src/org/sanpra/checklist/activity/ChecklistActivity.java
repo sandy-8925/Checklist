@@ -145,7 +145,7 @@ public class ChecklistActivity extends ListActivity {
      */
     private void refreshChecklistDataAndView() {
         mItemsCursor.requery();
-        ((SimpleCursorAdapter) getListAdapter()).notifyDataSetChanged();
+        ((SimpleCursorAdapter) itemListAdapter).notifyDataSetChanged();
     }
 
     public void onCreateContextMenu(ContextMenu menu, View view,
