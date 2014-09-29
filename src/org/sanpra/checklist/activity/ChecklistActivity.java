@@ -45,8 +45,9 @@ public class ChecklistActivity extends ListActivity {
 	int[] to;
 	public static final int NEW_ITEM_ACTION = 5;
 	public static final int EDIT_ITEM_ACTION = 6;
+    private ListAdapter itemListAdapter;
 
-	class ChecklistItemAdapter extends SimpleCursorAdapter {
+    class ChecklistItemAdapter extends SimpleCursorAdapter {
 		private int CHECKLIST_ITEM_UNCHECKED_COLOUR;
 		private int CHECKLIST_ITEM_CHECKED_COLOUR;
 
@@ -93,7 +94,7 @@ public class ChecklistActivity extends ListActivity {
 		 */
 		from = new String[] { ItemsDbHelper.COL_DESC };
 		to = new int[] { R.id.itemtext };
-		ListAdapter itemListAdapter = new ChecklistItemAdapter();
+        itemListAdapter = new ChecklistItemAdapter();
 		setListAdapter(itemListAdapter);
 
 		registerForContextMenu(getListView());
