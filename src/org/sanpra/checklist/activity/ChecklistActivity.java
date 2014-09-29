@@ -140,8 +140,7 @@ public class ChecklistActivity extends ListActivity {
 	}
 
 	/*
-	 * TODO: See if it is possible to have the list view automatically refresh so that this
-	 *       method need not be called
+	 * TODO: Use CursorLoader (introduced in Android 3.0) so that data is automatically refreshed
 	 */
 	private void refreshChecklistDataAndView() {
 		mItemsCursor.requery();
