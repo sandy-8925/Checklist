@@ -17,6 +17,7 @@
 
 package org.sanpra.checklist.activity;
 
+import android.widget.*;
 import org.sanpra.checklist.R;
 import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 
@@ -31,10 +32,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class ChecklistActivity extends ListActivity {
@@ -98,6 +95,14 @@ public class ChecklistActivity extends ListActivity {
         itemListAdapter = new ChecklistItemAdapter();
         ListView itemsListView = (ListView) findViewById(android.R.id.list);
         itemsListView.setAdapter(itemListAdapter);
+        itemsListView.setOnItemClickListener(new ListView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mDbHelper.flipStatus(id);
+                refreshChecklistDataAndView();
+            }
+        });
 
         registerForContextMenu(itemsListView);
     }
@@ -176,12 +181,5 @@ public class ChecklistActivity extends ListActivity {
         default:
             return super.onContextItemSelected(menuItem);
         }
-    }
-
-    @Override
-    protected void onListItemClick(ListView listView, View view, int position, long id) {
-        mDbHelper.flipStatus(id);
-
-        refreshChecklistDataAndView();
     }
 }
