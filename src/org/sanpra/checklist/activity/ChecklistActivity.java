@@ -17,22 +17,17 @@
 
 package org.sanpra.checklist.activity;
 
-import android.widget.*;
-import org.sanpra.checklist.R;
-import org.sanpra.checklist.dbhelper.ItemsDbHelper;
-
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.*;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import org.sanpra.checklist.R;
+import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 
 public class ChecklistActivity extends ListActivity {
 
