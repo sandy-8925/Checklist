@@ -96,9 +96,9 @@ public class ChecklistActivity extends ListActivity {
         to = new int[] { R.id.itemtext };
         itemListAdapter = new ChecklistItemAdapter();
         ListView itemsListView = (ListView) findViewById(android.R.id.list);
-        setListAdapter(itemListAdapter);
+        itemsListView.setAdapter(itemListAdapter);
 
-        registerForContextMenu(getListView());
+        registerForContextMenu(itemsListView);
     }
 
     @Override
