@@ -41,8 +41,8 @@ public class ChecklistActivity extends ListActivity {
 
     private ItemsDbHelper mDbHelper;
     private Cursor mItemsCursor;
-    String[] from;
-    int[] to;
+    private String[] from;
+    private int[] to;
     public static final int NEW_ITEM_ACTION = 5;
     public static final int EDIT_ITEM_ACTION = 6;
     private ListAdapter itemListAdapter;
