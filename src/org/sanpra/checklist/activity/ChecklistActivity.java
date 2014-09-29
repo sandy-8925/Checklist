@@ -94,6 +94,7 @@ public class ChecklistActivity extends ListActivity {
          */
         from = new String[] { ItemsDbHelper.COL_DESC };
         to = new int[] { R.id.itemtext };
+
         itemListAdapter = new ChecklistItemAdapter();
         ListView itemsListView = (ListView) findViewById(android.R.id.list);
         itemsListView.setAdapter(itemListAdapter);
