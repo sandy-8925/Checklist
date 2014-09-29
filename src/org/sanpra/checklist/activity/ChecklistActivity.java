@@ -47,8 +47,6 @@ public class ChecklistActivity extends ListActivity {
 	public static final int EDIT_ITEM_ACTION = 6;
 
 	class ChecklistItemAdapter extends SimpleCursorAdapter {
-		// TODO: Try to use Android colour resources to specify the colour instead of setting
-		// the integer colour value
 		private int CHECKLIST_ITEM_UNCHECKED_COLOUR;
 		private int CHECKLIST_ITEM_CHECKED_COLOUR;
 
