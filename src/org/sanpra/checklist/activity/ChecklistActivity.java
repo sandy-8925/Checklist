@@ -37,7 +37,7 @@ public class ChecklistActivity extends Activity {
     private int[] to;
     public static final int NEW_ITEM_ACTION = 5;
     public static final int EDIT_ITEM_ACTION = 6;
-    private ListAdapter itemListAdapter;
+    private BaseAdapter itemListAdapter;
 
     private class ChecklistItemAdapter extends SimpleCursorAdapter {
         private int CHECKLIST_ITEM_UNCHECKED_COLOUR;
