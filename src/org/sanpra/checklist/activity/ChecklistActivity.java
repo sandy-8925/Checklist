@@ -29,7 +29,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import org.sanpra.checklist.R;
 import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 
-public class ChecklistActivity extends Activity {
+public final class ChecklistActivity extends Activity {
 
     private ItemsDbHelper mDbHelper;
     private Cursor mItemsCursor;
