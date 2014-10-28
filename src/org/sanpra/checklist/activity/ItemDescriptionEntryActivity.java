@@ -64,10 +64,10 @@ public final class ItemDescriptionEntryActivity extends Activity {
             finish();
         }
 
-        Button okButton = (Button) findViewById(R.id.itemdescconfbutton);
+        final Button okButton = (Button) findViewById(R.id.itemdescconfbutton);
         okButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                String itemText = itemDescText.getText().toString();
+                final String itemText = itemDescText.getText().toString();
                 int resultCode = RESULT_OK;
                 switch (actionType)
                 {
