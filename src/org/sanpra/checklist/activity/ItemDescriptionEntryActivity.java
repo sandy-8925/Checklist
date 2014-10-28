@@ -28,7 +28,7 @@ import org.sanpra.checklist.R;
 import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 
 
-public class ItemDescriptionEntryActivity extends Activity {
+public final class ItemDescriptionEntryActivity extends Activity {
 
     private ItemsDbHelper mDbHelper;
     private EditText itemDescText;
