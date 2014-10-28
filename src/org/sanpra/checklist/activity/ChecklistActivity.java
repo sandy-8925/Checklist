@@ -49,19 +49,19 @@ public final class ChecklistActivity extends Activity {
         ChecklistItemAdapter() {
             super(ChecklistActivity.this, R.layout.item_row, mItemsCursor,
                     from, to);
-            Resources appResources = getResources();
+            final Resources appResources = getResources();
             CHECKLIST_ITEM_UNCHECKED_COLOR = appResources.getInteger(R.integer.white);
             CHECKLIST_ITEM_CHECKED_COLOR = appResources.getInteger(R.integer.grey);
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            View item = super.getView(position, convertView, parent);
+            final View item = super.getView(position, convertView, parent);
 
-            TextView itemText = (TextView) item.findViewById(R.id.itemtext);
-            long itemRowId = getItemId(position);
+            final TextView itemText = (TextView) item.findViewById(R.id.itemtext);
+            final long itemRowId = getItemId(position);
 
-            int itemColor = (mDbHelper.getItemStatus(itemRowId) == 0) ? CHECKLIST_ITEM_UNCHECKED_COLOR
+            final int itemColor = (mDbHelper.getItemStatus(itemRowId) == 0) ? CHECKLIST_ITEM_UNCHECKED_COLOR
                     : CHECKLIST_ITEM_CHECKED_COLOR;
             itemText.setTextColor(itemColor);
 
