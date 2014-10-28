@@ -31,6 +31,7 @@ import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 
 public final class ChecklistActivity extends Activity {
 
+    //TODO: See if enum can be used instead of int for specifying action to ItemDescriptionEntryActivity
     public static final int NEW_ITEM_ACTION = 5;
     public static final int EDIT_ITEM_ACTION = 6;
 
