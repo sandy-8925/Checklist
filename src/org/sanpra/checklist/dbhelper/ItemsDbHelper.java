@@ -23,7 +23,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class ItemsDbHelper 
+public final class ItemsDbHelper
 {
 	private static final String TABLE_NAME="items";
 	public static final String COL_ID="_id";
