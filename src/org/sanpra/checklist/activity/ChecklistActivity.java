@@ -43,15 +43,15 @@ public final class ChecklistActivity extends Activity {
     private BaseAdapter itemListAdapter;
 
     private class ChecklistItemAdapter extends SimpleCursorAdapter {
-        private int CHECKLIST_ITEM_UNCHECKED_COLOUR;
-        private int CHECKLIST_ITEM_CHECKED_COLOUR;
+        private int CHECKLIST_ITEM_UNCHECKED_COLOR;
+        private int CHECKLIST_ITEM_CHECKED_COLOR;
 
         ChecklistItemAdapter() {
             super(ChecklistActivity.this, R.layout.item_row, mItemsCursor,
                     from, to);
             Resources appResources = getResources();
-            CHECKLIST_ITEM_UNCHECKED_COLOUR = appResources.getInteger(R.integer.white);
-            CHECKLIST_ITEM_CHECKED_COLOUR = appResources.getInteger(R.integer.grey);
+            CHECKLIST_ITEM_UNCHECKED_COLOR = appResources.getInteger(R.integer.white);
+            CHECKLIST_ITEM_CHECKED_COLOR = appResources.getInteger(R.integer.grey);
         }
 
         @Override
@@ -61,8 +61,8 @@ public final class ChecklistActivity extends Activity {
             TextView itemText = (TextView) item.findViewById(R.id.itemtext);
             long itemRowId = getItemId(position);
 
-            int itemColor = (mDbHelper.getItemStatus(itemRowId) == 0) ? CHECKLIST_ITEM_UNCHECKED_COLOUR
-                    : CHECKLIST_ITEM_CHECKED_COLOUR;
+            int itemColor = (mDbHelper.getItemStatus(itemRowId) == 0) ? CHECKLIST_ITEM_UNCHECKED_COLOR
+                    : CHECKLIST_ITEM_CHECKED_COLOR;
             itemText.setTextColor(itemColor);
 
             return item;
