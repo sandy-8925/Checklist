@@ -34,6 +34,7 @@ public final class ItemDescriptionEntryActivity extends Activity {
     private EditText itemDescText;
     private long itemId;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
