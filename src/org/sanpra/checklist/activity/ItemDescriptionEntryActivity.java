@@ -43,7 +43,7 @@ public final class ItemDescriptionEntryActivity extends Activity {
         itemDescText = (EditText) findViewById(R.id.itemdesctext);
         itemId = -1;
 
-        initalizeDatabaseHelper();
+        initializeDatabaseHelper();
 
         final int actionType = getIntent().getIntExtra("action", -1);
 
@@ -99,7 +99,7 @@ public final class ItemDescriptionEntryActivity extends Activity {
         }
     }
 
-    private void initalizeDatabaseHelper() {
+    private void initializeDatabaseHelper() {
         mDbHelper = ItemsDbHelper.getInstance(this);
     }
 }
