@@ -17,15 +17,15 @@
 
 package org.sanpra.checklist.activity;
 
-import org.sanpra.checklist.R;
-import org.sanpra.checklist.dbhelper.ItemsDbHelper;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import org.sanpra.checklist.R;
+import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 
 
 public class ItemDescriptionEntryActivity extends Activity {
