@@ -46,7 +46,6 @@ public final class ItemsDbHelper
 		@Override
 		public void onCreate(SQLiteDatabase db)
 		{
-			//create the table
             final String CREATE_DATABASE="create table items(_id integer primary key autoincrement," +
                     " desc text not null, checked integer not null);";
 			db.execSQL(CREATE_DATABASE);
