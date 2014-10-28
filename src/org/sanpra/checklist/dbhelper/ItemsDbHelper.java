@@ -62,12 +62,12 @@ public final class ItemsDbHelper
 	
 	private SQLiteOpenHelper mDbHelper;
 	
-	public ItemsDbHelper(Context context)
+	private ItemsDbHelper(Context context)
 	{
 		mContext = context;
 	}
 
-	public void open()
+	private void open()
 	{
 		mDbHelper = new DbHelper(mContext);
 		mDatabase = mDbHelper.getWritableDatabase();		
