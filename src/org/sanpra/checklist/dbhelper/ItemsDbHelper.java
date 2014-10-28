@@ -99,14 +99,18 @@ public final class ItemsDbHelper
 		mDatabase.update(TABLE_NAME, values, "_id="+id, null);		
 	}
 	
-	public int getItemStatus(long id)
+	private int getItemStatus(long id)
 	{
 		Cursor item = mDatabase.query(TABLE_NAME, new String[] {COL_STATUS}, "_id=" + id, null, null, null, null);
 		item.moveToFirst();
 		int status = item.getInt(item.getColumnIndex(COL_STATUS));		
 		return status;
 	}
-	
+
+    public boolean isItemChecked(long id) {
+        return (getItemStatus(id) == 1);
+    }
+
 	public void deleteCheckedItems()
 	{
 		mDatabase.delete(TABLE_NAME, COL_STATUS + "=1", null);		

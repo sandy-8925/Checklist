@@ -61,8 +61,8 @@ public final class ChecklistActivity extends Activity {
             final TextView itemText = (TextView) item.findViewById(R.id.itemtext);
             final long itemRowId = getItemId(position);
 
-            final int itemColor = (mDbHelper.getItemStatus(itemRowId) == 0) ? CHECKLIST_ITEM_UNCHECKED_COLOR
-                    : CHECKLIST_ITEM_CHECKED_COLOR;
+            final int itemColor = mDbHelper.isItemChecked(itemRowId) ?
+                    CHECKLIST_ITEM_CHECKED_COLOR : CHECKLIST_ITEM_UNCHECKED_COLOR ;
             itemText.setTextColor(itemColor);
 
             return item;
