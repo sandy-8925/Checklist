@@ -25,6 +25,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public final class ItemsDbHelper
 {
+    private static ItemsDbHelper INSTANCE = null;
+
 	private static final String TABLE_NAME="items";
 	private static final String COL_ID="_id";
 	public static final String COL_DESC="desc";
@@ -70,6 +72,20 @@ public final class ItemsDbHelper
 		mDbHelper = new DbHelper(mContext);
 		mDatabase = mDbHelper.getWritableDatabase();		
 	}
+
+    /**
+     * Creates an instance of ItemsDbHelper if not already created, and returns it. Use this instead
+     * of the constructor.
+     * @param context The android.content.Context object to be used for creating the database
+     * @return A single application-wide instance of ItemsDbHelper
+     */
+    public static ItemsDbHelper getInstance(final Context context) {
+        if(INSTANCE == null) {
+            INSTANCE = new ItemsDbHelper(context);
+            INSTANCE.open();
+        }
+        return INSTANCE;
+    }
 	
 	public Cursor fetchAllItems()
 	{
