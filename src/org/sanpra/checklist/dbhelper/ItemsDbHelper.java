@@ -30,7 +30,7 @@ public final class ItemsDbHelper
 	public static final String COL_DESC="desc";
 	private static final String COL_STATUS="checked";
 
-	private Context mContext;
+	private final Context mContext;
 	private SQLiteDatabase mDatabase;
 	
 	private final class DbHelper extends SQLiteOpenHelper
