@@ -51,6 +51,7 @@ public final class ChecklistActivity extends Activity {
             CHECKLIST_ITEM_CHECKED_COLOUR = appResources.getInteger(R.integer.grey);
         }
 
+        @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View item = super.getView(position, convertView, parent);
 
