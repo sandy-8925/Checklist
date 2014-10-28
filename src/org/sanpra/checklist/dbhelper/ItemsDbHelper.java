@@ -65,11 +65,11 @@ public final class ItemsDbHelper
 	private ItemsDbHelper(Context context)
 	{
 		mContext = context;
+        mDbHelper = new DbHelper(mContext);
 	}
 
 	private void open()
 	{
-		mDbHelper = new DbHelper(mContext);
 		mDatabase = mDbHelper.getWritableDatabase();		
 	}
 
