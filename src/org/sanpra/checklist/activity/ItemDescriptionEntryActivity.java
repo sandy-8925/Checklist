@@ -93,7 +93,8 @@ public final class ItemDescriptionEntryActivity extends Activity {
     private void fetchChecklistItemDescriptionFromDatabase() {
         itemId = getIntent().getLongExtra("item_id", -1);
         itemDescText.setText(mDbHelper.getItemDesc(itemId));
-        if (itemId == -1) { /* error: show toast and finish activity */
+        if (itemId == -1) {
+        //TODO: Error - show toast and finish activity
         }
     }
 
