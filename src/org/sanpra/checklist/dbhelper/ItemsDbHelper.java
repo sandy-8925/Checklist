@@ -29,9 +29,7 @@ public final class ItemsDbHelper
 	private static final String COL_ID="_id";
 	public static final String COL_DESC="desc";
 	private static final String COL_STATUS="checked";
-	
-	private static final String CREATE_DATABASE="create table items(_id integer primary key autoincrement," +
-			" desc text not null, checked integer not null);";
+
 	private Context mContext;
 	private SQLiteDatabase mDatabase;
 	
@@ -49,6 +47,8 @@ public final class ItemsDbHelper
 		public void onCreate(SQLiteDatabase db)
 		{
 			//create the table
+            final String CREATE_DATABASE="create table items(_id integer primary key autoincrement," +
+                    " desc text not null, checked integer not null);";
 			db.execSQL(CREATE_DATABASE);
 		}
 
