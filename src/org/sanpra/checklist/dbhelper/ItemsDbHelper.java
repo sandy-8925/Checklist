@@ -28,7 +28,7 @@ public final class ItemsDbHelper
 	private static final String TABLE_NAME="items";
 	private static final String COL_ID="_id";
 	public static final String COL_DESC="desc";
-	public static final String COL_STATUS="checked";
+	private static final String COL_STATUS="checked";
 	
 	private static final String CREATE_DATABASE="create table items(_id integer primary key autoincrement," +
 			" desc text not null, checked integer not null);";
