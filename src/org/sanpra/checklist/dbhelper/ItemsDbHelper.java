@@ -26,7 +26,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public final class ItemsDbHelper
 {
 	private static final String TABLE_NAME="items";
-	public static final String COL_ID="_id";
+	private static final String COL_ID="_id";
 	public static final String COL_DESC="desc";
 	public static final String COL_STATUS="checked";
 	
