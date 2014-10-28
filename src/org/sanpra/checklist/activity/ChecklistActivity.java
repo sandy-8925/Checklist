@@ -37,8 +37,8 @@ public final class ChecklistActivity extends Activity {
 
     private ItemsDbHelper mDbHelper;
     private Cursor mItemsCursor;
-    private String[] from;
-    private int[] to;
+    private final static String[] from =  new String[] { ItemsDbHelper.COL_DESC };
+    private final static int[] to = new int[] { R.id.itemtext };
     private BaseAdapter itemListAdapter;
 
     private class ChecklistItemAdapter extends SimpleCursorAdapter {
@@ -87,9 +87,6 @@ public final class ChecklistActivity extends Activity {
          * use requery to refresh cursor data in other methods
          * use notifyDataSetChanged() to refresh view/adapter
          */
-        from = new String[] { ItemsDbHelper.COL_DESC };
-        to = new int[] { R.id.itemtext };
-
         itemListAdapter = new ChecklistItemAdapter();
         ListView itemsListView = (ListView) findViewById(R.id.items_list);
         itemsListView.setAdapter(itemListAdapter);
