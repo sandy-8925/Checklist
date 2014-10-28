@@ -89,7 +89,7 @@ public final class ChecklistActivity extends Activity {
          * use notifyDataSetChanged() to refresh view/adapter
          */
         itemListAdapter = new ChecklistItemAdapter();
-        ListView itemsListView = (ListView) findViewById(R.id.items_list);
+        final ListView itemsListView = (ListView) findViewById(R.id.items_list);
         itemsListView.setAdapter(itemListAdapter);
         itemsListView.setOnItemClickListener(new ListView.OnItemClickListener() {
 
@@ -114,7 +114,7 @@ public final class ChecklistActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.menu_new_item:
-            Intent createItemIntent = new Intent(this,
+            final Intent createItemIntent = new Intent(this,
                     ItemDescriptionEntryActivity.class);
             createItemIntent.putExtra("action", NEW_ITEM_ACTION);
             startActivity(createItemIntent);
@@ -158,7 +158,7 @@ public final class ChecklistActivity extends Activity {
     }
 
     public boolean onContextItemSelected(MenuItem menuItem) {
-        AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuItem
+        final AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuItem
                 .getMenuInfo();
         switch (menuItem.getItemId()) {
         case R.id.context_menu_delete:
@@ -167,7 +167,7 @@ public final class ChecklistActivity extends Activity {
             return true;
 
         case R.id.context_menu_edit:
-            Intent editItemIntent = new Intent(this,
+            final Intent editItemIntent = new Intent(this,
                     ItemDescriptionEntryActivity.class);
             editItemIntent.putExtra("action", EDIT_ITEM_ACTION);
             editItemIntent.putExtra("item_id", info.id);
