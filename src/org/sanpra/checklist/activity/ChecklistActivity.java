@@ -35,10 +35,11 @@ public final class ChecklistActivity extends Activity {
     public static final int NEW_ITEM_ACTION = 5;
     public static final int EDIT_ITEM_ACTION = 6;
 
-    private ItemsDbHelper mDbHelper;
-    private Cursor mItemsCursor;
     private final static String[] from =  new String[] { ItemsDbHelper.COL_DESC };
     private final static int[] to = new int[] { R.id.itemtext };
+
+    private ItemsDbHelper mDbHelper;
+    private Cursor mItemsCursor;
     private BaseAdapter itemListAdapter;
 
     private class ChecklistItemAdapter extends SimpleCursorAdapter {
