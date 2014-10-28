@@ -84,10 +84,11 @@ public final class ItemsDbHelper
 		values.put(COL_STATUS, 0);
 		mDatabase.insert(TABLE_NAME, null, values);
 	}
-	
-	/*
-	 * Flips the status of an item i from unchecked to checked and vice versa and returns the new status
-	 */
+
+    /**
+     * Flips the status of an item from unchecked to checked, and vice versa
+     * @param id The ID of the item to be checked/unchecked
+     */
 	public void flipStatus(long id)
 	{
 		Cursor item = mDatabase.query(TABLE_NAME, new String[] {COL_STATUS}, "_id=" + id, null, null, null, null);
