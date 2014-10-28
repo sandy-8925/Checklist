@@ -33,7 +33,7 @@ public final class ItemsDbHelper
 	private Context mContext;
 	private SQLiteDatabase mDatabase;
 	
-	private class DbHelper extends SQLiteOpenHelper
+	private final class DbHelper extends SQLiteOpenHelper
 	{
 		private static final String DATABASE_NAME="data";
 		private static final int DATABASE_VERSION=1;
