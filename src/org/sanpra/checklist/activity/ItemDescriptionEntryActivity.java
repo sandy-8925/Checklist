@@ -100,7 +100,6 @@ public final class ItemDescriptionEntryActivity extends Activity {
     }
 
     private void initalizeDatabaseHelper() {
-        mDbHelper = new ItemsDbHelper(this);
-        mDbHelper.open();
+        mDbHelper = ItemsDbHelper.getInstance(this);
     }
 }

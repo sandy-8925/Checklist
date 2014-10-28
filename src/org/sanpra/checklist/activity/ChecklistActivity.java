@@ -78,8 +78,7 @@ public final class ChecklistActivity extends Activity {
 
         // create database helper object and fetch all checklist items from
         // database
-        mDbHelper = new ItemsDbHelper(this);
-        mDbHelper.open();
+        mDbHelper = ItemsDbHelper.getInstance(this);
         mItemsCursor = mDbHelper.fetchAllItems();
 
         // manage cursor ; create cursor adapter and use it
