@@ -42,7 +42,7 @@ public final class ChecklistActivity extends Activity {
     private Cursor mItemsCursor;
     private BaseAdapter itemListAdapter;
 
-    private class ChecklistItemAdapter extends SimpleCursorAdapter {
+    private final class ChecklistItemAdapter extends SimpleCursorAdapter {
         private int CHECKLIST_ITEM_UNCHECKED_COLOR;
         private int CHECKLIST_ITEM_CHECKED_COLOR;
 
