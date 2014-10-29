@@ -23,6 +23,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * Database helper class, used for manipulating database storing task information.
+ * The constructor is private. Instead, use the method getInstance() to get a reference to an
+ * instance of this class.
+ */
 public final class ItemsDbHelper
 {
     private static ItemsDbHelper INSTANCE = null;
