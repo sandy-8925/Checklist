@@ -34,6 +34,7 @@ public final class ItemDescriptionEntryActivity extends Activity {
     private EditText itemDescText;
     private long itemId;
 
+    //TODO: Try to break code into smaller independent methods
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +66,7 @@ public final class ItemDescriptionEntryActivity extends Activity {
         }
 
         final Button okButton = (Button) findViewById(R.id.itemdescconfbutton);
+        //TODO: Move this OnClickListener into it's own class, and make it as independent as possible from ItemDescriptionEntryActivity
         okButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 final String itemText = itemDescText.getText().toString();
