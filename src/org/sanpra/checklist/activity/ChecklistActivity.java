@@ -42,13 +42,23 @@ import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 public final class ChecklistActivity extends Activity {
 
     //TODO: See if enum can be used instead of int for specifying action to ItemDescriptionEntryActivity
+    /**
+     * These constants are used to specify whether the ItemDescriptionEntryActivity is being opened
+     * to add a new list item or edit an existing list item
+     */
     static final int NEW_ITEM_ACTION = 5;
     static final int EDIT_ITEM_ACTION = 6;
 
+    /**
+     * These arrays specify the mapping from database columns to list item View elements
+     */
     private final static String[] from =  new String[] { ItemsDbHelper.COL_DESC };
     private final static int[] to = new int[] { R.id.itemtext };
 
     private ItemsDbHelper mDbHelper;
+    /**
+     * Cursor holding query results for all items in the list
+     */
     private Cursor mItemsCursor;
     private BaseAdapter itemListAdapter;
 
@@ -153,9 +163,7 @@ public final class ChecklistActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    /*
-     * TODO: Use CursorLoader (introduced in Android 3.0) so that data is automatically refreshed
-     */
+    // TODO: Use CursorLoader (introduced in Android 3.0) so that data is automatically refreshed
     private void refreshChecklistDataAndView() {
         mItemsCursor.requery();
         itemListAdapter.notifyDataSetChanged();
