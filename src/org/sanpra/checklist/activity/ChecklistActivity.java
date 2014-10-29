@@ -43,6 +43,7 @@ public final class ChecklistActivity extends Activity {
     private Cursor mItemsCursor;
     private BaseAdapter itemListAdapter;
 
+    //TODO: Try to make this independent of ChecklistActivity and move it out into a separate file
     private final class ChecklistItemAdapter extends SimpleCursorAdapter {
         private int CHECKLIST_ITEM_UNCHECKED_COLOR;
         private int CHECKLIST_ITEM_CHECKED_COLOR;
