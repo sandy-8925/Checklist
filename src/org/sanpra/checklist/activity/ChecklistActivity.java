@@ -29,6 +29,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import org.sanpra.checklist.R;
 import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 
+//TODO: Use activity/task launch attributes to create single instance of this activity
 public final class ChecklistActivity extends Activity {
 
     //TODO: See if enum can be used instead of int for specifying action to ItemDescriptionEntryActivity
