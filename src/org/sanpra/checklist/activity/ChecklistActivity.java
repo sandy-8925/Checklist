@@ -152,12 +152,14 @@ public final class ChecklistActivity extends Activity {
         itemListAdapter.notifyDataSetChanged();
     }
 
+    @Override
     public void onCreateContextMenu(ContextMenu menu, View view,
             ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, view, menuInfo);
         getMenuInflater().inflate(R.menu.checklist_context_menu, menu);
     }
 
+    @Override
     public boolean onContextItemSelected(MenuItem menuItem) {
         final AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuItem
                 .getMenuInfo();
