@@ -45,7 +45,7 @@ public final class ItemsDbHelper
 		private static final String DATABASE_NAME="data";
 		private static final int DATABASE_VERSION=1;
 		
-		public DbHelper(Context context) 
+		public DbHelper(final Context context)
 		{
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);			
 		}
@@ -67,7 +67,7 @@ public final class ItemsDbHelper
 	
 	private SQLiteOpenHelper mDbHelper;
 	
-	private ItemsDbHelper(Context context)
+	private ItemsDbHelper(final Context context)
 	{
 		mContext = context;
         mDbHelper = new DbHelper(mContext);
@@ -97,7 +97,7 @@ public final class ItemsDbHelper
 		return mDatabase.query(TABLE_NAME, null, null, null, null, null, null);
 	}
 	
-	public void addItem(String itemDesc)
+	public void addItem(final String itemDesc)
 	{
 		ContentValues values = new ContentValues();
 		values.put(COL_DESC, itemDesc);
@@ -109,7 +109,7 @@ public final class ItemsDbHelper
      * Flips the status of an item from unchecked to checked, and vice versa
      * @param id The ID of the item to be checked/unchecked
      */
-	public void flipStatus(long id)
+	public void flipStatus(final long id)
 	{
 		Cursor item = mDatabase.query(TABLE_NAME, new String[] {COL_STATUS}, "_id=" + id, null, null, null, null);
 		item.moveToFirst();
@@ -120,7 +120,7 @@ public final class ItemsDbHelper
 		mDatabase.update(TABLE_NAME, values, "_id="+id, null);		
 	}
 	
-	private int getItemStatus(long id)
+	private int getItemStatus(final long id)
 	{
 		Cursor item = mDatabase.query(TABLE_NAME, new String[] {COL_STATUS}, "_id=" + id, null, null, null, null);
 		item.moveToFirst();
@@ -128,7 +128,7 @@ public final class ItemsDbHelper
 		return status;
 	}
 
-    public boolean isItemChecked(long id) {
+    public boolean isItemChecked(final long id) {
         return (getItemStatus(id) == 1);
     }
 
@@ -153,35 +153,35 @@ public final class ItemsDbHelper
 	
 	public void flipAllItems()
 	{
-		Cursor items = mDatabase.query(TABLE_NAME, new String[] {COL_ID,COL_STATUS}, null, null, null, null, null);
+		final Cursor items = mDatabase.query(TABLE_NAME, new String[] {COL_ID,COL_STATUS}, null, null, null, null, null);
 		items.moveToFirst();
 
 		do
 		{
 			int status = items.getInt(items.getColumnIndex(COL_STATUS));
 			long id = items.getLong(items.getColumnIndex(COL_ID));
-			status = 1 - status;		
+			status = 1 - status;
 			ContentValues values = new ContentValues();
 			values.put(COL_STATUS, status);
 			mDatabase.update(TABLE_NAME, values, "_id="+id, null);			
 		}while(items.moveToNext());
 	}
 	
-	public void deleteItem(long id)
+	public void deleteItem(final long id)
 	{
 		mDatabase.delete(TABLE_NAME, "_id="+id, null);
 	}
 	
-	public String getItemDesc(long id)
+	public String getItemDesc(final long id)
 	{
-		Cursor itemDescQuery = mDatabase.query(TABLE_NAME, new String[] {COL_DESC}, "_id="+id, null, null, null, null);
+		final Cursor itemDescQuery = mDatabase.query(TABLE_NAME, new String[] {COL_DESC}, "_id="+id, null, null, null, null);
 		itemDescQuery.moveToFirst();
 		return itemDescQuery.getString(itemDescQuery.getColumnIndex(COL_DESC));
 	}
 	
-	public void editItemDesc(long id, String newItemDesc)
+	public void editItemDesc(final long id, final String newItemDesc)
 	{
-		ContentValues values = new ContentValues();
+		final ContentValues values = new ContentValues();
 		values.put(COL_DESC, newItemDesc);
 		mDatabase.update(TABLE_NAME, values, "_id="+id, null);
 	}
