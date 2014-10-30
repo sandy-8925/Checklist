@@ -110,7 +110,7 @@ public final class ItemsDbHelper
      */
 	public void addItem(final String itemDesc)
 	{
-		ContentValues values = new ContentValues();
+		final ContentValues values = new ContentValues();
 		values.put(COL_DESC, itemDesc);
 		values.put(COL_STATUS, 0);
 		mDatabase.insert(TABLE_NAME, null, values);
@@ -122,11 +122,11 @@ public final class ItemsDbHelper
      */
 	public void flipStatus(final long id)
 	{
-		Cursor item = mDatabase.query(TABLE_NAME, new String[] {COL_STATUS}, buildIdSelectString(id), null, null, null, null);
+		final Cursor item = mDatabase.query(TABLE_NAME, new String[] {COL_STATUS}, buildIdSelectString(id), null, null, null, null);
 		item.moveToFirst();
 		int status = item.getInt(item.getColumnIndex(COL_STATUS));
 		status = 1 - status;		
-		ContentValues values = new ContentValues();
+		final ContentValues values = new ContentValues();
 		values.put(COL_STATUS, status);
 		mDatabase.update(TABLE_NAME, values, "_id="+id, null);		
 	}
