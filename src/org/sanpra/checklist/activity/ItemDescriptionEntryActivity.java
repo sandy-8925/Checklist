@@ -31,7 +31,13 @@ import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 public final class ItemDescriptionEntryActivity extends Activity {
 
     private ItemsDbHelper mDbHelper;
+    /**
+     * Holds a reference to the EditText view of the activity
+     */
     private EditText itemDescText;
+    /**
+     * USed only when checklist item is being edited. Holds the ID of the item being edited.
+     */
     private long itemId;
 
     //TODO: Try to break code into smaller independent methods
