@@ -67,7 +67,7 @@ public final class ItemsDbHelper
 		}	
 	}
 	
-	private SQLiteOpenHelper mDbHelper;
+	private final SQLiteOpenHelper mDbHelper;
 	
 	private ItemsDbHelper(final Context context)
 	{
