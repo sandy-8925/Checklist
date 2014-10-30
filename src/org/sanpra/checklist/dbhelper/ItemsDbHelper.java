@@ -24,7 +24,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Database helper class, used for manipulating database storing task information.
+ * Database helper class, used for manipulating database storing checklist information.
  * The constructor is private. Instead, use the method getInstance() to get a reference to an
  * instance of this class.
  */
