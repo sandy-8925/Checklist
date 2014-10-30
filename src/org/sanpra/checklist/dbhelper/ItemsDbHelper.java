@@ -161,7 +161,7 @@ public final class ItemsDbHelper
      */
 	public void checkAllItems()
 	{
-		ContentValues newValue = new ContentValues();
+		final ContentValues newValue = new ContentValues();
 		newValue.put(COL_STATUS, 1);
 		mDatabase.update(TABLE_NAME, newValue, null, null);
 	}
@@ -171,7 +171,7 @@ public final class ItemsDbHelper
      */
 	public void uncheckAllItems()
 	{
-		ContentValues newValue = new ContentValues();
+		final ContentValues newValue = new ContentValues();
 		newValue.put(COL_STATUS, 0);
 		mDatabase.update(TABLE_NAME, newValue, null, null);
 	}
