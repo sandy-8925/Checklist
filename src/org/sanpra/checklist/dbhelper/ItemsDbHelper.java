@@ -122,7 +122,7 @@ public final class ItemsDbHelper
      */
 	public void flipStatus(final long id)
 	{
-		Cursor item = mDatabase.query(TABLE_NAME, new String[] {COL_STATUS}, "_id=" + id, null, null, null, null);
+		Cursor item = mDatabase.query(TABLE_NAME, new String[] {COL_STATUS}, buildIdSelectString(id), null, null, null, null);
 		item.moveToFirst();
 		int status = item.getInt(item.getColumnIndex(COL_STATUS));
 		status = 1 - status;		
@@ -133,7 +133,7 @@ public final class ItemsDbHelper
 	
 	private int getItemStatus(final long id)
 	{
-		Cursor item = mDatabase.query(TABLE_NAME, new String[] {COL_STATUS}, "_id=" + id, null, null, null, null);
+		Cursor item = mDatabase.query(TABLE_NAME, new String[] {COL_STATUS}, buildIdSelectString(id), null, null, null, null);
 		item.moveToFirst();
 		int status = item.getInt(item.getColumnIndex(COL_STATUS));		
 		return status;
@@ -199,7 +199,7 @@ public final class ItemsDbHelper
 			status = 1 - status;
 			ContentValues values = new ContentValues();
 			values.put(COL_STATUS, status);
-			mDatabase.update(TABLE_NAME, values, "_id="+id, null);			
+			mDatabase.update(TABLE_NAME, values, buildIdSelectString(id), null);
 		}while(items.moveToNext());
 	}
 
@@ -209,7 +209,7 @@ public final class ItemsDbHelper
      */
 	public void deleteItem(final long id)
 	{
-		mDatabase.delete(TABLE_NAME, "_id="+id, null);
+		mDatabase.delete(TABLE_NAME, buildIdSelectString(id), null);
 	}
 
     /**
@@ -219,7 +219,7 @@ public final class ItemsDbHelper
      */
 	public String getItemDesc(final long id)
 	{
-		final Cursor itemDescQuery = mDatabase.query(TABLE_NAME, new String[] {COL_DESC}, "_id="+id, null, null, null, null);
+		final Cursor itemDescQuery = mDatabase.query(TABLE_NAME, new String[] {COL_DESC}, buildIdSelectString(id), null, null, null, null);
 		itemDescQuery.moveToFirst();
 		return itemDescQuery.getString(itemDescQuery.getColumnIndex(COL_DESC));
 	}
@@ -233,6 +233,12 @@ public final class ItemsDbHelper
 	{
 		final ContentValues values = new ContentValues();
 		values.put(COL_DESC, newItemDesc);
-		mDatabase.update(TABLE_NAME, values, "_id="+id, null);
+		mDatabase.update(TABLE_NAME, values, buildIdSelectString(id), null);
 	}
+
+    private static String buildIdSelectString(final long id) {
+        final StringBuffer selectStringBuffer = new StringBuffer();
+        selectStringBuffer.append(COL_ID).append("=").append(id);
+        return selectStringBuffer.toString();
+    }
 }
