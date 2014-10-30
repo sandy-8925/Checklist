@@ -192,13 +192,13 @@ public final class ItemsDbHelper
 
 		do
 		{
-			int status = items.getInt(items.getColumnIndex(COL_STATUS));
-			long id = items.getLong(items.getColumnIndex(COL_ID));
-			status = 1 - status;
-			ContentValues values = new ContentValues();
-			values.put(COL_STATUS, status);
+			final int currentStatus = items.getInt(items.getColumnIndex(COL_STATUS));
+			final long id = items.getLong(items.getColumnIndex(COL_ID));
+			final int newStatus = 1 - currentStatus;
+			final ContentValues values = new ContentValues();
+			values.put(COL_STATUS, newStatus);
 			mDatabase.update(TABLE_NAME, values, buildIdSelectString(id), null);
-		}while(items.moveToNext());
+		} while(items.moveToNext());
 	}
 
     /**
