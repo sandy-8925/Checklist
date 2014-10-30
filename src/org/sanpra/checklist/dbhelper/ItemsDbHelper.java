@@ -30,8 +30,6 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public final class ItemsDbHelper
 {
-    private static final int CHECKED_STATUS = 1;
-    private static final int UNCHECKED_STATUS = 0;
     private static ItemsDbHelper INSTANCE = null;
 
 	private static final String TABLE_NAME="items";
@@ -163,6 +161,7 @@ public final class ItemsDbHelper
      */
 	public void checkAllItems()
 	{
+        final int CHECKED_STATUS = 1;
         setStatusOfAllItems(CHECKED_STATUS);
 	}
 
@@ -181,6 +180,7 @@ public final class ItemsDbHelper
      */
 	public void uncheckAllItems()
 	{
+        final int UNCHECKED_STATUS = 0;
 		setStatusOfAllItems(UNCHECKED_STATUS);
 	}
 
