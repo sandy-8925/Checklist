@@ -128,7 +128,7 @@ public final class ItemsDbHelper
 		status = 1 - status;		
 		final ContentValues values = new ContentValues();
 		values.put(COL_STATUS, status);
-		mDatabase.update(TABLE_NAME, values, "_id="+id, null);		
+		mDatabase.update(TABLE_NAME, values, buildIdSelectString(id), null);
 	}
 	
 	private int getItemStatus(final long id)
