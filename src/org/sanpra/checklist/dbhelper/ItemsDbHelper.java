@@ -122,10 +122,10 @@ public final class ItemsDbHelper
 	{
 		final Cursor item = mDatabase.query(TABLE_NAME, new String[] {COL_STATUS}, buildIdSelectString(id), null, null, null, null);
 		item.moveToFirst();
-		int status = item.getInt(item.getColumnIndex(COL_STATUS));
-		status = 1 - status;		
+		final int currentStatus = item.getInt(item.getColumnIndex(COL_STATUS));
+		final int newStatus = 1 - currentStatus;
 		final ContentValues values = new ContentValues();
-		values.put(COL_STATUS, status);
+		values.put(COL_STATUS, newStatus);
 		mDatabase.update(TABLE_NAME, values, buildIdSelectString(id), null);
 	}
 	
