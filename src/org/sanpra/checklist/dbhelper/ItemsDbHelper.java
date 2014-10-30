@@ -30,6 +30,8 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public final class ItemsDbHelper
 {
+    private static final int CHECKED_STATUS = 1;
+    private static final int UNCHECKED_STATUS = 0;
     private static ItemsDbHelper INSTANCE = null;
 
 	private static final String TABLE_NAME="items";
@@ -161,19 +163,25 @@ public final class ItemsDbHelper
      */
 	public void checkAllItems()
 	{
-		final ContentValues newValue = new ContentValues();
-		newValue.put(COL_STATUS, 1);
-		mDatabase.update(TABLE_NAME, newValue, null, null);
+        setStatusOfAllItems(CHECKED_STATUS);
 	}
+
+    /**
+     * Sets the status of all checklist items in the database to the given status
+     * @param newStatus The new status to be set
+     */
+    private void setStatusOfAllItems(final int newStatus) {
+        final ContentValues newValue = new ContentValues();
+        newValue.put(COL_STATUS, newStatus);
+        mDatabase.update(TABLE_NAME, newValue, null, null);
+    }
 
     /**
      * Marks all of the checklist items as unchecked in the database
      */
 	public void uncheckAllItems()
 	{
-		final ContentValues newValue = new ContentValues();
-		newValue.put(COL_STATUS, 0);
-		mDatabase.update(TABLE_NAME, newValue, null, null);
+		setStatusOfAllItems(UNCHECKED_STATUS);
 	}
 
     /**
