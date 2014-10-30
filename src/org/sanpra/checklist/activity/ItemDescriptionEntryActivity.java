@@ -20,7 +20,6 @@ package org.sanpra.checklist.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -71,7 +70,7 @@ public final class ItemDescriptionEntryActivity extends Activity {
             finish();
         }
 
-        final Button okButton = (Button) findViewById(R.id.itemdescconfbutton);
+        final View okButton = findViewById(R.id.itemdescconfbutton);
         //TODO: Move this OnClickListener into it's own class, and make it as independent as possible from ItemDescriptionEntryActivity
         okButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
