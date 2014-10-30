@@ -234,6 +234,11 @@ public final class ItemsDbHelper
 		mDatabase.update(TABLE_NAME, values, buildIdSelectString(id), null);
 	}
 
+    /**
+     * Builds a SQL-style query string for the ID column
+     * @param id Checklist item ID
+     * @return "_id=$id"  where $id means the value of parameter id
+     */
     private static String buildIdSelectString(final long id) {
         final StringBuffer selectStringBuffer = new StringBuffer();
         selectStringBuffer.append(COL_ID).append("=").append(id);
