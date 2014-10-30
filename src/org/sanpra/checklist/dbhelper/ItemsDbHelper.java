@@ -34,6 +34,9 @@ public final class ItemsDbHelper
 
 	private static final String TABLE_NAME="items";
 	private static final String COL_ID="_id";
+    /**
+     * Column name for checklist item text in the Sqlite DB table
+     */
 	public static final String COL_DESC="desc";
 	private static final String COL_STATUS="checked";
 
@@ -91,12 +94,20 @@ public final class ItemsDbHelper
         }
         return INSTANCE;
     }
-	
+
+    /**
+     * Queries the database for all items in the checklist - fetches every row in the table
+     * @return An android.database.Cursor object containing the results of the query
+     */
 	public Cursor fetchAllItems()
 	{
 		return mDatabase.query(TABLE_NAME, null, null, null, null, null, null);
 	}
-	
+
+    /**
+     * Adds a checklist item to the database
+     * @param itemDesc The text of the item to be added
+     */
 	public void addItem(final String itemDesc)
 	{
 		ContentValues values = new ContentValues();
@@ -128,29 +139,46 @@ public final class ItemsDbHelper
 		return status;
 	}
 
+    /**
+     * Returns the checked/unchecked status of a checklist item
+     * @param id The ID of the checklist item
+     * @return Returns true if the item is checked, false otherwise
+     */
     public boolean isItemChecked(final long id) {
         return (getItemStatus(id) == 1);
     }
 
+    /**
+     * Deletes all checked items from the table
+     */
 	public void deleteCheckedItems()
 	{
 		mDatabase.delete(TABLE_NAME, COL_STATUS + "=1", null);		
 	}
-	
+
+    /**
+     * Marks all of the checklist items as checked in the database
+     */
 	public void checkAllItems()
 	{
 		ContentValues newValue = new ContentValues();
 		newValue.put(COL_STATUS, 1);
 		mDatabase.update(TABLE_NAME, newValue, null, null);
 	}
-	
+
+    /**
+     * Marks all of the checklist items as unchecked in the database
+     */
 	public void uncheckAllItems()
 	{
 		ContentValues newValue = new ContentValues();
 		newValue.put(COL_STATUS, 0);
 		mDatabase.update(TABLE_NAME, newValue, null, null);
 	}
-	
+
+    /**
+     * Flips the status of all of the checklist items in the database
+     */
 	public void flipAllItems()
 	{
 		final Cursor items = mDatabase.query(TABLE_NAME, new String[] {COL_ID,COL_STATUS}, null, null, null, null, null);
@@ -166,19 +194,33 @@ public final class ItemsDbHelper
 			mDatabase.update(TABLE_NAME, values, "_id="+id, null);			
 		}while(items.moveToNext());
 	}
-	
+
+    /**
+     * Deletes the checklist item with the given ID
+     * @param id The ID of the checklist item to be deleted
+     */
 	public void deleteItem(final long id)
 	{
 		mDatabase.delete(TABLE_NAME, "_id="+id, null);
 	}
-	
+
+    /**
+     * Returns the description text of the item with the given ID
+     * @param id Checklist item ID
+     * @return A Java String object containing the item description
+     */
 	public String getItemDesc(final long id)
 	{
 		final Cursor itemDescQuery = mDatabase.query(TABLE_NAME, new String[] {COL_DESC}, "_id="+id, null, null, null, null);
 		itemDescQuery.moveToFirst();
 		return itemDescQuery.getString(itemDescQuery.getColumnIndex(COL_DESC));
 	}
-	
+
+    /**
+     * Changes the description text of the item with the given ID, to the text passed in
+     * @param id The ID of the checklist item to be modified
+     * @param newItemDesc The new description text for the given item
+     */
 	public void editItemDesc(final long id, final String newItemDesc)
 	{
 		final ContentValues values = new ContentValues();
