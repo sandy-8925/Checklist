@@ -68,7 +68,7 @@ public final class ChecklistActivity extends Activity {
         private int CHECKLIST_ITEM_UNCHECKED_COLOR;
         private int CHECKLIST_ITEM_CHECKED_COLOR;
 
-        ChecklistItemAdapter(final Context context) {
+        ChecklistItemAdapter(final Context context, final Cursor checklistItemsCursor) {
             super(context, R.layout.item_row, mItemsCursor,
                     from, to);
             final Resources appResources = context.getResources();
@@ -109,7 +109,7 @@ public final class ChecklistActivity extends Activity {
          * use requery to refresh cursor data in other methods
          * use notifyDataSetChanged() to refresh view/adapter
          */
-        itemListAdapter = new ChecklistItemAdapter(this);
+        itemListAdapter = new ChecklistItemAdapter(this, mItemsCursor);
         final ListView itemsListView = (ListView) findViewById(R.id.items_list);
         itemsListView.setAdapter(itemListAdapter);
         itemsListView.setOnItemClickListener(new ListView.OnItemClickListener() {
