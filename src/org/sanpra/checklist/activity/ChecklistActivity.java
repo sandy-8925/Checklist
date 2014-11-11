@@ -67,6 +67,7 @@ public final class ChecklistActivity extends Activity {
     private final class ChecklistItemAdapter extends SimpleCursorAdapter {
         private int CHECKLIST_ITEM_UNCHECKED_COLOR;
         private int CHECKLIST_ITEM_CHECKED_COLOR;
+        private final ItemsDbHelper mDbHelper;
 
         ChecklistItemAdapter(final Context context, final Cursor checklistItemsCursor) {
             super(context, R.layout.item_row, checklistItemsCursor,
@@ -74,6 +75,7 @@ public final class ChecklistActivity extends Activity {
             final Resources appResources = context.getResources();
             CHECKLIST_ITEM_UNCHECKED_COLOR = appResources.getInteger(R.integer.white);
             CHECKLIST_ITEM_CHECKED_COLOR = appResources.getInteger(R.integer.grey);
+            mDbHelper = ItemsDbHelper.getInstance(context);
         }
 
         @Override
