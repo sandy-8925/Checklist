@@ -65,8 +65,8 @@ public final class ChecklistActivity extends Activity {
 
     //TODO: Try to make this independent of ChecklistActivity and move it out into a separate file
     private final class ChecklistItemAdapter extends SimpleCursorAdapter {
-        private int CHECKLIST_ITEM_UNCHECKED_COLOR;
-        private int CHECKLIST_ITEM_CHECKED_COLOR;
+        private final int CHECKLIST_ITEM_UNCHECKED_COLOR;
+        private final int CHECKLIST_ITEM_CHECKED_COLOR;
         private final ItemsDbHelper mDbHelper;
 
         ChecklistItemAdapter(final Context context, final Cursor checklistItemsCursor) {
