@@ -18,6 +18,7 @@
 package org.sanpra.checklist.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -67,10 +68,10 @@ public final class ChecklistActivity extends Activity {
         private int CHECKLIST_ITEM_UNCHECKED_COLOR;
         private int CHECKLIST_ITEM_CHECKED_COLOR;
 
-        ChecklistItemAdapter() {
-            super(ChecklistActivity.this, R.layout.item_row, mItemsCursor,
+        ChecklistItemAdapter(final Context context) {
+            super(context, R.layout.item_row, mItemsCursor,
                     from, to);
-            final Resources appResources = getResources();
+            final Resources appResources = context.getResources();
             CHECKLIST_ITEM_UNCHECKED_COLOR = appResources.getInteger(R.integer.white);
             CHECKLIST_ITEM_CHECKED_COLOR = appResources.getInteger(R.integer.grey);
         }
@@ -108,7 +109,7 @@ public final class ChecklistActivity extends Activity {
          * use requery to refresh cursor data in other methods
          * use notifyDataSetChanged() to refresh view/adapter
          */
-        itemListAdapter = new ChecklistItemAdapter();
+        itemListAdapter = new ChecklistItemAdapter(this);
         final ListView itemsListView = (ListView) findViewById(R.id.items_list);
         itemsListView.setAdapter(itemListAdapter);
         itemsListView.setOnItemClickListener(new ListView.OnItemClickListener() {
