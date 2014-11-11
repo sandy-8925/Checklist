@@ -74,21 +74,19 @@ public final class ItemDescriptionEntryActivity extends Activity {
         okButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 final String itemText = itemDescText.getText().toString();
-                int resultCode = RESULT_OK;
+                final int resultCode = RESULT_OK;
                 switch (actionType)
                 {
                 case ChecklistActivity.NEW_ITEM_ACTION:
                     if (itemText.length() != 0) {
                         mDbHelper.addItem(itemText);
                     }
-                    resultCode = RESULT_OK;
                     break;
 
                 case ChecklistActivity.EDIT_ITEM_ACTION:
                     if (itemText.length() != 0) {
                         mDbHelper.editItemDesc(itemId, itemText);
                     }
-                    resultCode = RESULT_OK;
                     break;
                 }
                 setResult(resultCode);
