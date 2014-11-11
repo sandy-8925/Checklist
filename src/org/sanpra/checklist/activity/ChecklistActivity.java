@@ -50,12 +50,6 @@ public final class ChecklistActivity extends Activity {
     static final int NEW_ITEM_ACTION = 5;
     static final int EDIT_ITEM_ACTION = 6;
 
-    /**
-     * These arrays specify the mapping from database columns to list item View elements
-     */
-    private final static String[] from =  new String[] { ItemsDbHelper.COL_DESC };
-    private final static int[] to = new int[] { R.id.itemtext };
-
     private ItemsDbHelper mDbHelper;
     /**
      * Cursor holding query results for all items in the list
@@ -64,10 +58,15 @@ public final class ChecklistActivity extends Activity {
     private BaseAdapter itemListAdapter;
 
     //TODO: Try to make this independent of ChecklistActivity and move it out into a separate file
-    private final class ChecklistItemAdapter extends SimpleCursorAdapter {
+    private final static class ChecklistItemAdapter extends SimpleCursorAdapter {
         private final int CHECKLIST_ITEM_UNCHECKED_COLOR;
         private final int CHECKLIST_ITEM_CHECKED_COLOR;
         private final ItemsDbHelper mDbHelper;
+        /**
+         * These arrays specify the mapping from database columns to list item View elements
+         */
+        private final static String[] from =  new String[] { ItemsDbHelper.COL_DESC };
+        private final static int[] to = new int[] { R.id.itemtext };
 
         ChecklistItemAdapter(final Context context, final Cursor checklistItemsCursor) {
             super(context, R.layout.item_row, checklistItemsCursor,
