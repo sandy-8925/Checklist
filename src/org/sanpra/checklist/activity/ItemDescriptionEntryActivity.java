@@ -51,14 +51,17 @@ public final class ItemDescriptionEntryActivity extends Activity {
         initializeDatabaseHelper();
 
         final int actionType = getIntent().getIntExtra(ChecklistActivity.actionTag, -1);
+        final View okButton = findViewById(R.id.itemdescconfbutton);
 
         switch (actionType)
         {
         case ChecklistActivity.NEW_ITEM_ACTION:
+            okButton.setOnClickListener(new AddItemOnClickListener());
             break;
 
         case ChecklistActivity.EDIT_ITEM_ACTION:
             fetchChecklistItemDescriptionFromDatabase();
+            okButton.setOnClickListener(new EditItemOnClickListener());
             break;
 
         default:
@@ -68,31 +71,32 @@ public final class ItemDescriptionEntryActivity extends Activity {
             setResult(RESULT_OK);
             finish();
         }
+    }
 
-        final View okButton = findViewById(R.id.itemdescconfbutton);
-        //TODO: Move this OnClickListener into it's own class, and make it as independent as possible from ItemDescriptionEntryActivity
-        okButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                final String itemText = itemDescText.getText().toString();
-                final int resultCode = RESULT_OK;
-                switch (actionType)
-                {
-                case ChecklistActivity.NEW_ITEM_ACTION:
-                    if (itemText.length() != 0) {
-                        mDbHelper.addItem(itemText);
-                    }
-                    break;
-
-                case ChecklistActivity.EDIT_ITEM_ACTION:
-                    if (itemText.length() != 0) {
-                        mDbHelper.editItemDesc(itemId, itemText);
-                    }
-                    break;
-                }
-                setResult(resultCode);
-                finish();
+    private final class AddItemOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View clickedView) {
+            final String itemText = itemDescText.getText().toString();
+            final int resultCode = RESULT_OK;
+            if (itemText.length() != 0) {
+                mDbHelper.addItem(itemText);
             }
-        });
+            setResult(resultCode);
+            finish();
+        }
+    }
+
+    private final class EditItemOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View clickedView) {
+            final String itemText = itemDescText.getText().toString();
+            final int resultCode = RESULT_OK;
+            if (itemText.length() != 0) {
+                mDbHelper.editItemDesc(itemId, itemText);
+            }
+            setResult(resultCode);
+            finish();
+        }
     }
 
     private void fetchChecklistItemDescriptionFromDatabase() {
