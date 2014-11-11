@@ -51,6 +51,7 @@ public final class ChecklistActivity extends Activity {
      */
     private Cursor mItemsCursor;
     private BaseAdapter itemListAdapter;
+    static final String actionTag = "actionTag";
 
     /** Called when the activity is first created. */
     @Override
@@ -97,7 +98,7 @@ public final class ChecklistActivity extends Activity {
         case R.id.menu_new_item:
             final Intent createItemIntent = new Intent(this,
                     ItemDescriptionEntryActivity.class);
-            createItemIntent.putExtra("action", NEW_ITEM_ACTION);
+            createItemIntent.putExtra(actionTag, NEW_ITEM_ACTION);
             startActivity(createItemIntent);
             return true;
 
@@ -150,7 +151,7 @@ public final class ChecklistActivity extends Activity {
         case R.id.context_menu_edit:
             final Intent editItemIntent = new Intent(this,
                     ItemDescriptionEntryActivity.class);
-            editItemIntent.putExtra("action", EDIT_ITEM_ACTION);
+            editItemIntent.putExtra(actionTag, EDIT_ITEM_ACTION);
             editItemIntent.putExtra("item_id", info.id);
             startActivity(editItemIntent);
             return true;

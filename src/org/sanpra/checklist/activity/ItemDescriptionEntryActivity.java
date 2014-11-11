@@ -51,7 +51,7 @@ public final class ItemDescriptionEntryActivity extends Activity {
 
         initializeDatabaseHelper();
 
-        final int actionType = getIntent().getIntExtra("action", -1);
+        final int actionType = getIntent().getIntExtra(ChecklistActivity.actionTag, -1);
 
         switch (actionType)
         {
