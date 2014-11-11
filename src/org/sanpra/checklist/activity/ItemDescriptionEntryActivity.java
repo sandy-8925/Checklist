@@ -26,7 +26,6 @@ import android.widget.Toast;
 import org.sanpra.checklist.R;
 import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 
-//TODO: Use activity/task launch attributes to create single instance of this activity
 public final class ItemDescriptionEntryActivity extends Activity {
 
     private ItemsDbHelper mDbHelper;
