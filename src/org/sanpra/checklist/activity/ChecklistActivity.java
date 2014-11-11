@@ -69,7 +69,7 @@ public final class ChecklistActivity extends Activity {
         private int CHECKLIST_ITEM_CHECKED_COLOR;
 
         ChecklistItemAdapter(final Context context, final Cursor checklistItemsCursor) {
-            super(context, R.layout.item_row, mItemsCursor,
+            super(context, R.layout.item_row, checklistItemsCursor,
                     from, to);
             final Resources appResources = context.getResources();
             CHECKLIST_ITEM_UNCHECKED_COLOR = appResources.getInteger(R.integer.white);
