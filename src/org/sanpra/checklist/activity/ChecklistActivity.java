@@ -29,6 +29,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import org.sanpra.checklist.R;
@@ -82,6 +83,8 @@ public final class ChecklistActivity extends Activity {
         });
 
         registerForContextMenu(itemsListView);
+
+        findViewById(R.id.new_item_add_button).setOnClickListener(new AddItemOnClickListener());
     }
 
     @Override
@@ -157,6 +160,19 @@ public final class ChecklistActivity extends Activity {
 
         default:
             return super.onContextItemSelected(menuItem);
+        }
+    }
+
+    private final class AddItemOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View clickedView) {
+            final EditText newItemEditTextBox = (EditText) findViewById(R.id.new_item_text);
+            final String itemText = newItemEditTextBox.getText().toString();
+            if (itemText.length() != 0) {
+                mDbHelper.addItem(itemText);
+                refreshChecklistDataAndView();
+                newItemEditTextBox.setText("");
+            }
         }
     }
 }
