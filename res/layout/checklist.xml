@@ -4,40 +4,35 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
-    <ListView
-        android:id="@+id/items_list"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
-        <requestFocus />
-    </ListView>
+    <Button
+        android:id="@+id/new_item_add_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:height="20sp"
+        android:text="+"
+        android:textSize="15sp"
+    />
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/new_item_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-    >
+        android:layout_toRightOf="@id/new_item_add_button"
+        android:height="20sp"
+        android:inputType="text|textAutoCorrect|textCapSentences"
+        android:singleLine="true"
+    />
 
-        <Button
-            android:id="@+id/new_item_add_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:height="20sp"
-            android:text="+"
-            android:textSize="15sp"
-        />
-
-        <EditText
-            android:id="@+id/new_item_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:height="20sp"
-            android:inputType="text|textAutoCorrect|textCapSentences"
-            android:singleLine="true"
-        />
-
-    </LinearLayout>
+    <ListView
+        android:id="@+id/items_list"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/new_item_add_button"
+        >
+        <requestFocus />
+    </ListView>
 
 </RelativeLayout>
