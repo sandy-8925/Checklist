@@ -36,7 +36,7 @@ public final class ItemDescriptionEntryActivity extends Activity {
     /**
      * USed only when checklist item is being edited. Holds the ID of the item being edited.
      */
-    private long itemId;
+    private long itemId = -1;
 
     //TODO: Try to break code into smaller independent methods
     @Override
@@ -46,7 +46,6 @@ public final class ItemDescriptionEntryActivity extends Activity {
         setContentView(R.layout.itemdescentry);
 
         itemDescText = (EditText) findViewById(R.id.itemdesctext);
-        itemId = -1;
 
         initializeDatabaseHelper();
 
