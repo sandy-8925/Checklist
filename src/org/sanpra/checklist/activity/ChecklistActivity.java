@@ -46,7 +46,6 @@ public final class ChecklistActivity extends Activity {
      * These constants are used to specify whether the ItemDescriptionEntryActivity is being opened
      * to add a new list item or edit an existing list item
      */
-    static final int NEW_ITEM_ACTION = 5;
     static final int EDIT_ITEM_ACTION = 6;
 
     private ItemsDbHelper mDbHelper;
@@ -101,13 +100,6 @@ public final class ChecklistActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.menu_new_item:
-            final Intent createItemIntent = new Intent(this,
-                    ItemDescriptionEntryActivity.class);
-            createItemIntent.putExtra(actionTag, NEW_ITEM_ACTION);
-            startActivity(createItemIntent);
-            return true;
-
         case R.id.menu_delcheckeditems:
             mDbHelper.deleteCheckedItems();
             refreshChecklistDataAndView();

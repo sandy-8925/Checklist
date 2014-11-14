@@ -55,10 +55,6 @@ public final class ItemDescriptionEntryActivity extends Activity {
 
         switch (actionType)
         {
-        case ChecklistActivity.NEW_ITEM_ACTION:
-            okButton.setOnClickListener(new AddItemOnClickListener());
-            break;
-
         case ChecklistActivity.EDIT_ITEM_ACTION:
             fetchChecklistItemDescriptionFromDatabase();
             okButton.setOnClickListener(new EditItemOnClickListener());
@@ -69,19 +65,6 @@ public final class ItemDescriptionEntryActivity extends Activity {
                     "Error. Unable to get action type.", Toast.LENGTH_SHORT)
                     .show();
             setResult(RESULT_OK);
-            finish();
-        }
-    }
-
-    private final class AddItemOnClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View clickedView) {
-            final String itemText = itemDescText.getText().toString();
-            final int resultCode = RESULT_OK;
-            if (itemText.length() != 0) {
-                mDbHelper.addItem(itemText);
-            }
-            setResult(resultCode);
             finish();
         }
     }
