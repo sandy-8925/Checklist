@@ -36,6 +36,9 @@ import android.widget.Toast;
 import org.sanpra.checklist.R;
 import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 
+/**
+ * Main activity, that is displayed when the app is launched. Displays the list of ToDo items.
+ */
 public final class ChecklistActivity extends Activity {
 
     //TODO: See if enum can be used instead of int for specifying action to ItemDescriptionEntryActivity
