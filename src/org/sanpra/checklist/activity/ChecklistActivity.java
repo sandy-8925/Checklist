@@ -129,6 +129,9 @@ public final class ChecklistActivity extends Activity {
     }
 
     // TODO: Use CursorLoader (introduced in Android 3.0) so that data is automatically refreshed
+    /**
+     * Notifies different components that list data has changed, so that the new data can be displayed to the user
+     */
     private void refreshChecklistDataAndView() {
         mItemsCursor.requery();
         itemListAdapter.notifyDataSetChanged();
