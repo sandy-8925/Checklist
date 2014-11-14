@@ -31,6 +31,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.sanpra.checklist.R;
 import org.sanpra.checklist.dbhelper.ItemsDbHelper;
@@ -167,6 +168,10 @@ public final class ChecklistActivity extends Activity {
         @Override
         public void onClick(View clickedView) {
             final EditText newItemEditTextBox = (EditText) findViewById(R.id.new_item_text);
+            if(newItemEditTextBox == null) {
+                Toast.makeText(clickedView.getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
+                return;
+            }
             final String itemText = newItemEditTextBox.getText().toString();
             if (itemText.length() != 0) {
                 mDbHelper.addItem(itemText);
