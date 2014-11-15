@@ -165,7 +165,7 @@ public final class ChecklistActivity extends Activity {
     private final class AddItemOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View clickedView) {
-            final EditText newItemEditTextBox = (EditText) findViewById(R.id.new_item_text);
+            final EditText newItemEditTextBox = (EditText) clickedView.getRootView().findViewById(R.id.new_item_text);
             if(newItemEditTextBox == null) {
                 Toast.makeText(clickedView.getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
                 return;
