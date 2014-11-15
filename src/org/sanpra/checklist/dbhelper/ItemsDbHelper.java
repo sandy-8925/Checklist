@@ -23,6 +23,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/*
+ TODO: Create interfaces that encapsulate sets of operations like adding, editing and removing items.
+ These can be used to refer to ItemsDbHelper instance in code, while only allowing access to specific operations.
+ It also eases creation of mock classes and testing.
+*/
 /**
  * Database helper class, used for manipulating database storing checklist information.
  * The constructor is private. Instead, use the method getInstance() to get a reference to an
