@@ -53,10 +53,6 @@ public final class ChecklistActivity extends FragmentActivity implements LoaderM
     private static final int CHECKLIST_ITEMS_CURSOR_LOADER_ID = 1;
 
     private ItemsDbHelper mDbHelper;
-    /**
-     * Cursor holding query results for all items in the list
-     */
-    private Cursor mItemsCursor;
     private CursorAdapter itemListAdapter;
     static final String actionTag = "actionTag";
 
@@ -69,15 +65,13 @@ public final class ChecklistActivity extends FragmentActivity implements LoaderM
         // create database helper object and fetch all checklist items from
         // database
         mDbHelper = ItemsDbHelper.getInstance(this);
-        mItemsCursor = mDbHelper.fetchAllItems();
 
-        // manage cursor ; create cursor adapter and use it
-        startManagingCursor(mItemsCursor);
         /*
          * use requery to refresh cursor data in other methods
          * use notifyDataSetChanged() to refresh view/adapter
          */
-        itemListAdapter = new ChecklistItemAdapter(this, mItemsCursor);
+        itemListAdapter = new ChecklistItemAdapter(this, null);
+        getSupportLoaderManager().initLoader(CHECKLIST_ITEMS_CURSOR_LOADER_ID, null, this);
         final ListView itemsListView = (ListView) findViewById(R.id.items_list);
         itemsListView.setAdapter(itemListAdapter);
         itemsListView.setOnItemClickListener(new ListView.OnItemClickListener() {
@@ -92,6 +86,12 @@ public final class ChecklistActivity extends FragmentActivity implements LoaderM
         registerForContextMenu(itemsListView);
 
         findViewById(R.id.new_item_add_button).setOnClickListener(new AddItemOnClickListener());
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        refreshChecklistDataAndView();
     }
 
     @Override
@@ -127,12 +127,11 @@ public final class ChecklistActivity extends FragmentActivity implements LoaderM
         return super.onOptionsItemSelected(item);
     }
 
-    // TODO: Use CursorLoader (introduced in Android 3.0) so that data is automatically refreshed
     /**
      * Notifies different components that list data has changed, so that the new data can be displayed to the user
      */
     private void refreshChecklistDataAndView() {
-        mItemsCursor.requery();
+        getSupportLoaderManager().restartLoader(CHECKLIST_ITEMS_CURSOR_LOADER_ID, null, this);
     }
 
     @Override
