@@ -129,7 +129,6 @@ public final class ChecklistActivity extends Activity {
      */
     private void refreshChecklistDataAndView() {
         mItemsCursor.requery();
-        itemListAdapter.notifyDataSetChanged();
     }
 
     @Override
