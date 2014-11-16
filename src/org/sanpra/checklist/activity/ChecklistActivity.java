@@ -47,6 +47,7 @@ public final class ChecklistActivity extends FragmentActivity {
      * to add a new list item or edit an existing list item
      */
     static final int EDIT_ITEM_ACTION = 6;
+    private static final int CHECKLIST_ITEMS_CURSOR_LOADER_ID = 1;
 
     private ItemsDbHelper mDbHelper;
     /**
