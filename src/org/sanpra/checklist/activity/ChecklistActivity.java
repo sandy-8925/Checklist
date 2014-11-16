@@ -21,6 +21,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -34,12 +36,13 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import org.sanpra.checklist.R;
+import org.sanpra.checklist.dbhelper.ChecklistItemsCursorLoader;
 import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 
 /**
  * Main activity, that is displayed when the app is launched. Displays the list of ToDo items.
  */
-public final class ChecklistActivity extends FragmentActivity {
+public final class ChecklistActivity extends FragmentActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     //TODO: See if enum can be used instead of int for specifying action to ItemDescriptionEntryActivity
     /**
@@ -160,6 +163,28 @@ public final class ChecklistActivity extends FragmentActivity {
         default:
             return super.onContextItemSelected(menuItem);
         }
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int cursorId, Bundle bundle) {
+        switch(cursorId) {
+            case CHECKLIST_ITEMS_CURSOR_LOADER_ID:
+                return new ChecklistItemsCursorLoader(this);
+
+            default:
+                break;
+        }
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+        itemListAdapter.swapCursor(cursor);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> cursorLoader) {
+        itemListAdapter.swapCursor(null);
     }
 
     private final class AddItemOnClickListener implements View.OnClickListener {
