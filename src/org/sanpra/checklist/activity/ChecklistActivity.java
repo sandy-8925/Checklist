@@ -17,10 +17,10 @@
 
 package org.sanpra.checklist.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -39,7 +39,7 @@ import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 /**
  * Main activity, that is displayed when the app is launched. Displays the list of ToDo items.
  */
-public final class ChecklistActivity extends Activity {
+public final class ChecklistActivity extends FragmentActivity {
 
     //TODO: See if enum can be used instead of int for specifying action to ItemDescriptionEntryActivity
     /**
