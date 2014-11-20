@@ -1,11 +1,8 @@
-- change some ItemsDbHelper class functions to static functions. simplifies and centralizes usign the database and should prevent simultaneous access conflicts.
 - add help option to explain how to use app
 - order. alphabetical, date(requires change in database), keep unchecked at top
 - option to select text colour for checked and unchecked items
 - create proper symbols/icons for menu options
 - adapt to different screen sizes
-- When item is being created/edited, have keyboard appear automatically
-- Allow for quicker item creation process - have + button and text field at bottom
 - Add animations (fancy!)
 - Design for Activity lifecycle
-- Easier item deletion
+- Easier item deletion (fling gesture?)
