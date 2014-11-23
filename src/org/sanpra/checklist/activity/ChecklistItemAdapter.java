@@ -34,9 +34,18 @@ final class ChecklistItemAdapter extends SimpleCursorAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         final View item = super.getView(position, convertView, parent);
 
-        final TextView itemText = (TextView) item.findViewById(R.id.itemtext);
-        final long itemRowId = getItemId(position);
+        TextView itemText;
+        if(item.getTag() != null) {
+            itemText = ((ViewHolder) item.getTag()).itemTextView;
+        }
+        else {
+            itemText = (TextView) item.findViewById(R.id.itemtext);
+            final ViewHolder viewHolder = new ViewHolder();
+            viewHolder.itemTextView = itemText;
+            item.setTag(viewHolder);
+        }
 
+        final long itemRowId = getItemId(position);
         final int itemColor = mDbHelper.isItemChecked(itemRowId) ?
                 CHECKLIST_ITEM_CHECKED_COLOR : CHECKLIST_ITEM_UNCHECKED_COLOR ;
         itemText.setTextColor(itemColor);
@@ -44,4 +53,10 @@ final class ChecklistItemAdapter extends SimpleCursorAdapter {
         return item;
     }
 
+    /**
+     * Used to hold a reference to the TextView containing the text in a row
+     */
+    private static final class ViewHolder {
+        TextView itemTextView;
+    }
 }
