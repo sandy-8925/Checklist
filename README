@@ -1,9 +1,19 @@
 Checklist for Android
 ---------------------
 
-- Basic checklist app for Android. Unchecked items are white, checked items are grey.
+DESCRIPTION
+-----------
+Basic checklist app for Android
+
+USAGE
+-----
+- Unchecked items are white, checked items are grey.
 
 - Tap an item to toggle between checked and unchecked state. Press menu button to get a menu for options like adding new items,deleting all checked items etc.
+
+DEVELOPMENT
+-----------
+Requires Android Support Library v4 and cwac-loaderex peroject (https://github.com/commonsguy/cwac-loaderex)
 
 Database description
 --------------------
