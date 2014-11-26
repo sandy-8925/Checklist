@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="org.sanpra.checklist.test"
+          android:versionCode="1"
+          android:versionName="1.0">
+    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="19" />
+    <application>
+        <uses-library android:name="android.test.runner" />
+    </application>
+    <!--
+    This declares that this application uses the instrumentation test runner targeting
+    the package of org.sanpra.checklist.  To run the tests use the command:
+    "adb shell am instrument -w org.sanpra.checklist.tests/android.test.InstrumentationTestRunner"
+    -->
+    <instrumentation android:name="android.test.InstrumentationTestRunner"
+                     android:targetPackage="org.sanpra.checklist"
+                     android:label="Tests for Checklist project"/>
+</manifest>
