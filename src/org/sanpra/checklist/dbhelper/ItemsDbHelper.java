@@ -244,7 +244,7 @@ public final class ItemsDbHelper
      * @param id Checklist item ID
      * @return "_id=$id"  where $id means the value of parameter id
      */
-    private static String buildIdSelectString(final long id) {
+    static String buildIdSelectString(final long id) {
         final StringBuffer selectStringBuffer = new StringBuffer();
         selectStringBuffer.append(COL_ID).append("=").append(id);
         return selectStringBuffer.toString();
