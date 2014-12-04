@@ -13,4 +13,5 @@
     <string name="contextmenu_editstring">Edit</string>
     <color name="donecolor">#3399CC</color>
     <string name="ok">OK</string>
+    <string name="list_empty_message">No items present</string>
 </resources>
