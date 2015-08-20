@@ -128,6 +128,7 @@ public final class ItemsDbHelper
 		final Cursor item = mDatabase.query(TABLE_NAME, new String[] {COL_STATUS}, buildIdSelectString(id), null, null, null, null);
 		item.moveToFirst();
 		final int currentStatus = item.getInt(item.getColumnIndex(COL_STATUS));
+		item.close();
 		final int newStatus = 1 - currentStatus;
 		final ContentValues values = new ContentValues();
 		values.put(COL_STATUS, newStatus);
@@ -139,6 +140,7 @@ public final class ItemsDbHelper
 		final Cursor item = mDatabase.query(TABLE_NAME, new String[] {COL_STATUS}, buildIdSelectString(id), null, null, null, null);
 		item.moveToFirst();
 		final int status = item.getInt(item.getColumnIndex(COL_STATUS));
+		item.close();
 		return status;
 	}
 
@@ -204,6 +206,8 @@ public final class ItemsDbHelper
 			values.put(COL_STATUS, newStatus);
 			mDatabase.update(TABLE_NAME, values, buildIdSelectString(id), null);
 		} while(items.moveToNext());
+
+		items.close();
 	}
 
     /**
@@ -224,7 +228,9 @@ public final class ItemsDbHelper
 	{
 		final Cursor itemDescQuery = mDatabase.query(TABLE_NAME, new String[] {COL_DESC}, buildIdSelectString(id), null, null, null, null);
 		itemDescQuery.moveToFirst();
-		return itemDescQuery.getString(itemDescQuery.getColumnIndex(COL_DESC));
+		final String itemDesc = itemDescQuery.getString(itemDescQuery.getColumnIndex(COL_DESC));
+		itemDescQuery.close();
+		return itemDesc;
 	}
 
     /**
