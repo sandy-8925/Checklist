@@ -23,6 +23,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.Locale;
+
 /*
  TODO: Create interfaces that encapsulate sets of operations like adding, editing and removing items.
  These can be used to refer to ItemsDbHelper instance in code, while only allowing access to specific operations.
@@ -251,8 +253,6 @@ public final class ItemsDbHelper
      * @return "_id=$id"  where $id means the value of parameter id
      */
     static String buildIdSelectString(final long id) {
-        final StringBuffer selectStringBuffer = new StringBuffer();
-        selectStringBuffer.append(COL_ID).append("=").append(id);
-        return selectStringBuffer.toString();
+        return String.format(Locale.US, "%s=%d", COL_ID, id);
     }
 }
