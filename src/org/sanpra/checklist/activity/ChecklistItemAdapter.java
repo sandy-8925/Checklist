@@ -25,8 +25,8 @@ final class ChecklistItemAdapter extends SimpleCursorAdapter {
         super(context, R.layout.item_row, checklistItemsCursor,
                 from, to);
         final Resources appResources = context.getResources();
-        CHECKLIST_ITEM_UNCHECKED_COLOR = appResources.getInteger(R.integer.white);
-        CHECKLIST_ITEM_CHECKED_COLOR = appResources.getInteger(R.integer.grey);
+        CHECKLIST_ITEM_UNCHECKED_COLOR = appResources.getColor(R.color.white);
+        CHECKLIST_ITEM_CHECKED_COLOR = appResources.getColor(R.color.grey);
         mDbHelper = ItemsDbHelper.getInstance(context);
     }
 
