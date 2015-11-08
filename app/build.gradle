@@ -1,0 +1,32 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        applicationId "org.sanpra.checklist"
+        minSdkVersion 8
+        targetSdkVersion 22
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_7
+            targetCompatibility JavaVersion.VERSION_1_7
+        }
+
+        testApplicationId "org.sanpra.checklist.test"
+        testInstrumentationRunner "android.test.InstrumentationTestRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+
+        debug {
+            minifyEnabled false
+            shrinkResources false
+        }
+    }
+}

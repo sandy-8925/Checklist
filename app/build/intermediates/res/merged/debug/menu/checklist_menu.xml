@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item
+    android:id="@+id/menu_delcheckeditems"
+    android:title="@string/menu_delcheckitems"
+    android:icon="@android:drawable/btn_minus"
+/>
+<item
+	android:id="@+id/menu_checkall"
+	android:title="@string/menu_checkallstring" 
+	android:icon="@android:drawable/btn_plus"   
+/>
+<item
+    android:id="@+id/menu_uncheckall"
+    android:title="@string/menu_uncheckallstring"
+    android:icon="@android:drawable/btn_plus"
+/>
+<item
+    android:id="@+id/menu_reverseall"
+    android:title="@string/menu_reverseallstring"
+    android:icon="@android:drawable/btn_plus"
+/>
+</menu>
+<!-- From: file:/home/sandeep/Programming/android/Checklist/app/src/main/res/menu/checklist_menu.xml -->
