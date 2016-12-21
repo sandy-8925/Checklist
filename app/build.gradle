@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 22
-    buildToolsVersion "23.0.2"
+    buildToolsVersion '25.0.1'
 
     defaultConfig {
         applicationId "org.sanpra.checklist"
@@ -21,12 +21,14 @@ android {
         release {
             minifyEnabled true
             shrinkResources true
+            useProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
 
         debug {
             minifyEnabled false
             shrinkResources false
+            useProguard false
         }
     }
 }
