@@ -42,7 +42,7 @@ import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 /**
  * Main activity, that is displayed when the app is launched. Displays the list of ToDo items.
  */
-public final class ChecklistActivity extends FragmentActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public final class ChecklistActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     //TODO: See if enum can be used instead of int for specifying action to ItemDescriptionEntryActivity
     /**

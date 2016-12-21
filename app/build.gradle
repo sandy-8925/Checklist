@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion '25.0.1'
+    compileSdkVersion 25
+    buildToolsVersion '25.0.2'
 
     defaultConfig {
         applicationId "org.sanpra.checklist"
-        minSdkVersion 8
-        targetSdkVersion 22
+        minSdkVersion 9
+        targetSdkVersion 25
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_7
             targetCompatibility JavaVersion.VERSION_1_7
@@ -30,5 +30,17 @@ android {
             shrinkResources false
             useProguard false
         }
+    }
+
+    ext {
+        supportLibVersion = "25.1.0"
+    }
+
+    dependencies {
+        compile "com.android.support:appcompat-v7:${supportLibVersion}"
+        compile "com.android.support:support-compat:${supportLibVersion}"
+        compile "com.android.support:support-core-ui:${supportLibVersion}"
+        compile "com.android.support:support-fragment:${supportLibVersion}"
+
     }
 }
