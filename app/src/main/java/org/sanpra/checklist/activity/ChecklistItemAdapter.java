@@ -40,7 +40,7 @@ final class ChecklistItemAdapter extends SimpleCursorAdapter {
 
     ChecklistItemAdapter(final Context context, final Cursor checklistItemsCursor) {
         super(context, R.layout.item_row, checklistItemsCursor,
-                from, to);
+                from, to, 0);
         final Resources appResources = context.getResources();
         CHECKLIST_ITEM_UNCHECKED_COLOR = appResources.getColor(R.color.white);
         CHECKLIST_ITEM_CHECKED_COLOR = appResources.getColor(R.color.grey);
