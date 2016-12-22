@@ -25,6 +25,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
+import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -56,6 +57,7 @@ public final class ChecklistActivity extends FragmentActivity implements LoaderM
     private ItemsDbHelper mDbHelper;
     private CursorAdapter itemListAdapter;
     static final String actionTag = "actionTag";
+    private EditText newItemEditTextBox;
 
     /** Called when the activity is first created. */
     @Override
@@ -66,6 +68,8 @@ public final class ChecklistActivity extends FragmentActivity implements LoaderM
         // create database helper object and fetch all checklist items from
         // database
         mDbHelper = ItemsDbHelper.getInstance(this);
+
+        newItemEditTextBox = (EditText) findViewById(R.id.new_item_text);
 
         /*
          * use requery to refresh cursor data in other methods
@@ -189,13 +193,8 @@ public final class ChecklistActivity extends FragmentActivity implements LoaderM
     private final class AddItemOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View clickedView) {
-            final EditText newItemEditTextBox = (EditText) clickedView.getRootView().findViewById(R.id.new_item_text);
-            if(newItemEditTextBox == null) {
-                Toast.makeText(clickedView.getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
-                return;
-            }
             final String itemText = newItemEditTextBox.getText().toString();
-            if (itemText.length() != 0) {
+            if (!TextUtils.isEmpty(itemText)) {
                 mDbHelper.addItem(itemText);
                 refreshChecklistDataAndView();
                 newItemEditTextBox.setText("");
