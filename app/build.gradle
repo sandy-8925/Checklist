@@ -16,7 +16,6 @@ android {
         testApplicationId "org.sanpra.checklist.test"
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
     }
-
     buildTypes {
         release {
             minifyEnabled true
