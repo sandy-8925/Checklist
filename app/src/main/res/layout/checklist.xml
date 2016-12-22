@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
@@ -12,7 +13,7 @@
         android:height="20sp"
         android:text="+"
         android:textSize="15sp"
-    />
+        tools:ignore="HardcodedText" />
 
     <EditText
         android:id="@+id/new_item_text"
@@ -20,10 +21,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@id/new_item_add_button"
+        android:layout_toEndOf="@id/new_item_add_button"
         android:height="20sp"
         android:inputType="text|textAutoCorrect|textCapSentences"
-        android:singleLine="true"
-    />
+        android:maxLines="1" />
 
     <ListView
         android:id="@+id/items_list"
