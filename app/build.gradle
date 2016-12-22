@@ -11,6 +11,7 @@ android {
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_7
             targetCompatibility JavaVersion.VERSION_1_7
+            incremental true
         }
 
         testApplicationId "org.sanpra.checklist.test"
@@ -29,6 +30,11 @@ android {
             shrinkResources false
             useProguard false
         }
+    }
+
+    dexOptions {
+        preDexLibraries true
+        dexInProcess true
     }
 
     ext {
