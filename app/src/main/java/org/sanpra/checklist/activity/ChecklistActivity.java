@@ -135,7 +135,7 @@ public final class ChecklistActivity extends FragmentActivity implements LoaderM
      * Notifies different components that list data has changed, so that the new data can be displayed to the user
      */
     private void refreshChecklistDataAndView() {
-        getSupportLoaderManager().restartLoader(CHECKLIST_ITEMS_CURSOR_LOADER_ID, null, this);
+        getSupportLoaderManager().initLoader(CHECKLIST_ITEMS_CURSOR_LOADER_ID, null, this).forceLoad();
     }
 
     @Override
