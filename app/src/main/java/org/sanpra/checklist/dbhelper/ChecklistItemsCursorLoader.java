@@ -19,6 +19,7 @@ package org.sanpra.checklist.dbhelper;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.support.v4.content.AsyncTaskLoader;
 
 public final class ChecklistItemsCursorLoader extends AsyncTaskLoader<Cursor> {
 
