@@ -34,4 +34,10 @@ public final class ChecklistItemsCursorLoader extends AsyncTaskLoader<Cursor> {
     public Cursor loadInBackground() {
         return ItemsDbHelper.getInstance(mContext).fetchAllItems();
     }
+
+    @Override
+    protected void onStartLoading() {
+        super.onStartLoading();
+        forceLoad();
+    }
 }
