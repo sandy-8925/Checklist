@@ -1,10 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?> 
+<?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:id="@+id/itemtext"
-	android:layout_width="fill_parent"
+	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:minHeight="20dp"
-	android:textSize="20sp"
-	android:textColor="#FFFFFF"
-    android:padding="5dp"
-/>
+	android:textSize="@dimen/checklist_item_textsize"
+	android:textColor="@android:color/primary_text_dark"
+	android:background="@android:color/background_dark"
+	android:padding="5dp"
+	tools:text="Checklist item" />
