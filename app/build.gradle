@@ -37,10 +37,9 @@ android {
     }
 
     dependencies {
-        compile "com.android.support:appcompat-v7:${supportLibVersion}"
         compile "com.android.support:support-compat:${supportLibVersion}"
         compile "com.android.support:support-core-ui:${supportLibVersion}"
         compile "com.android.support:support-fragment:${supportLibVersion}"
-
+        compile "com.android.support:support-core-utils:${supportLibVersion}"
     }
 }

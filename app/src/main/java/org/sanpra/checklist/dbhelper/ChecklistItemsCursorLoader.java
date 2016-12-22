@@ -20,9 +20,7 @@ package org.sanpra.checklist.dbhelper;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.commonsware.cwac.loaderex.acl.AbstractCursorLoader;
-
-public final class ChecklistItemsCursorLoader extends AbstractCursorLoader {
+public final class ChecklistItemsCursorLoader extends AsyncTaskLoader<Cursor> {
 
     private final Context mContext;
 
@@ -32,7 +30,7 @@ public final class ChecklistItemsCursorLoader extends AbstractCursorLoader {
     }
 
     @Override
-    protected Cursor buildCursor() {
+    public Cursor loadInBackground() {
         return ItemsDbHelper.getInstance(mContext).fetchAllItems();
     }
 }

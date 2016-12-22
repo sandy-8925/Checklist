@@ -17,12 +17,10 @@
 
 package org.sanpra.checklist.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -30,7 +28,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.support.v4.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -42,7 +39,7 @@ import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 /**
  * Main activity, that is displayed when the app is launched. Displays the list of ToDo items.
  */
-public final class ChecklistActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public final class ChecklistActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     //TODO: See if enum can be used instead of int for specifying action to ItemDescriptionEntryActivity
     /**
