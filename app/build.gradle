@@ -46,5 +46,6 @@ android {
         compile "com.android.support:support-core-ui:${supportLibVersion}"
         compile "com.android.support:support-fragment:${supportLibVersion}"
         compile "com.android.support:support-core-utils:${supportLibVersion}"
+        compile "com.android.support:recyclerview-v7:${supportLibVersion}"
     }
 }
