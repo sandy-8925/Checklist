@@ -20,6 +20,7 @@ package org.sanpra.checklist.activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.SimpleCursorAdapter;
@@ -51,21 +52,19 @@ final class ChecklistItemAdapter extends SimpleCursorAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         final View item = super.getView(position, convertView, parent);
 
-        TextView itemText;
+        ViewHolder viewHolder;
         if(item.getTag() != null) {
-            itemText = ((ViewHolder) item.getTag()).itemTextView;
+            viewHolder = (ViewHolder) item.getTag();
         }
         else {
-            itemText = (TextView) item.findViewById(R.id.itemtext);
-            final ViewHolder viewHolder = new ViewHolder();
-            viewHolder.itemTextView = itemText;
+            viewHolder = new ViewHolder(item);
             item.setTag(viewHolder);
         }
 
         final long itemRowId = getItemId(position);
         final int itemColor = mDbHelper.isItemChecked(itemRowId) ?
                 CHECKLIST_ITEM_CHECKED_COLOR : CHECKLIST_ITEM_UNCHECKED_COLOR ;
-        itemText.setTextColor(itemColor);
+        viewHolder.itemTextView.setTextColor(itemColor);
 
         return item;
     }
@@ -73,7 +72,12 @@ final class ChecklistItemAdapter extends SimpleCursorAdapter {
     /**
      * Used to hold a reference to the TextView containing the text in a row
      */
-    private static final class ViewHolder {
+    static final class ViewHolder extends RecyclerView.ViewHolder {
         TextView itemTextView;
+
+        ViewHolder(View itemView) {
+            super(itemView);
+            itemTextView = (TextView) itemView.findViewById(R.id.itemtext);
+        }
     }
 }

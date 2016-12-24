@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
     <Button
         android:id="@+id/new_item_add_button"
@@ -28,14 +29,16 @@
         android:inputType="text|textAutoCorrect|textCapSentences"
         android:maxLines="1" />
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/items_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_above="@id/new_item_add_button"
+        android:orientation="vertical"
+        android:scrollbars="vertical"
         >
         <requestFocus />
-    </ListView>
+    </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>

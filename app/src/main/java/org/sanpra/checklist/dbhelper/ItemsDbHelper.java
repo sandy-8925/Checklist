@@ -22,6 +22,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.NonNull;
 
 import java.util.Locale;
 
@@ -45,7 +46,7 @@ public final class ItemsDbHelper
      * Column name for checklist item text in the Sqlite DB table
      */
 	public static final String COL_DESC="desc";
-	private static final String COL_STATUS="checked";
+	public static final String COL_STATUS="checked";
 
 	private SQLiteDatabase mDatabase;
 	
@@ -255,4 +256,16 @@ public final class ItemsDbHelper
     static String buildIdSelectString(final long id) {
         return String.format(Locale.US, "%s=%d", COL_ID, id);
     }
+
+    public static String getItemDesc(@NonNull Cursor dbCursor) {
+		return dbCursor.getString(dbCursor.getColumnIndex(COL_DESC));
+	}
+
+	public static boolean isItemChecked(@NonNull Cursor cursor) {
+		return cursor.getInt(cursor.getColumnIndex(COL_STATUS)) != 0;
+	}
+
+	public static int getItemId(@NonNull Cursor dbCursor) {
+		return dbCursor.getInt(dbCursor.getColumnIndex(COL_ID));
+	}
 }

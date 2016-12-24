@@ -17,14 +17,14 @@
 
 package org.sanpra.checklist.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.support.v4.widget.CursorAdapter;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -35,7 +35,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.sanpra.checklist.R;
 import org.sanpra.checklist.dbhelper.ChecklistItemsCursorLoader;
@@ -55,7 +54,7 @@ public final class ChecklistActivity extends FragmentActivity implements LoaderM
     private static final int CHECKLIST_ITEMS_CURSOR_LOADER_ID = 1;
 
     private ItemsDbHelper mDbHelper;
-    private CursorAdapter itemListAdapter;
+    private ChecklistItemRecyclerAdapter itemListAdapter;
     static final String actionTag = "actionTag";
     private EditText newItemEditTextBox;
 
@@ -70,20 +69,16 @@ public final class ChecklistActivity extends FragmentActivity implements LoaderM
         mDbHelper = ItemsDbHelper.getInstance(this);
 
         newItemEditTextBox = (EditText) findViewById(R.id.new_item_text);
-
-        /*
-         * use requery to refresh cursor data in other methods
-         * use notifyDataSetChanged() to refresh view/adapter
-         */
-        itemListAdapter = new ChecklistItemAdapter(this, null);
         getSupportLoaderManager().initLoader(CHECKLIST_ITEMS_CURSOR_LOADER_ID, null, this);
-        final ListView itemsListView = (ListView) findViewById(R.id.items_list);
+        final RecyclerView itemsListView = (RecyclerView) findViewById(R.id.items_list);
+        itemsListView.setLayoutManager(new LinearLayoutManager(this));
+        itemListAdapter = new ChecklistItemRecyclerAdapter(this);
         itemsListView.setAdapter(itemListAdapter);
-        itemsListView.setOnItemClickListener(new ListView.OnItemClickListener() {
 
+        itemListAdapter.setOnItemClickListener(new ChecklistItemRecyclerAdapter.ItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mDbHelper.flipStatus(id);
+            void onClick(View view, long itemId) {
+                mDbHelper.flipStatus(itemId);
                 refreshChecklistDataAndView();
             }
         });
@@ -91,12 +86,6 @@ public final class ChecklistActivity extends FragmentActivity implements LoaderM
         registerForContextMenu(itemsListView);
 
         findViewById(R.id.new_item_add_button).setOnClickListener(new AddItemOnClickListener());
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        refreshChecklistDataAndView();
     }
 
     @Override
@@ -187,7 +176,6 @@ public final class ChecklistActivity extends FragmentActivity implements LoaderM
 
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
-        itemListAdapter.swapCursor(null);
     }
 
     private final class AddItemOnClickListener implements View.OnClickListener {
