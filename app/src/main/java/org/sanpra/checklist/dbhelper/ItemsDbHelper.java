@@ -38,7 +38,7 @@ import java.util.Locale;
  */
 public final class ItemsDbHelper
 {
-    private static ItemsDbHelper INSTANCE = null;
+    private static volatile ItemsDbHelper INSTANCE = null;
 
 	private static final String TABLE_NAME="items";
 	private static final String COL_ID="_id";
@@ -93,7 +93,7 @@ public final class ItemsDbHelper
      * @param context The android.content.Context object to be used for creating the database
      * @return A single application-wide instance of ItemsDbHelper
      */
-    public static ItemsDbHelper getInstance(final Context context) {
+    public synchronized static ItemsDbHelper getInstance(final Context context) {
         if(INSTANCE == null) {
             INSTANCE = new ItemsDbHelper(context);
             INSTANCE.open();
