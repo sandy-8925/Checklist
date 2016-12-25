@@ -1,6 +1,5 @@
 package org.sanpra.checklist.activity;
 
-import android.content.ClipData;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
@@ -9,12 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.TextView;
 
 import org.sanpra.checklist.R;
 import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 
-class ChecklistItemRecyclerAdapter extends RecyclerView.Adapter<ChecklistItemAdapter.ViewHolder> {
+class ChecklistItemRecyclerAdapter extends RecyclerView.Adapter<ChecklistItemRecyclerAdapter.ViewHolder> {
 
     private final int CHECKLIST_ITEM_CHECKED_COLOR;
     private final int CHECKLIST_ITEM_UNCHECKED_COLOR;
@@ -29,14 +28,14 @@ class ChecklistItemRecyclerAdapter extends RecyclerView.Adapter<ChecklistItemAda
     }
 
     @Override
-    public ChecklistItemAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.item_row, parent, false);
-        return new ChecklistItemAdapter.ViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ChecklistItemAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         cursor.moveToPosition(position);
         String itemDesc = ItemsDbHelper.getItemDesc(cursor);
         holder.itemTextView.setText(itemDesc);
@@ -85,5 +84,17 @@ class ChecklistItemRecyclerAdapter extends RecyclerView.Adapter<ChecklistItemAda
         }
 
         abstract void onClick(View view, long itemId);
+    }
+
+    /**
+     * Used to hold a reference to the TextView containing the text in a row
+     */
+    static final class ViewHolder extends RecyclerView.ViewHolder {
+        TextView itemTextView;
+
+        ViewHolder(View itemView) {
+            super(itemView);
+            itemTextView = (TextView) itemView.findViewById(R.id.itemtext);
+        }
     }
 }
