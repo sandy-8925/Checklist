@@ -46,7 +46,7 @@ public final class ItemsDbHelper
      * Column name for checklist item text in the Sqlite DB table
      */
 	public static final String COL_DESC="desc";
-	public static final String COL_STATUS="checked";
+	private static final String COL_STATUS="checked";
 
 	private SQLiteDatabase mDatabase;
 	
@@ -105,7 +105,7 @@ public final class ItemsDbHelper
      * Queries the database for all items in the checklist - fetches every row in the table
      * @return An android.database.Cursor object containing the results of the query
      */
-	public Cursor fetchAllItems()
+	Cursor fetchAllItems()
 	{
 		return mDatabase.query(TABLE_NAME, null, null, null, null, null, null);
 	}
