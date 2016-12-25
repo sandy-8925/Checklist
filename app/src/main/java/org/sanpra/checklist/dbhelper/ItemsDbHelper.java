@@ -79,7 +79,7 @@ public final class ItemsDbHelper
 	
 	private ItemsDbHelper(final Context context)
 	{
-        mDbHelper = new DbHelper(context);
+        mDbHelper = new DbHelper(context.getApplicationContext());
 	}
 
 	private void open()
