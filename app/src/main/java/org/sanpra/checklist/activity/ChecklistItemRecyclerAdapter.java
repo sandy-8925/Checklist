@@ -3,6 +3,7 @@ package org.sanpra.checklist.activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
+import android.support.annotation.UiThread;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ class ChecklistItemRecyclerAdapter extends RecyclerView.Adapter<ChecklistItemRec
     private Cursor cursor;
     private View.OnClickListener itemClickListener;
 
+    @UiThread
     ChecklistItemRecyclerAdapter(@NonNull Context context) {
         super();
         CHECKLIST_ITEM_CHECKED_COLOR = ContextCompat.getColor(context, R.color.grey);
@@ -65,11 +67,13 @@ class ChecklistItemRecyclerAdapter extends RecyclerView.Adapter<ChecklistItemRec
         return cursor.getCount();
     }
 
+    @UiThread
     void swapCursor(Cursor cursor) {
         this.cursor = cursor;
         notifyDataSetChanged();
     }
 
+    @UiThread
     void setOnItemClickListener(ItemClickListener onClickListener) {
         this.itemClickListener = onClickListener;
     }
