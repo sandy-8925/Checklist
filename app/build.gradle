@@ -39,6 +39,7 @@ android {
 
     ext {
         supportLibVersion = "25.4.0"
+        leakCanaryVersion = "1.5"
     }
 
     dependencies {
@@ -48,8 +49,8 @@ android {
         compile "com.android.support:support-core-utils:${supportLibVersion}"
         compile "com.android.support:recyclerview-v7:${supportLibVersion}"
 
-        debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
-        releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-        testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+        debugCompile "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}"
+        releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}"
+        testCompile "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}"
     }
 }
