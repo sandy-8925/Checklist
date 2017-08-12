@@ -2,3 +2,5 @@ app/build
 build/
 local.properties
 .idea/
+app/app.iml
+Checklist.iml
