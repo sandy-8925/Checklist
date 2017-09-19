@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <Button
@@ -16,6 +15,8 @@
         android:height="20sp"
         android:text="+"
         android:textSize="15sp"
+        android:textColor="@android:color/primary_text_dark"
+        android:background="@color/plus_button_background"
         tools:ignore="HardcodedText" />
 
     <EditText
@@ -25,9 +26,13 @@
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@id/new_item_add_button"
         android:layout_toEndOf="@id/new_item_add_button"
+        android:layout_alignTop="@id/new_item_add_button"
         android:height="20sp"
         android:inputType="text|textAutoCorrect|textCapSentences"
-        android:maxLines="1" />
+        android:maxLines="1"
+        android:textColor="@android:color/primary_text_dark"
+        android:background="@color/edittext_background"
+        />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/items_list"
@@ -37,6 +42,7 @@
         android:layout_above="@id/new_item_add_button"
         android:orientation="vertical"
         android:scrollbars="vertical"
+        android:background="@android:color/background_dark"
         >
         <requestFocus />
     </android.support.v7.widget.RecyclerView>
