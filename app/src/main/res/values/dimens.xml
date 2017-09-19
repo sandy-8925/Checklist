@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="checklist_item_textsize">20sp</dimen>
+    <dimen name="new_entry_input_padding">6dp</dimen>
 </resources>

@@ -32,6 +32,10 @@
         android:maxLines="1"
         android:textColor="@android:color/primary_text_dark"
         android:background="@color/edittext_background"
+        android:paddingLeft="@dimen/new_entry_input_padding"
+        android:paddingStart="@dimen/new_entry_input_padding"
+        android:paddingRight="@dimen/new_entry_input_padding"
+        android:paddingEnd="@dimen/new_entry_input_padding"
         />
 
     <android.support.v7.widget.RecyclerView
