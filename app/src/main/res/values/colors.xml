@@ -5,4 +5,5 @@
     <color name="dark_gray">#444444</color>
     <color name="edittext_background">#808080</color>
     <color name="darker_gray">#222222</color>
+    <color name="accent_color">#536dfe</color>
 </resources>
