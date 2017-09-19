@@ -72,6 +72,8 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
             return true;
         }
     };
+    private RecyclerView itemsListView;
+    private boolean shouldScrollToBottom;
 
     /** Called when the activity is first created. */
     @Override
@@ -90,7 +92,7 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
         newItemEditTextBox.setOnEditorActionListener(inputEntryTextDoneListener);
 
         getSupportLoaderManager().initLoader(CHECKLIST_ITEMS_CURSOR_LOADER_ID, null, this);
-        final RecyclerView itemsListView = (RecyclerView) findViewById(R.id.items_list);
+        itemsListView = (RecyclerView) findViewById(R.id.items_list);
         itemsListView.setLayoutManager(new LinearLayoutManager(this));
         itemListAdapter = new ChecklistItemRecyclerAdapter(this);
         itemsListView.setAdapter(itemListAdapter);
@@ -143,6 +145,7 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
     /**
      * Notifies different components that list data has changed, so that the new data can be displayed to the user
      */
+    @UiThread
     private void refreshChecklistDataAndView() {
         getSupportLoaderManager().initLoader(CHECKLIST_ITEMS_CURSOR_LOADER_ID, null, this).forceLoad();
     }
@@ -192,6 +195,10 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
         itemListAdapter.swapCursor(cursor);
+        if(shouldScrollToBottom) {
+            shouldScrollToBottom = false;
+            itemsListView.smoothScrollToPosition(itemListAdapter.getItemCount());
+        }
     }
 
     @Override
@@ -211,6 +218,7 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
         if (!TextUtils.isEmpty(itemText)) {
             mDbHelper.addItem(itemText);
             refreshChecklistDataAndView();
+            shouldScrollToBottom = true;
             newItemEditTextBox.setText("");
         }
     }
