@@ -50,6 +50,7 @@ android {
         compile "com.android.support:support-fragment:${supportLibVersion}"
         compile "com.android.support:support-core-utils:${supportLibVersion}"
         compile "com.android.support:recyclerview-v7:${supportLibVersion}"
+        compile "com.android.support:appcompat-v7:${supportLibVersion}"
 
         debugCompile "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}"
         releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}"
