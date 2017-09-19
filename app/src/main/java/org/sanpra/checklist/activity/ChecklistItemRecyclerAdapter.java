@@ -68,13 +68,13 @@ class ChecklistItemRecyclerAdapter extends RecyclerView.Adapter<ChecklistItemRec
     }
 
     @UiThread
-    void swapCursor(Cursor cursor) {
+    void swapCursor(@NonNull Cursor cursor) {
         this.cursor = cursor;
         notifyDataSetChanged();
     }
 
     @UiThread
-    void setOnItemClickListener(ItemClickListener onClickListener) {
+    void setOnItemClickListener(@NonNull ItemClickListener onClickListener) {
         this.itemClickListener = onClickListener;
     }
 
@@ -96,7 +96,7 @@ class ChecklistItemRecyclerAdapter extends RecyclerView.Adapter<ChecklistItemRec
     static final class ViewHolder extends RecyclerView.ViewHolder {
         TextView itemTextView;
 
-        ViewHolder(View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             itemTextView = (TextView) itemView.findViewById(R.id.itemtext);
         }
