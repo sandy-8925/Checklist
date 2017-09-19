@@ -19,20 +19,18 @@ package org.sanpra.checklist.dbhelper;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.support.annotation.NonNull;
 import android.support.v4.content.AsyncTaskLoader;
 
 public final class ChecklistItemsCursorLoader extends AsyncTaskLoader<Cursor> {
 
-    private final Context mContext;
-
-    public ChecklistItemsCursorLoader(final Context context) {
+    public ChecklistItemsCursorLoader(@NonNull final Context context) {
         super(context);
-        mContext = context;
     }
 
     @Override
     public Cursor loadInBackground() {
-        return ItemsDbHelper.getInstance(mContext).fetchAllItems();
+        return ItemsDbHelper.getInstance(getContext()).fetchAllItems();
     }
 
     @Override

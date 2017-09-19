@@ -184,7 +184,7 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
     public Loader<Cursor> onCreateLoader(int cursorId, Bundle bundle) {
         switch(cursorId) {
             case CHECKLIST_ITEMS_CURSOR_LOADER_ID:
-                return new ChecklistItemsCursorLoader(this);
+                return new ChecklistItemsCursorLoader(getApplicationContext());
 
             default:
                 break;
