@@ -20,6 +20,7 @@ package org.sanpra.checklist.activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.UiThread;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -30,13 +31,16 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.sanpra.checklist.R;
 import org.sanpra.checklist.dbhelper.ChecklistItemsCursorLoader;
@@ -59,6 +63,15 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
     private ChecklistItemRecyclerAdapter itemListAdapter;
     static final String actionTag = "actionTag";
     private EditText newItemEditTextBox;
+    private final TextView.OnEditorActionListener inputEntryTextDoneListener = new TextView.OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            if(actionId == EditorInfo.IME_ACTION_DONE) {
+                addNewItem();
+            }
+            return true;
+        }
+    };
 
     /** Called when the activity is first created. */
     @Override
@@ -74,6 +87,8 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
         mDbHelper = ItemsDbHelper.getInstance(this);
 
         newItemEditTextBox = (EditText) findViewById(R.id.new_item_text);
+        newItemEditTextBox.setOnEditorActionListener(inputEntryTextDoneListener);
+
         getSupportLoaderManager().initLoader(CHECKLIST_ITEMS_CURSOR_LOADER_ID, null, this);
         final RecyclerView itemsListView = (RecyclerView) findViewById(R.id.items_list);
         itemsListView.setLayoutManager(new LinearLayoutManager(this));
@@ -186,12 +201,17 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
     private final class AddItemOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View clickedView) {
-            final String itemText = newItemEditTextBox.getText().toString();
-            if (!TextUtils.isEmpty(itemText)) {
-                mDbHelper.addItem(itemText);
-                refreshChecklistDataAndView();
-                newItemEditTextBox.setText("");
-            }
+            addNewItem();
+        }
+    }
+
+    @UiThread
+    private void addNewItem() {
+        final String itemText = newItemEditTextBox.getText().toString();
+        if (!TextUtils.isEmpty(itemText)) {
+            mDbHelper.addItem(itemText);
+            refreshChecklistDataAndView();
+            newItemEditTextBox.setText("");
         }
     }
 }

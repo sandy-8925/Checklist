@@ -47,6 +47,7 @@
         android:paddingStart="@dimen/new_entry_input_padding"
         android:paddingRight="@dimen/new_entry_input_padding"
         android:paddingEnd="@dimen/new_entry_input_padding"
+        android:imeOptions="actionDone"
         />
 
     <android.support.v7.widget.RecyclerView
