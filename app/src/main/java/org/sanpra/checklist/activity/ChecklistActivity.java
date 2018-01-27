@@ -85,7 +85,7 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
 
         getSupportLoaderManager().initLoader(CHECKLIST_ITEMS_CURSOR_LOADER_ID, null, this);
         binding.itemsList.setLayoutManager(new LinearLayoutManager(this));
-        itemListAdapter = new ChecklistItemRecyclerAdapter(this);
+        itemListAdapter = new ChecklistItemRecyclerAdapter();
         binding.itemsList.setAdapter(itemListAdapter);
 
         itemListAdapter.setOnItemClickListener(new ChecklistItemRecyclerAdapter.ItemClickListener() {

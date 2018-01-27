@@ -1,11 +1,9 @@
 package org.sanpra.checklist.activity;
 
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.UiThread;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,16 +19,12 @@ import java.util.List;
 class ChecklistItemRecyclerAdapter extends RecyclerView.Adapter<ChecklistItemRecyclerAdapter.ViewHolder> {
 
     private static final List<ChecklistItem> DEFAULT_LIST = new ArrayList<>(0);
-    private final int CHECKLIST_ITEM_CHECKED_COLOR;
-    private final int CHECKLIST_ITEM_UNCHECKED_COLOR;
     private View.OnClickListener itemClickListener;
     private List<ChecklistItem> items = DEFAULT_LIST;
 
     @UiThread
-    ChecklistItemRecyclerAdapter(@NonNull Context context) {
+    ChecklistItemRecyclerAdapter() {
         super();
-        CHECKLIST_ITEM_CHECKED_COLOR = ContextCompat.getColor(context, R.color.grey);
-        CHECKLIST_ITEM_UNCHECKED_COLOR = ContextCompat.getColor(context, R.color.white);
         setHasStableIds(true);
     }
 
