@@ -1,7 +1,7 @@
 package org.sanpra.checklist.activity;
 
 import android.content.Context;
-import android.database.Cursor;
+import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.UiThread;
@@ -10,15 +10,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.ListUtils;
 import org.sanpra.checklist.R;
-import org.sanpra.checklist.dbhelper.ItemsDbHelper;
+import org.sanpra.checklist.databinding.ItemRowBinding;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 class ChecklistItemRecyclerAdapter extends RecyclerView.Adapter<ChecklistItemRecyclerAdapter.ViewHolder> {
@@ -40,17 +37,17 @@ class ChecklistItemRecyclerAdapter extends RecyclerView.Adapter<ChecklistItemRec
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.item_row, parent, false);
-        return new ViewHolder(view);
+        ItemRowBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_row, parent, false);
+        return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final ChecklistItem item = items.get(position);
-        holder.itemTextView.setText(item.description);
+        holder.binding.itemtext.setText(item.description);
         final int itemColor = item.checked ?
                 CHECKLIST_ITEM_CHECKED_COLOR : CHECKLIST_ITEM_UNCHECKED_COLOR ;
-        holder.itemTextView.setTextColor(itemColor);
+        holder.binding.itemtext.setTextColor(itemColor);
         holder.itemView.setTag(ItemClickListener.VIEWHOLDER_TAG, getItemId(position));
         holder.itemView.setOnClickListener(itemClickListener);
     }
@@ -91,11 +88,12 @@ class ChecklistItemRecyclerAdapter extends RecyclerView.Adapter<ChecklistItemRec
      * Used to hold a reference to the TextView containing the text in a row
      */
     static final class ViewHolder extends RecyclerView.ViewHolder {
-        TextView itemTextView;
+        @NonNull
+        private final ItemRowBinding binding;
 
-        ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            itemTextView = (TextView) itemView.findViewById(R.id.itemtext);
+        ViewHolder(@NonNull ItemRowBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 }
