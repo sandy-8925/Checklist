@@ -23,6 +23,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
+import android.support.annotation.WorkerThread;
 
 import java.util.Locale;
 
@@ -105,6 +106,7 @@ public final class ItemsDbHelper
      * Queries the database for all items in the checklist - fetches every row in the table
      * @return An android.database.Cursor object containing the results of the query
      */
+	@WorkerThread
 	public Cursor fetchAllItems()
 	{
 		return mDatabase.query(TABLE_NAME, null, null, null, null, null, null);
@@ -114,6 +116,7 @@ public final class ItemsDbHelper
      * Adds a checklist item to the database
      * @param itemDesc The text of the item to be added
      */
+	@WorkerThread
 	public void addItem(final String itemDesc)
 	{
 		final ContentValues values = new ContentValues();
@@ -126,6 +129,7 @@ public final class ItemsDbHelper
      * Flips the status of an item from unchecked to checked, and vice versa
      * @param id The ID of the item to be checked/unchecked
      */
+	@WorkerThread
 	public void flipStatus(final long id)
 	{
 		final Cursor item = mDatabase.query(TABLE_NAME, new String[] {COL_STATUS}, buildIdSelectString(id), null, null, null, null);
@@ -137,7 +141,8 @@ public final class ItemsDbHelper
 		values.put(COL_STATUS, newStatus);
 		mDatabase.update(TABLE_NAME, values, buildIdSelectString(id), null);
 	}
-	
+
+	@WorkerThread
 	private int getItemStatus(final long id)
 	{
 		final Cursor item = mDatabase.query(TABLE_NAME, new String[] {COL_STATUS}, buildIdSelectString(id), null, null, null, null);
@@ -159,6 +164,7 @@ public final class ItemsDbHelper
     /**
      * Deletes all checked items from the table
      */
+	@WorkerThread
 	public void deleteCheckedItems()
 	{
 		mDatabase.delete(TABLE_NAME, COL_STATUS + "=1", null);		
@@ -167,6 +173,7 @@ public final class ItemsDbHelper
     /**
      * Marks all of the checklist items as checked in the database
      */
+	@WorkerThread
 	public void checkAllItems()
 	{
         final int CHECKED_STATUS = 1;
@@ -177,6 +184,7 @@ public final class ItemsDbHelper
      * Sets the status of all checklist items in the database to the given status
      * @param newStatus The new status to be set
      */
+    @WorkerThread
     private void setStatusOfAllItems(final int newStatus) {
         final ContentValues newValue = new ContentValues();
         newValue.put(COL_STATUS, newStatus);
@@ -195,6 +203,7 @@ public final class ItemsDbHelper
     /**
      * Flips the status of all of the checklist items in the database
      */
+    @WorkerThread
 	public void flipAllItems()
 	{
 		final Cursor items = mDatabase.query(TABLE_NAME, new String[] {COL_ID,COL_STATUS}, null, null, null, null, null);
@@ -217,6 +226,7 @@ public final class ItemsDbHelper
      * Deletes the checklist item with the given ID
      * @param id The ID of the checklist item to be deleted
      */
+    @WorkerThread
 	public void deleteItem(final long id)
 	{
 		mDatabase.delete(TABLE_NAME, buildIdSelectString(id), null);
@@ -241,6 +251,7 @@ public final class ItemsDbHelper
      * @param id The ID of the checklist item to be modified
      * @param newItemDesc The new description text for the given item
      */
+    @WorkerThread
 	public void editItemDesc(final long id, final String newItemDesc)
 	{
 		final ContentValues values = new ContentValues();
