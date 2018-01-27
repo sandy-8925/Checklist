@@ -14,11 +14,12 @@ import org.sanpra.checklist.R;
 import org.sanpra.checklist.databinding.ItemRowBinding;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 class ChecklistItemRecyclerAdapter extends RecyclerView.Adapter<ChecklistItemRecyclerAdapter.ViewHolder> {
 
-    private static final List<ChecklistItem> DEFAULT_LIST = new ArrayList<>(0);
+    private static final List<ChecklistItem> DEFAULT_LIST = Collections.emptyList();
     private View.OnClickListener itemClickListener;
     private List<ChecklistItem> items = DEFAULT_LIST;
 
