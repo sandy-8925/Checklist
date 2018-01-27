@@ -21,7 +21,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.UiThread;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
@@ -36,14 +35,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import org.sanpra.checklist.R;
-import org.sanpra.checklist.dbhelper.ChecklistItemsCursorLoader;
 import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 
 /**

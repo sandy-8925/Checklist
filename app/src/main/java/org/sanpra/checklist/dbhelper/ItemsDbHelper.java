@@ -105,7 +105,7 @@ public final class ItemsDbHelper
      * Queries the database for all items in the checklist - fetches every row in the table
      * @return An android.database.Cursor object containing the results of the query
      */
-	Cursor fetchAllItems()
+	public Cursor fetchAllItems()
 	{
 		return mDatabase.query(TABLE_NAME, null, null, null, null, null, null);
 	}

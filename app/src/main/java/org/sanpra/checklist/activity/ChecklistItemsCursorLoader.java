@@ -15,12 +15,14 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.sanpra.checklist.dbhelper;
+package org.sanpra.checklist.activity;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v4.content.AsyncTaskLoader;
+
+import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 
 public final class ChecklistItemsCursorLoader extends AsyncTaskLoader<Cursor> {
 
