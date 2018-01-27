@@ -18,15 +18,13 @@
 package org.sanpra.checklist.activity;
 
 import android.content.Intent;
-import android.database.Cursor;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.UiThread;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -36,10 +34,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import org.sanpra.checklist.R;
+import org.sanpra.checklist.databinding.ChecklistBinding;
 import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 
 import java.util.List;
@@ -59,7 +57,6 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
     private ItemsDbHelper mDbHelper;
     private ChecklistItemRecyclerAdapter itemListAdapter;
     static final String actionTag = "actionTag";
-    private EditText newItemEditTextBox;
     private final TextView.OnEditorActionListener inputEntryTextDoneListener = new TextView.OnEditorActionListener() {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -69,30 +66,27 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
             return true;
         }
     };
-    private RecyclerView itemsListView;
     private boolean shouldScrollToBottom;
+    private ChecklistBinding binding;
 
     /** Called when the activity is first created. */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.checklist);
+        binding = DataBindingUtil.setContentView(this, R.layout.checklist);
 
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(binding.toolbar);
 
         // create database helper object and fetch all checklist items from
         // database
         mDbHelper = ItemsDbHelper.getInstance(this);
 
-        newItemEditTextBox = (EditText) findViewById(R.id.new_item_text);
-        newItemEditTextBox.setOnEditorActionListener(inputEntryTextDoneListener);
+        binding.newItemText.setOnEditorActionListener(inputEntryTextDoneListener);
 
         getSupportLoaderManager().initLoader(CHECKLIST_ITEMS_CURSOR_LOADER_ID, null, this);
-        itemsListView = (RecyclerView) findViewById(R.id.items_list);
-        itemsListView.setLayoutManager(new LinearLayoutManager(this));
+        binding.itemsList.setLayoutManager(new LinearLayoutManager(this));
         itemListAdapter = new ChecklistItemRecyclerAdapter(this);
-        itemsListView.setAdapter(itemListAdapter);
+        binding.itemsList.setAdapter(itemListAdapter);
 
         itemListAdapter.setOnItemClickListener(new ChecklistItemRecyclerAdapter.ItemClickListener() {
             @Override
@@ -102,9 +96,9 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
             }
         });
 
-        registerForContextMenu(itemsListView);
+        registerForContextMenu(binding.itemsList);
 
-        findViewById(R.id.new_item_add_button).setOnClickListener(new AddItemOnClickListener());
+        binding.newItemAddButton.setOnClickListener(new AddItemOnClickListener());
     }
 
     @Override
@@ -194,7 +188,7 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
         itemListAdapter.setItems(itemList);
         if(shouldScrollToBottom) {
             shouldScrollToBottom = false;
-            itemsListView.smoothScrollToPosition(itemListAdapter.getItemCount());
+            binding.itemsList.smoothScrollToPosition(itemListAdapter.getItemCount());
         }
     }
 
@@ -211,12 +205,12 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
 
     @UiThread
     private void addNewItem() {
-        final String itemText = newItemEditTextBox.getText().toString();
+        final String itemText = binding.newItemText.getText().toString();
         if (!TextUtils.isEmpty(itemText)) {
             mDbHelper.addItem(itemText);
             refreshChecklistDataAndView();
             shouldScrollToBottom = true;
-            newItemEditTextBox.setText("");
+            binding.newItemText.setText("");
         }
     }
 }

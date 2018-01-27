@@ -39,6 +39,10 @@ android {
         dexInProcess true
     }
 
+    dataBinding {
+        enabled = true
+    }
+
     ext {
         supportLibVersion = "27.0.2"
         leakCanaryVersion = "1.5"
