@@ -3,6 +3,7 @@ package org.sanpra.checklist.activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.UiThread;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -11,15 +12,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.ListUtils;
 import org.sanpra.checklist.R;
 import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 class ChecklistItemRecyclerAdapter extends RecyclerView.Adapter<ChecklistItemRecyclerAdapter.ViewHolder> {
 
+    private static final List<ChecklistItem> DEFAULT_LIST = new ArrayList<>(0);
     private final int CHECKLIST_ITEM_CHECKED_COLOR;
     private final int CHECKLIST_ITEM_UNCHECKED_COLOR;
-    private Cursor cursor;
     private View.OnClickListener itemClickListener;
+    private List<ChecklistItem> items = DEFAULT_LIST;
 
     @UiThread
     ChecklistItemRecyclerAdapter(@NonNull Context context) {
@@ -38,10 +46,9 @@ class ChecklistItemRecyclerAdapter extends RecyclerView.Adapter<ChecklistItemRec
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        cursor.moveToPosition(position);
-        String itemDesc = ItemsDbHelper.getItemDesc(cursor);
-        holder.itemTextView.setText(itemDesc);
-        final int itemColor = ItemsDbHelper.isItemChecked(cursor) ?
+        final ChecklistItem item = items.get(position);
+        holder.itemTextView.setText(item.description);
+        final int itemColor = item.checked ?
                 CHECKLIST_ITEM_CHECKED_COLOR : CHECKLIST_ITEM_UNCHECKED_COLOR ;
         holder.itemTextView.setTextColor(itemColor);
         holder.itemView.setTag(ItemClickListener.VIEWHOLDER_TAG, getItemId(position));
@@ -50,32 +57,22 @@ class ChecklistItemRecyclerAdapter extends RecyclerView.Adapter<ChecklistItemRec
 
     @Override
     public long getItemId(int position) {
-        if (cursor != null) {
-            if (cursor.moveToPosition(position)) {
-                return ItemsDbHelper.getItemId(cursor);
-            } else {
-                return 0;
-            }
-        } else {
-            return 0;
-        }
+        return items.get(position).id;
     }
 
     @Override
     public int getItemCount() {
-        if(cursor == null) return  0;
-        return cursor.getCount();
-    }
-
-    @UiThread
-    void swapCursor(@NonNull Cursor cursor) {
-        this.cursor = cursor;
-        notifyDataSetChanged();
+        return items.size();
     }
 
     @UiThread
     void setOnItemClickListener(@NonNull ItemClickListener onClickListener) {
         this.itemClickListener = onClickListener;
+    }
+
+    void setItems(@Nullable List<ChecklistItem> items) {
+        this.items = ListUtils.defaultIfNull(items, DEFAULT_LIST);
+        notifyDataSetChanged();
     }
 
     static abstract class ItemClickListener implements View.OnClickListener {

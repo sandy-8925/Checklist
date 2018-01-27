@@ -51,6 +51,7 @@ android {
         compile "com.android.support:support-core-utils:${supportLibVersion}"
         compile "com.android.support:recyclerview-v7:${supportLibVersion}"
         compile "com.android.support:appcompat-v7:${supportLibVersion}"
+        compile 'org.apache.commons:commons-collections4:4.1'
 
         debugCompile "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}"
         releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}"

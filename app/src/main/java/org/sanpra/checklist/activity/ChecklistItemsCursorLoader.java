@@ -24,15 +24,38 @@ import android.support.v4.content.AsyncTaskLoader;
 
 import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 
-public final class ChecklistItemsCursorLoader extends AsyncTaskLoader<Cursor> {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-    public ChecklistItemsCursorLoader(@NonNull final Context context) {
+public final class ChecklistItemsCursorLoader extends AsyncTaskLoader<List<ChecklistItem>> {
+
+    private final ItemsDbHelper itemsDbHelper;
+
+    ChecklistItemsCursorLoader(@NonNull final Context context) {
         super(context);
+        itemsDbHelper = ItemsDbHelper.getInstance(getContext());
     }
 
     @Override
-    public Cursor loadInBackground() {
-        return ItemsDbHelper.getInstance(getContext()).fetchAllItems();
+    public List<ChecklistItem> loadInBackground() {
+        Cursor cursor = itemsDbHelper.fetchAllItems();
+        if(cursor == null || !cursor.moveToFirst()) return Collections.emptyList();
+        final List<ChecklistItem> itemList = new ArrayList<>(cursor.getCount());
+        do {
+            ChecklistItem item = createItemFromCursor(cursor);
+            itemList.add(item);
+        } while (cursor.moveToNext());
+        cursor.close();
+        return itemList;
+    }
+
+    private static ChecklistItem createItemFromCursor(@NonNull Cursor cursor) {
+        ChecklistItem item = new ChecklistItem();
+        item.id = ItemsDbHelper.getItemId(cursor);
+        item.description = ItemsDbHelper.getItemDesc(cursor);
+        item.checked = ItemsDbHelper.isItemChecked(cursor);
+        return item;
     }
 
     @Override

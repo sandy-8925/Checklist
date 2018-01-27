@@ -42,10 +42,12 @@ import android.widget.TextView;
 import org.sanpra.checklist.R;
 import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 
+import java.util.List;
+
 /**
  * Main activity, that is displayed when the app is launched. Displays the list of ToDo items.
  */
-public final class ChecklistActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public final class ChecklistActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<ChecklistItem>> {
 
     /**
      * These constants are used to specify whether the ItemDescriptionEntryActivity is being opened
@@ -176,7 +178,7 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
     }
 
     @Override
-    public Loader<Cursor> onCreateLoader(int cursorId, Bundle bundle) {
+    public Loader<List<ChecklistItem>> onCreateLoader(int cursorId, Bundle bundle) {
         switch(cursorId) {
             case CHECKLIST_ITEMS_CURSOR_LOADER_ID:
                 return new ChecklistItemsCursorLoader(getApplicationContext());
@@ -188,8 +190,8 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        itemListAdapter.swapCursor(cursor);
+    public void onLoadFinished(Loader<List<ChecklistItem>> cursorLoader, List<ChecklistItem> itemList) {
+        itemListAdapter.setItems(itemList);
         if(shouldScrollToBottom) {
             shouldScrollToBottom = false;
             itemsListView.smoothScrollToPosition(itemListAdapter.getItemCount());
@@ -197,7 +199,7 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
     }
 
     @Override
-    public void onLoaderReset(Loader<Cursor> cursorLoader) {
+    public void onLoaderReset(Loader<List<ChecklistItem>> cursorLoader) {
     }
 
     private final class AddItemOnClickListener implements View.OnClickListener {
