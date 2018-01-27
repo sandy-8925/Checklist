@@ -46,7 +46,7 @@ public final class ItemsDbHelper
     /**
      * Column name for checklist item text in the Sqlite DB table
      */
-	public static final String COL_DESC="desc";
+	private static final String COL_DESC="desc";
 	private static final String COL_STATUS="checked";
 
 	private SQLiteDatabase mDatabase;
@@ -56,7 +56,7 @@ public final class ItemsDbHelper
 		private static final String DATABASE_NAME="data";
 		private static final int DATABASE_VERSION=1;
 		
-		public DbHelper(final Context context)
+		DbHelper(final Context context)
 		{
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);			
 		}
@@ -142,26 +142,7 @@ public final class ItemsDbHelper
 		mDatabase.update(TABLE_NAME, values, buildIdSelectString(id), null);
 	}
 
-	@WorkerThread
-	private int getItemStatus(final long id)
-	{
-		final Cursor item = mDatabase.query(TABLE_NAME, new String[] {COL_STATUS}, buildIdSelectString(id), null, null, null, null);
-		item.moveToFirst();
-		final int status = item.getInt(item.getColumnIndex(COL_STATUS));
-		item.close();
-		return status;
-	}
-
-    /**
-     * Returns the checked/unchecked status of a checklist item
-     * @param id The ID of the checklist item
-     * @return Returns true if the item is checked, false otherwise
-     */
-    public boolean isItemChecked(final long id) {
-        return (getItemStatus(id) == 1);
-    }
-
-    /**
+	/**
      * Deletes all checked items from the table
      */
 	@WorkerThread
