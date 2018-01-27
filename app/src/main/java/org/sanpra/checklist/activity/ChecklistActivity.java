@@ -51,7 +51,6 @@ import org.sanpra.checklist.dbhelper.ItemsDbHelper;
  */
 public final class ChecklistActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    //TODO: See if enum can be used instead of int for specifying action to ItemDescriptionEntryActivity
     /**
      * These constants are used to specify whether the ItemDescriptionEntryActivity is being opened
      * to add a new list item or edit an existing list item
