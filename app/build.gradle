@@ -59,6 +59,9 @@ android {
         compile "com.android.support:appcompat-v7:${supportLibVersion}"
         compile 'org.apache.commons:commons-collections4:4.1'
 
+        implementation "android.arch.persistence.room:runtime:1.0.0"
+        annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
+
         compile 'com.android.support:multidex:1.0.2'
 
         debugCompile "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}"
