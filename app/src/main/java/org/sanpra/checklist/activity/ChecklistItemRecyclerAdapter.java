@@ -44,10 +44,7 @@ class ChecklistItemRecyclerAdapter extends RecyclerView.Adapter<ChecklistItemRec
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final ChecklistItem item = items.get(position);
-        holder.binding.itemtext.setText(item.description);
-        final int itemColor = item.checked ?
-                CHECKLIST_ITEM_CHECKED_COLOR : CHECKLIST_ITEM_UNCHECKED_COLOR ;
-        holder.binding.itemtext.setTextColor(itemColor);
+        holder.binding.setItem(item);
         holder.itemView.setTag(ItemClickListener.VIEWHOLDER_TAG, getItemId(position));
         holder.itemView.setOnClickListener(itemClickListener);
     }
