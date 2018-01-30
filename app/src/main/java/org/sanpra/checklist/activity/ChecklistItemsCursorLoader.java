@@ -31,27 +31,17 @@ import java.util.List;
 
 public final class ChecklistItemsCursorLoader extends AsyncTaskLoader<List<ChecklistItem>> {
 
-    @NonNull private final ItemsDbHelper itemsDbHelper;
     @NonNull private final ItemsDao itemsDao;
 
     ChecklistItemsCursorLoader(@NonNull final Context context) {
         super(context);
         final Context appContext = context.getApplicationContext();
-        itemsDbHelper = ItemsDbHelper.getInstance(appContext);
         itemsDao = ItemsDatabase.getInstance(appContext).itemsDao();
     }
 
     @Override
     public List<ChecklistItem> loadInBackground() {
         return itemsDao.fetchAllItems();
-    }
-
-    private static ChecklistItem createItemFromCursor(@NonNull Cursor cursor) {
-        ChecklistItem item = new ChecklistItem();
-        item.id = ItemsDbHelper.getItemId(cursor);
-        item.description = ItemsDbHelper.getItemDesc(cursor);
-        item.checked = ItemsDbHelper.isItemChecked(cursor);
-        return item;
     }
 
     @Override
