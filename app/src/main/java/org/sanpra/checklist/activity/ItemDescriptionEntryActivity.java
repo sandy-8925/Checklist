@@ -28,7 +28,6 @@ import android.widget.Toast;
 import org.apache.commons.lang3.StringUtils;
 import org.sanpra.checklist.R;
 import org.sanpra.checklist.dbhelper.ItemsDatabase;
-import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 
 public final class ItemDescriptionEntryActivity extends Activity {
 
@@ -48,8 +47,7 @@ public final class ItemDescriptionEntryActivity extends Activity {
         setContentView(R.layout.itemdescentry);
 
         itemDescText = (EditText) findViewById(R.id.itemdesctext);
-
-        initializeDatabaseHelper();
+        itemsDao = ItemsDatabase.getInstance(this).itemsDao();
 
         final int actionType = getIntent().getIntExtra(ChecklistActivity.actionTag, -1);
         final View okButton = findViewById(R.id.itemdescconfbutton);
@@ -93,10 +91,6 @@ public final class ItemDescriptionEntryActivity extends Activity {
             return;
         }
         new FetchItemFromDbTask().execute(itemId);
-    }
-
-    private void initializeDatabaseHelper() {
-        itemsDao = ItemsDatabase.getInstance(this).itemsDao();
     }
 
     @SuppressLint("StaticFieldLeak")
