@@ -93,7 +93,6 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
             @Override
             void onClick(View view, long itemId) {
                 itemsDao.flipStatus(itemId);
-                refreshChecklistDataAndView();
             }
         });
 
@@ -113,33 +112,21 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
         switch (item.getItemId()) {
         case R.id.menu_delcheckeditems:
             itemsDao.deleteCheckedItems();
-            refreshChecklistDataAndView();
             return true;
 
         case R.id.menu_checkall:
             itemsDao.checkAllItems();
-            refreshChecklistDataAndView();
             return true;
 
         case R.id.menu_uncheckall:
             itemsDao.uncheckAllItems();
-            refreshChecklistDataAndView();
             return true;
 
         case R.id.menu_reverseall:
             itemsDao.flipAllItems();
-            refreshChecklistDataAndView();
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * Notifies different components that list data has changed, so that the new data can be displayed to the user
-     */
-    @UiThread
-    private void refreshChecklistDataAndView() {
-//        getSupportLoaderManager().initLoader(CHECKLIST_ITEMS_CURSOR_LOADER_ID, null, this).forceLoad();
     }
 
     @Override
@@ -156,7 +143,6 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
         switch (menuItem.getItemId()) {
         case R.id.context_menu_delete:
             itemsDao.deleteItem(info.id);
-            refreshChecklistDataAndView();
             return true;
 
         case R.id.context_menu_edit:
@@ -210,7 +196,6 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
         if (!TextUtils.isEmpty(itemText)) {
             ChecklistItem item = new ChecklistItem();item.description = itemText;
             itemsDao.addItem(item);
-            refreshChecklistDataAndView();
             shouldScrollToBottom = true;
             binding.newItemText.setText("");
         }
