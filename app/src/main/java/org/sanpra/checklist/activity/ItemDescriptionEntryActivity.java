@@ -17,27 +17,28 @@
 
 package org.sanpra.checklist.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.apache.commons.lang3.StringUtils;
 import org.sanpra.checklist.R;
+import org.sanpra.checklist.dbhelper.ItemsDatabase;
 import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 
 public final class ItemDescriptionEntryActivity extends Activity {
 
     static final String EXTRA_KEY_ITEM_ID = "item_id";
-    private ItemsDbHelper mDbHelper;
     /**
      * Holds a reference to the EditText view of the activity
      */
     private EditText itemDescText;
-    /**
-     * USed only when checklist item is being edited. Holds the ID of the item being edited.
-     */
-    private long itemId = -1;
+    private ItemsDao itemsDao;
+    private ChecklistItem item;
 
     //TODO: Try to break code into smaller independent methods
     @Override
@@ -73,25 +74,44 @@ public final class ItemDescriptionEntryActivity extends Activity {
         @Override
         public void onClick(View clickedView) {
             final String itemText = itemDescText.getText().toString();
-            final int resultCode = RESULT_OK;
-            if (itemText.length() != 0) {
-                mDbHelper.editItemDesc(itemId, itemText);
+            if (StringUtils.isNotEmpty(itemText)) {
+                item.description = itemText;
+                itemsDao.updateItem(item);
+                setResult(RESULT_OK);
+                finish();
             }
-            setResult(resultCode);
-            finish();
         }
     }
 
     private void fetchChecklistItemDescriptionFromDatabase() {
-        itemId = getIntent().getLongExtra("item_id", -1);
+        /*
+      USed only when checklist item is being edited. Holds the ID of the item being edited.
+     */
+        final long itemId = getIntent().getLongExtra(EXTRA_KEY_ITEM_ID, -1);
         if (itemId == -1) {
             //TODO: Error - show dialog and finish activity
             return;
         }
-        itemDescText.setText(mDbHelper.getItemDesc(itemId));
+        new FetchItemFromDbTask().execute(itemId);
     }
 
     private void initializeDatabaseHelper() {
-        mDbHelper = ItemsDbHelper.getInstance(this);
+        itemsDao = ItemsDatabase.getInstance(this).itemsDao();
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private class FetchItemFromDbTask extends AsyncTask<Long, Void, ChecklistItem> {
+        @Override
+        protected ChecklistItem doInBackground(Long... integers) {
+            final long itemId = integers[0];
+            return itemsDao.fetchItem(itemId);
+        }
+
+        @Override
+        protected void onPostExecute(ChecklistItem item) {
+            super.onPostExecute(item);
+            ItemDescriptionEntryActivity.this.item = item;
+            itemDescText.setText(item.description);
+        }
     }
 }
