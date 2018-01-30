@@ -22,6 +22,7 @@ import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v4.content.AsyncTaskLoader;
 
+import org.sanpra.checklist.dbhelper.ItemsDatabase;
 import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 
 import java.util.ArrayList;
@@ -30,24 +31,19 @@ import java.util.List;
 
 public final class ChecklistItemsCursorLoader extends AsyncTaskLoader<List<ChecklistItem>> {
 
-    private final ItemsDbHelper itemsDbHelper;
+    @NonNull private final ItemsDbHelper itemsDbHelper;
+    @NonNull private final ItemsDao itemsDao;
 
     ChecklistItemsCursorLoader(@NonNull final Context context) {
         super(context);
-        itemsDbHelper = ItemsDbHelper.getInstance(getContext());
+        final Context appContext = context.getApplicationContext();
+        itemsDbHelper = ItemsDbHelper.getInstance(appContext);
+        itemsDao = ItemsDatabase.getInstance(appContext).itemsDao();
     }
 
     @Override
     public List<ChecklistItem> loadInBackground() {
-        Cursor cursor = itemsDbHelper.fetchAllItems();
-        if(cursor == null || !cursor.moveToFirst()) return Collections.emptyList();
-        final List<ChecklistItem> itemList = new ArrayList<>(cursor.getCount());
-        do {
-            ChecklistItem item = createItemFromCursor(cursor);
-            itemList.add(item);
-        } while (cursor.moveToNext());
-        cursor.close();
-        return itemList;
+        return itemsDao.fetchAllItems();
     }
 
     private static ChecklistItem createItemFromCursor(@NonNull Cursor cursor) {

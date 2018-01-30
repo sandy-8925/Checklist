@@ -13,7 +13,7 @@ import org.sanpra.checklist.activity.ItemsDao;
 
 @Database(entities = {ChecklistItem.class}, version = 2)
 public abstract class ItemsDatabase extends RoomDatabase {
-    static final Migration MIGRATION_1_2 = new Migration(1,2) {
+    private static final Migration MIGRATION_1_2 = new Migration(1,2) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
         }
@@ -21,7 +21,7 @@ public abstract class ItemsDatabase extends RoomDatabase {
 
     private static ItemsDatabase INSTANCE;
 
-    static synchronized ItemsDatabase getInstance(@NonNull Context context) {
+    public static synchronized ItemsDatabase getInstance(@NonNull Context context) {
         if(INSTANCE == null) {
             INSTANCE = Room.databaseBuilder(context, ItemsDatabase.class, ItemsDbHelper.DbHelper.DATABASE_NAME)
                     .addMigrations(MIGRATION_1_2)
