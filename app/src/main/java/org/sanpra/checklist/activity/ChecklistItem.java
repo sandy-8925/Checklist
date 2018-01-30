@@ -12,12 +12,12 @@ import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 @Entity(tableName = ItemsDbHelper.TABLE_NAME)
 public class ChecklistItem {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "_id", typeAffinity = ColumnInfo.INTEGER)
+    @ColumnInfo(name = "_id")
     int id;
 
-    @ColumnInfo (name = "desc", typeAffinity = ColumnInfo.TEXT)
+    @ColumnInfo(name = "desc")
     String description;
-    @ColumnInfo (name = "checked", typeAffinity = ColumnInfo.INTEGER)
+    @ColumnInfo(name = "checked")
     @TypeConverters(Converter.class)
     boolean checked;
 

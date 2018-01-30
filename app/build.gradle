@@ -48,6 +48,7 @@ android {
         supportLibVersion = "27.0.2"
         leakCanaryVersion = "1.5"
         roomVersion = "1.0.0"
+        lifecycleVersion = "1.1.0"
     }
 
     dependencies {
@@ -60,6 +61,11 @@ android {
         compile "com.android.support:appcompat-v7:${supportLibVersion}"
         compile 'org.apache.commons:commons-collections4:4.1'
         compile 'org.apache.commons:commons-lang3:3.7'
+
+        annotationProcessor 'com.android.databinding:compiler:3.0.1'
+
+        implementation "android.arch.lifecycle:extensions:${lifecycleVersion}"
+        annotationProcessor "android.arch.lifecycle:compiler:${lifecycleVersion}"
 
         implementation "android.arch.persistence.room:runtime:${roomVersion}"
         annotationProcessor "android.arch.persistence.room:compiler:${roomVersion}"
