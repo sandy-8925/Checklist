@@ -47,6 +47,7 @@ android {
     ext {
         supportLibVersion = "27.0.2"
         leakCanaryVersion = "1.5"
+        roomVersion = "1.0.0"
     }
 
     dependencies {
@@ -58,9 +59,10 @@ android {
         compile "com.android.support:recyclerview-v7:${supportLibVersion}"
         compile "com.android.support:appcompat-v7:${supportLibVersion}"
         compile 'org.apache.commons:commons-collections4:4.1'
+        compile 'org.apache.commons:commons-lang3:3.7'
 
-        implementation "android.arch.persistence.room:runtime:1.0.0"
-        annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
+        implementation "android.arch.persistence.room:runtime:${roomVersion}"
+        annotationProcessor "android.arch.persistence.room:compiler:${roomVersion}"
 
         compile 'com.android.support:multidex:1.0.2'
 

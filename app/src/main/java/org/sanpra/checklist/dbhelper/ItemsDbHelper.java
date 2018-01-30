@@ -25,6 +25,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 import android.support.annotation.WorkerThread;
 
+import org.apache.commons.lang3.BooleanUtils;
+
 import java.util.Locale;
 
 /*
@@ -41,7 +43,7 @@ public final class ItemsDbHelper
 {
     private static volatile ItemsDbHelper INSTANCE = null;
 
-	private static final String TABLE_NAME="items";
+	public static final String TABLE_NAME="items";
 	private static final String COL_ID="_id";
     /**
      * Column name for checklist item text in the Sqlite DB table
@@ -51,9 +53,9 @@ public final class ItemsDbHelper
 
 	private SQLiteDatabase mDatabase;
 	
-	private static final class DbHelper extends SQLiteOpenHelper
+	static final class DbHelper extends SQLiteOpenHelper
 	{
-		private static final String DATABASE_NAME="data";
+		static final String DATABASE_NAME="data";
 		private static final int DATABASE_VERSION=1;
 		
 		DbHelper(final Context context)
@@ -78,7 +80,7 @@ public final class ItemsDbHelper
 	
 	private final SQLiteOpenHelper mDbHelper;
 	
-	private ItemsDbHelper(final Context context)
+	private ItemsDbHelper(@NonNull final Context context)
 	{
         mDbHelper = new DbHelper(context.getApplicationContext());
 	}
@@ -94,7 +96,7 @@ public final class ItemsDbHelper
      * @param context The android.content.Context object to be used for creating the database
      * @return A single application-wide instance of ItemsDbHelper
      */
-    public synchronized static ItemsDbHelper getInstance(final Context context) {
+    public synchronized static ItemsDbHelper getInstance(@NonNull final Context context) {
         if(INSTANCE == null) {
             INSTANCE = new ItemsDbHelper(context);
             INSTANCE.open();
@@ -254,7 +256,7 @@ public final class ItemsDbHelper
 	}
 
 	public static boolean isItemChecked(@NonNull Cursor cursor) {
-		return cursor.getInt(cursor.getColumnIndex(COL_STATUS)) != 0;
+		return BooleanUtils.toBoolean(cursor.getInt(cursor.getColumnIndex(COL_STATUS)));
 	}
 
 	public static int getItemId(@NonNull Cursor dbCursor) {
