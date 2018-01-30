@@ -28,6 +28,7 @@ import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 
 public final class ItemDescriptionEntryActivity extends Activity {
 
+    static final String EXTRA_KEY_ITEM_ID = "item_id";
     private ItemsDbHelper mDbHelper;
     /**
      * Holds a reference to the EditText view of the activity

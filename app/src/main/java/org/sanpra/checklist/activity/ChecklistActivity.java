@@ -149,7 +149,7 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
             final Intent editItemIntent = new Intent(this,
                     ItemDescriptionEntryActivity.class);
             editItemIntent.putExtra(actionTag, EDIT_ITEM_ACTION);
-            editItemIntent.putExtra("item_id", info.id);
+            editItemIntent.putExtra(ItemDescriptionEntryActivity.EXTRA_KEY_ITEM_ID, info.id);
             startActivity(editItemIntent);
             return true;
 
