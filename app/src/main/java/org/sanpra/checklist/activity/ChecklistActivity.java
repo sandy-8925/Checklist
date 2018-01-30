@@ -139,7 +139,7 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
      */
     @UiThread
     private void refreshChecklistDataAndView() {
-        getSupportLoaderManager().initLoader(CHECKLIST_ITEMS_CURSOR_LOADER_ID, null, this).forceLoad();
+//        getSupportLoaderManager().initLoader(CHECKLIST_ITEMS_CURSOR_LOADER_ID, null, this).forceLoad();
     }
 
     @Override

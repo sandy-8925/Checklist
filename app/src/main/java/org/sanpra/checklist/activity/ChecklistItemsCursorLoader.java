@@ -17,36 +17,55 @@
 
 package org.sanpra.checklist.activity;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.Context;
-import android.database.Cursor;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
 
 import org.sanpra.checklist.dbhelper.ItemsDatabase;
-import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-public final class ChecklistItemsCursorLoader extends AsyncTaskLoader<List<ChecklistItem>> {
+public final class ChecklistItemsCursorLoader extends AsyncTaskLoader<List<ChecklistItem>> implements Observer<List<ChecklistItem>> {
 
-    @NonNull private final ItemsDao itemsDao;
+    private final Handler mHandler = new Handler(Looper.getMainLooper());
+    private final LiveData<List<ChecklistItem>> listLiveData;
 
     ChecklistItemsCursorLoader(@NonNull final Context context) {
         super(context);
         final Context appContext = context.getApplicationContext();
-        itemsDao = ItemsDatabase.getInstance(appContext).itemsDao();
+        listLiveData = ItemsDatabase.getInstance(appContext).itemsDao().fetchAllItems();
     }
 
     @Override
     public List<ChecklistItem> loadInBackground() {
-        return itemsDao.fetchAllItems();
+        return listLiveData.getValue();
     }
 
     @Override
     protected void onStartLoading() {
         super.onStartLoading();
+        listLiveData.observeForever(this);
         forceLoad();
+    }
+
+    @Override
+    protected void onStopLoading() {
+        super.onStopLoading();
+        listLiveData.removeObserver(this);
+    }
+
+    @Override
+    public void onChanged(@Nullable final List<ChecklistItem> checklistItems) {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                deliverResult(checklistItems);
+            }
+        });
     }
 }
