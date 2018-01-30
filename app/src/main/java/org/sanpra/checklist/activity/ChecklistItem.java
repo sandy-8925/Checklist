@@ -13,7 +13,7 @@ import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 public class ChecklistItem {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
-    int id;
+    long id;
 
     @ColumnInfo(name = "desc")
     String description;
@@ -37,11 +37,11 @@ public class ChecklistItem {
         this.description = description;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

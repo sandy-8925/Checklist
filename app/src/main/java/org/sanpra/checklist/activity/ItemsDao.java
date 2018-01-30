@@ -14,16 +14,16 @@ public interface ItemsDao {
     List<ChecklistItem> fetchAllItems();
 
     @Query("select * from items where _id = :id")
-    ChecklistItem fetchItem(int id);
+    ChecklistItem fetchItem(long id);
 
     @Query("select `desc` from items where _id = :id")
-    String fetchItemDescription(int id);
+    String fetchItemDescription(long id);
 
     @Insert
     void addItem(ChecklistItem item);
 
     @Query("update items set checked=1-checked where _id=:id")
-    void flipStatus(int id);
+    void flipStatus(long id);
 
     @Query("delete from items where checked=1")
     void deleteCheckedItems();
@@ -37,8 +37,8 @@ public interface ItemsDao {
     @Query("update items set checked=1-checked")
     void flipAllItems();
 
-    @Delete
-    void deleteItem(ChecklistItem item);
+    @Query("delete from items where _id=:id")
+    void deleteItem(long id);
 
     @Update
     void updateItem(ChecklistItem item);

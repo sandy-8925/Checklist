@@ -38,6 +38,7 @@ import android.widget.TextView;
 
 import org.sanpra.checklist.R;
 import org.sanpra.checklist.databinding.ChecklistBinding;
+import org.sanpra.checklist.dbhelper.ItemsDatabase;
 import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 
 import java.util.List;
@@ -54,7 +55,6 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
     static final int EDIT_ITEM_ACTION = 6;
     private static final int CHECKLIST_ITEMS_CURSOR_LOADER_ID = 1;
 
-    private ItemsDbHelper mDbHelper;
     private ChecklistItemRecyclerAdapter itemListAdapter;
     static final String actionTag = "actionTag";
     private final TextView.OnEditorActionListener inputEntryTextDoneListener = new TextView.OnEditorActionListener() {
@@ -68,6 +68,7 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
     };
     private boolean shouldScrollToBottom;
     private ChecklistBinding binding;
+    private ItemsDao itemsDao;
 
     /** Called when the activity is first created. */
     @Override
@@ -79,7 +80,7 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
 
         // create database helper object and fetch all checklist items from
         // database
-        mDbHelper = ItemsDbHelper.getInstance(this);
+        itemsDao = ItemsDatabase.getInstance(this.getApplicationContext()).itemsDao();
 
         binding.newItemText.setOnEditorActionListener(inputEntryTextDoneListener);
 
@@ -91,7 +92,7 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
         itemListAdapter.setOnItemClickListener(new ChecklistItemRecyclerAdapter.ItemClickListener() {
             @Override
             void onClick(View view, long itemId) {
-                mDbHelper.flipStatus(itemId);
+                itemsDao.flipStatus(itemId);
                 refreshChecklistDataAndView();
             }
         });
@@ -111,22 +112,22 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.menu_delcheckeditems:
-            mDbHelper.deleteCheckedItems();
+            itemsDao.deleteCheckedItems();
             refreshChecklistDataAndView();
             return true;
 
         case R.id.menu_checkall:
-            mDbHelper.checkAllItems();
+            itemsDao.checkAllItems();
             refreshChecklistDataAndView();
             return true;
 
         case R.id.menu_uncheckall:
-            mDbHelper.uncheckAllItems();
+            itemsDao.uncheckAllItems();
             refreshChecklistDataAndView();
             return true;
 
         case R.id.menu_reverseall:
-            mDbHelper.flipAllItems();
+            itemsDao.flipAllItems();
             refreshChecklistDataAndView();
             return true;
         }
@@ -154,7 +155,7 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
                 .getMenuInfo();
         switch (menuItem.getItemId()) {
         case R.id.context_menu_delete:
-            mDbHelper.deleteItem(info.id);
+            itemsDao.deleteItem(info.id);
             refreshChecklistDataAndView();
             return true;
 
@@ -207,7 +208,8 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
     private void addNewItem() {
         final String itemText = binding.newItemText.getText().toString();
         if (!TextUtils.isEmpty(itemText)) {
-            mDbHelper.addItem(itemText);
+            ChecklistItem item = new ChecklistItem();item.description = itemText;
+            itemsDao.addItem(item);
             refreshChecklistDataAndView();
             shouldScrollToBottom = true;
             binding.newItemText.setText("");
