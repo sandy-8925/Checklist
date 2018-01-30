@@ -25,6 +25,7 @@ public abstract class ItemsDatabase extends RoomDatabase {
         if(INSTANCE == null) {
             INSTANCE = Room.databaseBuilder(context, ItemsDatabase.class, ItemsDbHelper.DbHelper.DATABASE_NAME)
                     .addMigrations(MIGRATION_1_2)
+                    .allowMainThreadQueries()
                     .build();
         }
         return INSTANCE;
