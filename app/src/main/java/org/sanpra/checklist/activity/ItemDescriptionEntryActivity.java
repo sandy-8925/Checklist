@@ -21,6 +21,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -29,7 +30,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.sanpra.checklist.R;
 import org.sanpra.checklist.dbhelper.ItemsDatabase;
 
-public final class ItemDescriptionEntryActivity extends Activity {
+public final class ItemDescriptionEntryActivity extends AppCompatActivity {
 
     static final String EXTRA_KEY_ITEM_ID = "item_id";
     /**

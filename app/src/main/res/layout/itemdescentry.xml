@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_height="fill_parent"
-	android:layout_width="fill_parent"
+	android:layout_height="match_parent"
+	android:layout_width="match_parent"
 	android:orientation="vertical"
 >
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="@string/itemdesc"
-        android:textSize="20sp"
-    />
     <EditText
         android:id="@+id/itemdesctext"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/defaultMarginTop"
         android:inputType="text|textAutoCorrect|textCapSentences"
+        android:hint="@string/itemdesc"
         android:singleLine="true"
     >
         <requestFocus />
