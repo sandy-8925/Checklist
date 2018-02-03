@@ -13,14 +13,15 @@ import org.apache.commons.collections4.ListUtils;
 import org.sanpra.checklist.R;
 import org.sanpra.checklist.databinding.ItemRowBinding;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 class ChecklistItemRecyclerAdapter extends RecyclerView.Adapter<ChecklistItemRecyclerAdapter.ViewHolder> {
 
     private static final List<ChecklistItem> DEFAULT_LIST = Collections.emptyList();
-    private View.OnClickListener itemClickListener;
+    private static final int VIEWHOLDER_TAG = R.id.CursorItemId;
+    @Nullable private View.OnClickListener itemClickListener;
+    @Nullable private View.OnLongClickListener itemLongClickListener;
     private List<ChecklistItem> items = DEFAULT_LIST;
 
     @UiThread
@@ -40,8 +41,9 @@ class ChecklistItemRecyclerAdapter extends RecyclerView.Adapter<ChecklistItemRec
     public void onBindViewHolder(ViewHolder holder, int position) {
         final ChecklistItem item = items.get(position);
         holder.binding.setItem(item);
-        holder.itemView.setTag(ItemClickListener.VIEWHOLDER_TAG, getItemId(position));
+        holder.itemView.setTag(VIEWHOLDER_TAG, getItemId(position));
         holder.itemView.setOnClickListener(itemClickListener);
+        holder.itemView.setOnLongClickListener(itemLongClickListener);
     }
 
     @Override
@@ -64,8 +66,11 @@ class ChecklistItemRecyclerAdapter extends RecyclerView.Adapter<ChecklistItemRec
         notifyDataSetChanged();
     }
 
+    void setItemLongClickListener(@NonNull View.OnLongClickListener itemLongClickListener) {
+        this.itemLongClickListener = itemLongClickListener;
+    }
+
     static abstract class ItemClickListener implements View.OnClickListener {
-        private static final int VIEWHOLDER_TAG = R.id.CursorItemId;
 
         @Override
         public final void onClick(View v) {
@@ -74,6 +79,17 @@ class ChecklistItemRecyclerAdapter extends RecyclerView.Adapter<ChecklistItemRec
         }
 
         abstract void onClick(View view, long itemId);
+    }
+
+    static abstract class ItemLongClickListener implements View.OnLongClickListener {
+        abstract void onLongClick(View view, long itemId);
+
+        @Override
+        public boolean onLongClick(View v) {
+            long itemId = (long) v.getTag(VIEWHOLDER_TAG);
+            onLongClick(v, itemId);
+            return true;
+        }
     }
 
     /**

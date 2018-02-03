@@ -34,6 +34,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import org.sanpra.checklist.R;
@@ -98,14 +99,28 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
     private void setupItemsListUI() {
         binding.itemsList.setLayoutManager(new LinearLayoutManager(this));
         itemListAdapter = new ChecklistItemRecyclerAdapter();
-        binding.itemsList.setAdapter(itemListAdapter);
-
         itemListAdapter.setOnItemClickListener(new ChecklistItemRecyclerAdapter.ItemClickListener() {
             @Override
             void onClick(View view, long itemId) {
                 itemsDao.flipStatus(itemId);
             }
         });
+        itemListAdapter.setItemLongClickListener(new ChecklistItemRecyclerAdapter.ItemLongClickListener() {
+            @Override
+            void onLongClick(View view, long itemId) {
+                showItemPopupMenu(view, itemId);
+            }
+        });
+        binding.itemsList.setAdapter(itemListAdapter);
+
+    }
+
+    @UiThread
+    private void showItemPopupMenu(View view, final long itemId) {
+        PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
+        popupMenu.inflate(R.menu.checklist_context_menu);
+        popupMenu.setOnMenuItemClickListener(new ItemPopupMenuClickListener(itemId));
+        popupMenu.show();
     }
 
     @Override
@@ -205,6 +220,32 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
             itemsDao.addItem(item);
             shouldScrollToBottom = true;
             binding.newItemText.setText("");
+        }
+    }
+
+    private class ItemPopupMenuClickListener implements PopupMenu.OnMenuItemClickListener {
+        private final long itemId;
+
+        ItemPopupMenuClickListener(long itemId) {
+            this.itemId = itemId;
+        }
+
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.context_menu_delete:
+                    itemsDao.deleteItem(itemId);
+                    return true;
+
+                case R.id.context_menu_edit:
+                    final Intent editItemIntent = new Intent(ChecklistActivity.this,
+                            ItemDescriptionEntryActivity.class);
+                    editItemIntent.putExtra(actionTag, EDIT_ITEM_ACTION);
+                    editItemIntent.putExtra(ItemDescriptionEntryActivity.EXTRA_KEY_ITEM_ID, itemId);
+                    startActivity(editItemIntent);
+                    return true;
+            }
+            return false;
         }
     }
 }
