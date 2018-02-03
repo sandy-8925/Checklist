@@ -39,7 +39,6 @@ import android.widget.TextView;
 import org.sanpra.checklist.R;
 import org.sanpra.checklist.databinding.ChecklistBinding;
 import org.sanpra.checklist.dbhelper.ItemsDatabase;
-import org.sanpra.checklist.dbhelper.ItemsDbHelper;
 
 import java.util.List;
 
@@ -82,9 +81,21 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
         // database
         itemsDao = ItemsDatabase.getInstance(this.getApplicationContext()).itemsDao();
 
-        binding.newItemText.setOnEditorActionListener(inputEntryTextDoneListener);
+        setupItemsListUI();
+        registerForContextMenu(binding.itemsList);
 
         getSupportLoaderManager().initLoader(CHECKLIST_ITEMS_CURSOR_LOADER_ID, null, this);
+        setupItemAddUI();
+    }
+
+    @UiThread
+    private void setupItemAddUI() {
+        binding.newItemText.setOnEditorActionListener(inputEntryTextDoneListener);
+        binding.newItemAddButton.setOnClickListener(new AddItemOnClickListener());
+    }
+
+    @UiThread
+    private void setupItemsListUI() {
         binding.itemsList.setLayoutManager(new LinearLayoutManager(this));
         itemListAdapter = new ChecklistItemRecyclerAdapter();
         binding.itemsList.setAdapter(itemListAdapter);
@@ -95,10 +106,6 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
                 itemsDao.flipStatus(itemId);
             }
         });
-
-        registerForContextMenu(binding.itemsList);
-
-        binding.newItemAddButton.setOnClickListener(new AddItemOnClickListener());
     }
 
     @Override
