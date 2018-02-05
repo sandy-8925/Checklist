@@ -41,16 +41,7 @@
         android:layout_toRightOf="@id/new_item_add_button"
         android:layout_toEndOf="@id/new_item_add_button"
         android:layout_alignTop="@id/new_item_add_button"
-        android:inputType="text|textAutoCorrect|textCapSentences"
-        android:maxLines="1"
-        android:textColor="@android:color/primary_text_dark"
-        android:background="@color/edittext_background"
-        android:paddingLeft="@dimen/new_entry_input_padding"
-        android:paddingStart="@dimen/new_entry_input_padding"
-        android:paddingRight="@dimen/new_entry_input_padding"
-        android:paddingEnd="@dimen/new_entry_input_padding"
-        android:imeOptions="actionDone"
-        />
+        style="@style/description_input_style" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/items_list"
@@ -60,7 +51,7 @@
         android:layout_above="@id/new_item_add_button"
         android:orientation="vertical"
         android:scrollbars="vertical"
-        android:background="@android:color/background_dark"
+        android:background="?attr/defaultBackgroundColour"
         >
         <requestFocus />
     </android.support.v7.widget.RecyclerView>

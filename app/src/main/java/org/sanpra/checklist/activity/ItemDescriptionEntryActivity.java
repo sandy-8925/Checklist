@@ -22,6 +22,7 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -46,8 +47,9 @@ public final class ItemDescriptionEntryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.itemdescentry);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
-        itemDescText = (EditText) findViewById(R.id.itemdesctext);
+        itemDescText = findViewById(R.id.itemdesctext);
         itemsDao = ItemsDatabase.getInstance(this).itemsDao();
 
         final int actionType = getIntent().getIntExtra(ChecklistActivity.actionTag, -1);

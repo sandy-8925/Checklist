@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name="org.sanpra.checklist.activity.ItemDescriptionEntryActivity"
-            android:label="@string/contextmenu_editstring"
+            android:label="@string/edit_item_desc"
             android:theme="@style/AppTheme"
             />
     </application>
