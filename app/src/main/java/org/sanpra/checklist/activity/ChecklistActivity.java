@@ -20,6 +20,7 @@ package org.sanpra.checklist.activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.UiThread;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -193,7 +194,7 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
     }
 
     @Override
-    public void onLoadFinished(Loader<List<ChecklistItem>> cursorLoader, List<ChecklistItem> itemList) {
+    public void onLoadFinished(@NonNull Loader<List<ChecklistItem>> cursorLoader, List<ChecklistItem> itemList) {
         itemListAdapter.setItems(itemList);
         if(shouldScrollToBottom) {
             shouldScrollToBottom = false;
@@ -202,7 +203,7 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
     }
 
     @Override
-    public void onLoaderReset(Loader<List<ChecklistItem>> cursorLoader) {
+    public void onLoaderReset(@NonNull Loader<List<ChecklistItem>> cursorLoader) {
     }
 
     private final class AddItemOnClickListener implements View.OnClickListener {
