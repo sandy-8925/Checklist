@@ -41,7 +41,9 @@
         android:layout_toRightOf="@id/new_item_add_button"
         android:layout_toEndOf="@id/new_item_add_button"
         android:layout_alignTop="@id/new_item_add_button"
-        style="@style/description_input_style" />
+        style="@style/description_input_style"
+        android:hint="@string/itemdesc"
+        />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/items_list"
