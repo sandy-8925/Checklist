@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
@@ -76,4 +78,10 @@ android {
         releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}"
         testCompile "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}"
     }
+}
+repositories {
+    mavenCentral()
+}
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
