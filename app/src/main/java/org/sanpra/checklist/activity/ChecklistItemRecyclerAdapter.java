@@ -30,15 +30,16 @@ class ChecklistItemRecyclerAdapter extends RecyclerView.Adapter<ChecklistItemRec
         setHasStableIds(true);
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         ItemRowBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_row, parent, false);
         return new ViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final ChecklistItem item = items.get(position);
         holder.binding.setItem(item);
         holder.itemView.setTag(VIEWHOLDER_TAG, getItemId(position));
