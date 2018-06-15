@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.UiThread;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -181,16 +182,10 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
         }
     }
 
+    @NonNull
     @Override
-    public Loader<List<ChecklistItem>> onCreateLoader(int cursorId, Bundle bundle) {
-        switch(cursorId) {
-            case CHECKLIST_ITEMS_CURSOR_LOADER_ID:
-                return new ChecklistItemsCursorLoader(getApplicationContext());
-
-            default:
-                break;
-        }
-        return null;
+    public Loader<List<ChecklistItem>> onCreateLoader(int cursorId, @Nullable Bundle bundle) {
+        return new ChecklistItemsCursorLoader(getApplicationContext());
     }
 
     @Override
