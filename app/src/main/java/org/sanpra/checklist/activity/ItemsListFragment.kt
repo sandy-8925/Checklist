@@ -104,32 +104,4 @@ class ItemsListFragment : Fragment(),  LoaderManager.LoaderCallbacks<List<Checkl
     }
 
     override fun onLoaderReset(cursorLoader: Loader<List<ChecklistItem>>) {}
-
-    override fun onCreateContextMenu(menu: ContextMenu, view: View,
-                                     menuInfo: ContextMenu.ContextMenuInfo) {
-        super.onCreateContextMenu(menu, view, menuInfo)
-        requireActivity().menuInflater.inflate(R.menu.checklist_context_menu, menu)
-    }
-
-    override fun onContextItemSelected(menuItem: MenuItem): Boolean {
-        val info = menuItem
-                .menuInfo as AdapterView.AdapterContextMenuInfo
-        when (menuItem.itemId) {
-            R.id.context_menu_delete -> {
-                itemsDao.deleteItem(info.id)
-                return true
-            }
-
-            R.id.context_menu_edit -> {
-                val editItemIntent = Intent(requireContext(),
-                        ItemDescriptionEntryActivity::class.java)
-                editItemIntent.putExtra(actionTag, EDIT_ITEM_ACTION)
-                editItemIntent.putExtra(ItemDescriptionEntryActivity.EXTRA_KEY_ITEM_ID, info.id)
-                startActivity(editItemIntent)
-                return true
-            }
-
-            else -> return super.onContextItemSelected(menuItem)
-        }
-    }
 }
