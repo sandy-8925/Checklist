@@ -30,6 +30,11 @@ class ItemsListFragment : Fragment(),  LoaderManager.LoaderCallbacks<List<Checkl
         return binding.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
 
     private lateinit var itemsDao: ItemsDao
 
@@ -104,4 +109,34 @@ class ItemsListFragment : Fragment(),  LoaderManager.LoaderCallbacks<List<Checkl
     }
 
     override fun onLoaderReset(cursorLoader: Loader<List<ChecklistItem>>) {}
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater?.inflate(R.menu.checklist_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_delcheckeditems -> {
+                itemsDao.deleteCheckedItems()
+                return true
+            }
+
+            R.id.menu_checkall -> {
+                itemsDao.checkAllItems()
+                return true
+            }
+
+            R.id.menu_uncheckall -> {
+                itemsDao.uncheckAllItems()
+                return true
+            }
+
+            R.id.menu_reverseall -> {
+                itemsDao.flipAllItems()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }

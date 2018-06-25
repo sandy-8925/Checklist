@@ -89,34 +89,6 @@ public final class ChecklistActivity extends AppCompatActivity {
         binding.newItemAddButton.setOnClickListener(new AddItemOnClickListener());
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.checklist_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.menu_delcheckeditems:
-            itemsDao.deleteCheckedItems();
-            return true;
-
-        case R.id.menu_checkall:
-            itemsDao.checkAllItems();
-            return true;
-
-        case R.id.menu_uncheckall:
-            itemsDao.uncheckAllItems();
-            return true;
-
-        case R.id.menu_reverseall:
-            itemsDao.flipAllItems();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     private final class AddItemOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View clickedView) {
