@@ -48,16 +48,14 @@ import java.util.List;
 /**
  * Main activity, that is displayed when the app is launched. Displays the list of ToDo items.
  */
-public final class ChecklistActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<ChecklistItem>> {
+public final class ChecklistActivity extends AppCompatActivity {
 
     /**
      * These constants are used to specify whether the ItemDescriptionEntryActivity is being opened
      * to add a new list item or edit an existing list item
      */
     static final int EDIT_ITEM_ACTION = 6;
-    private static final int CHECKLIST_ITEMS_CURSOR_LOADER_ID = 1;
 
-    private ChecklistItemRecyclerAdapter itemListAdapter;
     static final String actionTag = "actionTag";
     private final TextView.OnEditorActionListener inputEntryTextDoneListener = new TextView.OnEditorActionListener() {
         @Override
@@ -68,7 +66,6 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
             return true;
         }
     };
-    private boolean shouldScrollToBottom;
     private ChecklistBinding binding;
     private ItemsDao itemsDao;
 
@@ -83,11 +80,6 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
         // create database helper object and fetch all checklist items from
         // database
         itemsDao = ItemsDatabase.getInstance(this.getApplicationContext()).itemsDao();
-
-        setupItemsListUI();
-        registerForContextMenu(binding.itemsList);
-
-        getSupportLoaderManager().initLoader(CHECKLIST_ITEMS_CURSOR_LOADER_ID, null, this);
         setupItemAddUI();
     }
 
@@ -95,34 +87,6 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
     private void setupItemAddUI() {
         binding.newItemText.setOnEditorActionListener(inputEntryTextDoneListener);
         binding.newItemAddButton.setOnClickListener(new AddItemOnClickListener());
-    }
-
-    @UiThread
-    private void setupItemsListUI() {
-        binding.itemsList.setLayoutManager(new LinearLayoutManager(this));
-        itemListAdapter = new ChecklistItemRecyclerAdapter();
-        itemListAdapter.setOnItemClickListener(new ChecklistItemRecyclerAdapter.ItemClickListener() {
-            @Override
-            void onClick(View view, long itemId) {
-                itemsDao.flipStatus(itemId);
-            }
-        });
-        itemListAdapter.setItemLongClickListener(new ChecklistItemRecyclerAdapter.ItemLongClickListener() {
-            @Override
-            void onLongClick(View view, long itemId) {
-                showItemPopupMenu(view, itemId);
-            }
-        });
-        binding.itemsList.setAdapter(itemListAdapter);
-
-    }
-
-    @UiThread
-    private void showItemPopupMenu(View view, final long itemId) {
-        PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
-        popupMenu.inflate(R.menu.checklist_context_menu);
-        popupMenu.setOnMenuItemClickListener(new ItemPopupMenuClickListener(itemId));
-        popupMenu.show();
     }
 
     @Override
@@ -153,54 +117,6 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View view,
-            ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, view, menuInfo);
-        getMenuInflater().inflate(R.menu.checklist_context_menu, menu);
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem menuItem) {
-        final AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuItem
-                .getMenuInfo();
-        switch (menuItem.getItemId()) {
-        case R.id.context_menu_delete:
-            itemsDao.deleteItem(info.id);
-            return true;
-
-        case R.id.context_menu_edit:
-            final Intent editItemIntent = new Intent(this,
-                    ItemDescriptionEntryActivity.class);
-            editItemIntent.putExtra(actionTag, EDIT_ITEM_ACTION);
-            editItemIntent.putExtra(ItemDescriptionEntryActivity.EXTRA_KEY_ITEM_ID, info.id);
-            startActivity(editItemIntent);
-            return true;
-
-        default:
-            return super.onContextItemSelected(menuItem);
-        }
-    }
-
-    @NonNull
-    @Override
-    public Loader<List<ChecklistItem>> onCreateLoader(int cursorId, @Nullable Bundle bundle) {
-        return new ChecklistItemsCursorLoader(getApplicationContext());
-    }
-
-    @Override
-    public void onLoadFinished(@NonNull Loader<List<ChecklistItem>> cursorLoader, List<ChecklistItem> itemList) {
-        itemListAdapter.setItems(itemList);
-        if(shouldScrollToBottom) {
-            shouldScrollToBottom = false;
-            binding.itemsList.smoothScrollToPosition(itemListAdapter.getItemCount());
-        }
-    }
-
-    @Override
-    public void onLoaderReset(@NonNull Loader<List<ChecklistItem>> cursorLoader) {
-    }
-
     private final class AddItemOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View clickedView) {
@@ -214,34 +130,7 @@ public final class ChecklistActivity extends AppCompatActivity implements Loader
         if (!TextUtils.isEmpty(itemText)) {
             ChecklistItem item = new ChecklistItem();item.description = itemText;
             itemsDao.addItem(item);
-            shouldScrollToBottom = true;
             binding.newItemText.setText("");
-        }
-    }
-
-    private class ItemPopupMenuClickListener implements PopupMenu.OnMenuItemClickListener {
-        private final long itemId;
-
-        ItemPopupMenuClickListener(long itemId) {
-            this.itemId = itemId;
-        }
-
-        @Override
-        public boolean onMenuItemClick(MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.context_menu_delete:
-                    itemsDao.deleteItem(itemId);
-                    return true;
-
-                case R.id.context_menu_edit:
-                    final Intent editItemIntent = new Intent(ChecklistActivity.this,
-                            ItemDescriptionEntryActivity.class);
-                    editItemIntent.putExtra(actionTag, EDIT_ITEM_ACTION);
-                    editItemIntent.putExtra(ItemDescriptionEntryActivity.EXTRA_KEY_ITEM_ID, itemId);
-                    startActivity(editItemIntent);
-                    return true;
-            }
-            return false;
         }
     }
 }

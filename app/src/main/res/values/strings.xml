@@ -14,4 +14,7 @@
     <color name="donecolor">#3399CC</color>
     <string name="ok">OK</string>
     <string name="edit_item_desc">Edit item description</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

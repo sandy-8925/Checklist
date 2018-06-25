@@ -84,4 +84,7 @@ repositories {
 }
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.android.support:support-v4:27.1.1'
 }
+
+apply plugin: 'kotlin-android-extensions'

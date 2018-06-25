@@ -45,18 +45,14 @@
         android:hint="@string/itemdesc"
         />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/items_list"
+    <fragment
+        android:id="@+id/items_list_fragment"
+        android:name="org.sanpra.checklist.activity.ItemsListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
         android:layout_above="@id/new_item_add_button"
-        android:orientation="vertical"
-        android:scrollbars="vertical"
-        android:background="?attr/defaultBackgroundColour"
-        >
-        <requestFocus />
-    </android.support.v7.widget.RecyclerView>
+        />
 
 </RelativeLayout>
 </layout>
