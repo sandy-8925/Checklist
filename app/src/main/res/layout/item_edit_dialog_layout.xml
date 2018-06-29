@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EditText xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/iedl_text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/description_input_style"
+    android:hint="@string/enter_new_item_text_here"
+    android:padding="@dimen/new_entry_input_padding"
+    android:minHeight="@dimen/editTextMinhHeight"
+    android:textSize="@dimen/checklist_item_textsize"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:text="Editable item text"
+    android:layout_margin="@dimen/new_entry_input_padding"
+    />

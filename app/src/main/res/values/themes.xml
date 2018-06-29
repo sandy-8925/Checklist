@@ -7,4 +7,10 @@
         <item name="colorControlNormal">@android:color/white</item>
         <item name="defaultBackgroundColour">@android:color/background_dark</item>
     </style>
+
+    <style name="EditDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:colorBackground">@color/darker_gray</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="colorAccent">@color/accent_color</item>
+    </style>
 </resources>
