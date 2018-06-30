@@ -55,7 +55,6 @@ abstract class ItemsDatabase : RoomDatabase() {
             if (localInstance == null) {
                 localInstance = Room.databaseBuilder(context, ItemsDatabase::class.java, DATABASE_NAME)
                         .addMigrations(MIGRATION_1_2)
-                        .allowMainThreadQueries()
                         .build()
                 INSTANCE = localInstance
             }
