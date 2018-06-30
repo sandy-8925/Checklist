@@ -30,7 +30,7 @@ interface ItemsDao {
     fun fetchAllItems(): LiveData<List<ChecklistItem>>
 
     @Query("select * from items where _id = :id")
-    fun fetchItem(id: Long): ChecklistItem
+    fun fetchItem(id: Long): LiveData<ChecklistItem>
 
     @Query("select `desc` from items where _id = :id")
     fun fetchItemDescription(id: Long): String

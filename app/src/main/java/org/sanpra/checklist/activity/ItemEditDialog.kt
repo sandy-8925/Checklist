@@ -18,8 +18,8 @@
 package org.sanpra.checklist.activity
 
 import android.app.Dialog
+import android.arch.lifecycle.Observer
 import android.content.DialogInterface
-import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
@@ -29,7 +29,13 @@ import org.sanpra.checklist.R
 import org.sanpra.checklist.dbhelper.ItemsDatabase
 import org.sanpra.checklist.dbhelper.ItemsDbThreadHelper
 
-class ItemEditDialog : DialogFragment() {
+class ItemEditDialog : DialogFragment(), Observer<ChecklistItem> {
+    override fun onChanged(result: ChecklistItem?) {
+        result?: return
+        checklistItem = result
+        editText?.setText(checklistItem.description)
+    }
+
     private val okClickListener: DialogInterface.OnClickListener = DialogInterface.OnClickListener { dialog, which ->
         checklistItem.description = StringUtils.defaultString(editText?.text.toString())
         ItemsDbThreadHelper.dbOpsHandler.post { itemsDao.updateItem(checklistItem) }
@@ -68,21 +74,8 @@ class ItemEditDialog : DialogFragment() {
         val rootView = requireActivity().layoutInflater.inflate(R.layout.item_edit_dialog_layout, null)
         editText = rootView.findViewById(R.id.iedl_text) as EditText?
         builder.setView(rootView)
-        LoadItemTask(itemsDao).execute()
+        itemsDao.fetchItem(itemId).observe(this, this)
         return builder.create()
-    }
-
-    inner class LoadItemTask(private val itemsDao: ItemsDao) : AsyncTask<Void, Void, ChecklistItem>() {
-        override fun doInBackground(vararg params: Void?): ChecklistItem? {
-            return itemsDao.fetchItem(itemId)
-        }
-
-        override fun onPostExecute(result: ChecklistItem?) {
-            super.onPostExecute(result)
-            result?: return
-            checklistItem = result
-            editText?.setText(checklistItem.description)
-        }
     }
 }
 
