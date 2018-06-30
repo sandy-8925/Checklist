@@ -17,16 +17,12 @@
 
 package org.sanpra.checklist.activity
 
-import android.arch.persistence.room.ColumnInfo
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.PrimaryKey
-import android.arch.persistence.room.TypeConverter
-import android.arch.persistence.room.TypeConverters
-
+import android.arch.persistence.room.*
 import org.apache.commons.lang3.BooleanUtils
-import org.sanpra.checklist.dbhelper.ItemsDbHelper
 
-@Entity(tableName = ItemsDbHelper.TABLE_NAME)
+const val TABLE_NAME = "items"
+
+@Entity(tableName = TABLE_NAME)
 class ChecklistItem {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")

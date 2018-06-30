@@ -53,7 +53,7 @@ abstract class ItemsDatabase : RoomDatabase() {
         fun getInstance(context: Context): ItemsDatabase {
             var localInstance = INSTANCE
             if (localInstance == null) {
-                localInstance = Room.databaseBuilder(context, ItemsDatabase::class.java, ItemsDbHelper.DbHelper.DATABASE_NAME)
+                localInstance = Room.databaseBuilder(context, ItemsDatabase::class.java, DATABASE_NAME)
                         .addMigrations(MIGRATION_1_2)
                         .allowMainThreadQueries()
                         .build()
@@ -61,5 +61,7 @@ abstract class ItemsDatabase : RoomDatabase() {
             }
             return localInstance
         }
+
+        private const val DATABASE_NAME = "data"
     }
 }
