@@ -28,10 +28,8 @@ import org.apache.commons.collections4.ListUtils
 import org.sanpra.checklist.R
 import org.sanpra.checklist.databinding.ItemRowBinding
 
-import java.util.Collections
-
 internal class ChecklistItemRecyclerAdapter @UiThread
-constructor() : RecyclerView.Adapter<ChecklistItemRecyclerAdapter.ViewHolder>() {
+constructor() : RecyclerView.Adapter<ChecklistItemViewHolder>() {
     private val DEFAULT_LIST = emptyList<ChecklistItem>()
     private var itemClickListener: View.OnClickListener? = null
     private var itemLongClickListener: View.OnLongClickListener? = null
@@ -41,13 +39,13 @@ constructor() : RecyclerView.Adapter<ChecklistItemRecyclerAdapter.ViewHolder>() 
         setHasStableIds(true)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChecklistItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = DataBindingUtil.inflate<ItemRowBinding>(inflater, R.layout.item_row, parent, false)
-        return ViewHolder(binding)
+        return ChecklistItemViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ChecklistItemViewHolder, position: Int) {
         val item = items[position]
         holder.binding.item = item
         holder.itemView.setTag(VIEWHOLDER_TAG, getItemId(position))
@@ -97,12 +95,12 @@ constructor() : RecyclerView.Adapter<ChecklistItemRecyclerAdapter.ViewHolder>() 
         }
     }
 
-    /**
-     * Used to hold a reference to the TextView containing the text in a row
-     */
-    internal class ViewHolder(val binding: ItemRowBinding) : RecyclerView.ViewHolder(binding.root)
-
     companion object {
         private val VIEWHOLDER_TAG = R.id.CursorItemId
     }
 }
+
+/**
+ * Used to hold a reference to the TextView containing the text in a row
+ */
+internal class ChecklistItemViewHolder(val binding: ItemRowBinding) : RecyclerView.ViewHolder(binding.root)
