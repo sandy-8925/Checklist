@@ -18,6 +18,7 @@
 package org.sanpra.checklist.activity
 
 
+import android.arch.lifecycle.Observer
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.annotation.UiThread
@@ -36,7 +37,11 @@ import org.sanpra.checklist.dbhelper.ItemsDbThreadHelper
 /**
  * Displays checklist items
  */
-class ItemsListFragment : Fragment(),  LoaderManager.LoaderCallbacks<List<ChecklistItem>> {
+class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
+    override fun onChanged(t: List<ChecklistItem>?) {
+        itemListAdapter.setItems(t)
+    }
+
     private lateinit var binding : FragmentItemsListBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -53,8 +58,6 @@ class ItemsListFragment : Fragment(),  LoaderManager.LoaderCallbacks<List<Checkl
 
     private lateinit var itemsDao: ItemsDao
 
-    private val CHECKLIST_ITEMS_CURSOR_LOADER_ID = 1
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -63,7 +66,7 @@ class ItemsListFragment : Fragment(),  LoaderManager.LoaderCallbacks<List<Checkl
         itemsDao = ItemsDatabase.getInstance(requireContext()).itemsDao()
         setupItemsListUI()
         registerForContextMenu(binding.itemsList)
-        loaderManager.initLoader(CHECKLIST_ITEMS_CURSOR_LOADER_ID, null, this)
+        itemsDao.fetchAllItems().observe(this, this)
     }
 
     private lateinit var itemListAdapter: ChecklistItemRecyclerAdapter
@@ -112,16 +115,6 @@ class ItemsListFragment : Fragment(),  LoaderManager.LoaderCallbacks<List<Checkl
             return false
         }
     }
-
-    override fun onCreateLoader(cursorId: Int, bundle: Bundle?): Loader<List<ChecklistItem>> {
-        return ChecklistItemsCursorLoader(requireContext())
-    }
-
-    override fun onLoadFinished(cursorLoader: Loader<List<ChecklistItem>>, itemList: List<ChecklistItem>?) {
-        itemListAdapter.setItems(itemList)
-    }
-
-    override fun onLoaderReset(cursorLoader: Loader<List<ChecklistItem>>) {}
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         super.onCreateOptionsMenu(menu, inflater)
