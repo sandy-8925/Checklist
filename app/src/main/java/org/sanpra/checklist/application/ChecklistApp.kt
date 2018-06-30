@@ -15,20 +15,18 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.sanpra.checklist.application;
+package org.sanpra.checklist.application
 
-import android.app.Application;
-import android.support.multidex.MultiDexApplication;
+import android.support.multidex.MultiDexApplication
+import com.squareup.leakcanary.LeakCanary
 
-import com.squareup.leakcanary.LeakCanary;
-
-public final class ChecklistApp extends MultiDexApplication {
-    @Override
-    public void onCreate() {
-        super.onCreate();
+@Suppress("unused")
+class ChecklistApp : MultiDexApplication() {
+    override fun onCreate() {
+        super.onCreate()
         if (LeakCanary.isInAnalyzerProcess(this)) {
-            return;
+            return
         }
-        LeakCanary.install(this);
+        LeakCanary.install(this)
     }
 }

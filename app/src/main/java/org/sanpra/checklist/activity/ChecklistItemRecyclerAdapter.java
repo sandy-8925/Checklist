@@ -66,7 +66,7 @@ class ChecklistItemRecyclerAdapter extends RecyclerView.Adapter<ChecklistItemRec
 
     @Override
     public long getItemId(int position) {
-        return items.get(position).id;
+        return items.get(position).getId();
     }
 
     @Override

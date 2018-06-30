@@ -26,7 +26,6 @@ import android.support.v7.app.AlertDialog
 import android.widget.EditText
 import org.apache.commons.lang3.StringUtils
 import org.sanpra.checklist.R
-import org.sanpra.checklist.activity.ItemDescriptionEntryActivity.EXTRA_KEY_ITEM_ID
 import org.sanpra.checklist.dbhelper.ItemsDatabase
 
 class ItemEditDialog : DialogFragment() {
@@ -36,7 +35,8 @@ class ItemEditDialog : DialogFragment() {
     }
 
     companion object {
-        val TAG : String = "ItemEditDialog"
+        const val EXTRA_KEY_ITEM_ID = "item_id"
+        const val TAG : String = "ItemEditDialog"
         fun getArgs(itemId : Long) : Bundle {
             val args = Bundle()
             args.putLong(EXTRA_KEY_ITEM_ID, itemId)
@@ -65,7 +65,7 @@ class ItemEditDialog : DialogFragment() {
                 .setPositiveButton(android.R.string.ok, okClickListener)
                 .setNegativeButton(android.R.string.cancel, null)
         val rootView = requireActivity().layoutInflater.inflate(R.layout.item_edit_dialog_layout, null)
-        editText = rootView.findViewById(R.id.iedl_text)
+        editText = rootView.findViewById(R.id.iedl_text) as EditText?
         builder.setView(rootView)
         LoadItemTask(itemsDao).execute()
         return builder.create()
@@ -87,8 +87,10 @@ class ItemEditDialog : DialogFragment() {
 
 private class UpdateItemTask(private val itemsDao: ItemsDao) : AsyncTask<ChecklistItem, Void, Any?>() {
     override fun doInBackground(vararg itemList: ChecklistItem?): Any? {
-        for(item in itemList)
+        for(item in itemList) {
+            item?: continue
             itemsDao.updateItem(item)
+        }
         return null
     }
 }

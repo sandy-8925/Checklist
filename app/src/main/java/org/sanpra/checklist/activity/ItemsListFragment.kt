@@ -18,7 +18,6 @@
 package org.sanpra.checklist.activity
 
 
-import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.annotation.UiThread
@@ -28,11 +27,8 @@ import android.support.v4.app.LoaderManager
 import android.support.v4.content.Loader
 import android.support.v7.widget.LinearLayoutManager
 import android.view.*
-import android.widget.AdapterView
 import android.widget.PopupMenu
 import org.sanpra.checklist.R
-import org.sanpra.checklist.activity.ChecklistActivity.EDIT_ITEM_ACTION
-import org.sanpra.checklist.activity.ChecklistActivity.actionTag
 import org.sanpra.checklist.databinding.FragmentItemsListBinding
 import org.sanpra.checklist.dbhelper.ItemsDatabase
 

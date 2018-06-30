@@ -15,18 +15,24 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.sanpra.checklist.dbhelper;
+package org.sanpra.checklist.activity
 
-import junit.framework.TestCase;
+import android.databinding.DataBindingUtil
+import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 
-public class ItemsDbHelperTester extends TestCase {
+import org.sanpra.checklist.R
+import org.sanpra.checklist.databinding.ChecklistBinding
 
-    public void testIsIdStringBuiltCorrectly() {
-        final long ID = 4;
-        final String expectedIDString = "_id=" + ID;
-        final String actualIDString = ItemsDbHelper.Companion.buildIdSelectString(ID);
-        assertNotNull(actualIDString);
-        assertEquals(expectedIDString, actualIDString);
+/**
+ * Main activity, that is displayed when the app is launched. Displays the list of ToDo items.
+ */
+class ChecklistActivity : AppCompatActivity() {
+
+    /** Called when the activity is first created.  */
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val binding = DataBindingUtil.setContentView<ChecklistBinding>(this, R.layout.checklist)
+        setSupportActionBar(binding.toolbar)
     }
-
 }
