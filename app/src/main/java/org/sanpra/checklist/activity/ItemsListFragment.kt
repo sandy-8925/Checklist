@@ -37,7 +37,7 @@ import org.sanpra.checklist.dbhelper.ItemsDbThreadHelper
  */
 class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
     override fun onChanged(t: List<ChecklistItem>?) {
-        itemListAdapter.setItems(t)
+        itemListAdapter.submitList(t)
     }
 
     private lateinit var binding : FragmentItemsListBinding

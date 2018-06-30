@@ -19,21 +19,23 @@ package org.sanpra.checklist.activity
 
 import android.databinding.DataBindingUtil
 import android.support.annotation.UiThread
+import android.support.v7.recyclerview.extensions.ListAdapter
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
 import org.apache.commons.collections4.ListUtils
+import org.apache.commons.lang3.StringUtils
 import org.sanpra.checklist.R
 import org.sanpra.checklist.databinding.ItemRowBinding
 
 internal class ChecklistItemRecyclerAdapter @UiThread
-constructor() : RecyclerView.Adapter<ChecklistItemViewHolder>() {
+constructor() : ListAdapter<ChecklistItem, ChecklistItemViewHolder>(ChecklistDiffCallback()) {
     private val DEFAULT_LIST = emptyList<ChecklistItem>()
     private var itemClickListener: View.OnClickListener? = null
     private var itemLongClickListener: View.OnLongClickListener? = null
-    private var items = DEFAULT_LIST
 
     init {
         setHasStableIds(true)
@@ -46,7 +48,7 @@ constructor() : RecyclerView.Adapter<ChecklistItemViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ChecklistItemViewHolder, position: Int) {
-        val item = items[position]
+        val item = getItem(position)
         holder.binding.item = item
         holder.itemView.setTag(VIEWHOLDER_TAG, getItemId(position))
         holder.itemView.setOnClickListener(itemClickListener)
@@ -54,21 +56,12 @@ constructor() : RecyclerView.Adapter<ChecklistItemViewHolder>() {
     }
 
     override fun getItemId(position: Int): Long {
-        return items[position].id
-    }
-
-    override fun getItemCount(): Int {
-        return items.size
+        return getItem(position).id
     }
 
     @UiThread
     fun setOnItemClickListener(onClickListener: ItemClickListener) {
         this.itemClickListener = onClickListener
-    }
-
-    fun setItems(items: List<ChecklistItem>?) {
-        this.items = ListUtils.defaultIfNull(items, DEFAULT_LIST)
-        notifyDataSetChanged()
     }
 
     fun setItemLongClickListener(itemLongClickListener: View.OnLongClickListener) {
@@ -104,3 +97,19 @@ constructor() : RecyclerView.Adapter<ChecklistItemViewHolder>() {
  * Used to hold a reference to the TextView containing the text in a row
  */
 internal class ChecklistItemViewHolder(val binding: ItemRowBinding) : RecyclerView.ViewHolder(binding.root)
+
+private class ChecklistDiffCallback : DiffUtil.ItemCallback<ChecklistItem>() {
+    override fun areContentsTheSame(oldItem: ChecklistItem?, newItem: ChecklistItem?): Boolean {
+        if(oldItem == newItem) return true
+        oldItem?: return false
+        newItem?: return false
+        return oldItem.isChecked == newItem.isChecked && StringUtils.equals(oldItem.description, newItem.description)
+    }
+
+    override fun areItemsTheSame(oldItem: ChecklistItem?, newItem: ChecklistItem?): Boolean {
+        if(oldItem == newItem) return true
+        oldItem?: return false
+        newItem?: return false
+        return oldItem.id == newItem.id
+    }
+}
