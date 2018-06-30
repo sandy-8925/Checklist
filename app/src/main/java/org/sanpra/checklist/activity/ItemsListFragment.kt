@@ -24,8 +24,6 @@ import android.os.Bundle
 import android.support.annotation.UiThread
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
-import android.support.v4.app.LoaderManager
-import android.support.v4.content.Loader
 import android.support.v7.widget.LinearLayoutManager
 import android.view.*
 import android.widget.PopupMenu
@@ -77,12 +75,12 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
         binding.itemsList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         itemListAdapter = ChecklistItemRecyclerAdapter()
         itemListAdapter.setOnItemClickListener(object : ChecklistItemRecyclerAdapter.ItemClickListener() {
-            internal override fun onClick(view: View, itemId: Long) {
+            override fun onClick(view: View, itemId: Long) {
                 ItemsDbThreadHelper.dbOpsHandler.post { itemsDao.flipStatus(itemId) }
             }
         })
         itemListAdapter.setItemLongClickListener(object : ChecklistItemRecyclerAdapter.ItemLongClickListener() {
-            internal override fun onLongClick(view: View, itemId: Long) {
+            override fun onLongClick(view: View, itemId: Long) {
                 showItemPopupMenu(view, itemId)
             }
         })
