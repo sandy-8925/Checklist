@@ -27,11 +27,12 @@ import android.widget.EditText
 import org.apache.commons.lang3.StringUtils
 import org.sanpra.checklist.R
 import org.sanpra.checklist.dbhelper.ItemsDatabase
+import org.sanpra.checklist.dbhelper.ItemsDbThreadHelper
 
 class ItemEditDialog : DialogFragment() {
     private val okClickListener: DialogInterface.OnClickListener = DialogInterface.OnClickListener { dialog, which ->
         checklistItem.description = StringUtils.defaultString(editText?.text.toString())
-        UpdateItemTask(itemsDao).execute(checklistItem)
+        ItemsDbThreadHelper.dbOpsHandler.post { itemsDao.updateItem(checklistItem) }
     }
 
     companion object {
@@ -85,12 +86,3 @@ class ItemEditDialog : DialogFragment() {
     }
 }
 
-private class UpdateItemTask(private val itemsDao: ItemsDao) : AsyncTask<ChecklistItem, Void, Any?>() {
-    override fun doInBackground(vararg itemList: ChecklistItem?): Any? {
-        for(item in itemList) {
-            item?: continue
-            itemsDao.updateItem(item)
-        }
-        return null
-    }
-}

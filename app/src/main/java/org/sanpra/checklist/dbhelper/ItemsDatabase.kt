@@ -23,8 +23,8 @@ import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.migration.Migration
 import android.content.Context
-
-import org.apache.commons.lang3.StringUtils
+import android.os.Handler
+import android.os.HandlerThread
 import org.sanpra.checklist.activity.ChecklistItem
 import org.sanpra.checklist.activity.ItemsDao
 
@@ -62,5 +62,15 @@ abstract class ItemsDatabase : RoomDatabase() {
         }
 
         private const val DATABASE_NAME = "data"
+    }
+}
+
+object ItemsDbThreadHelper {
+    private val dbOpsThread : HandlerThread = HandlerThread("database_ops")
+    val dbOpsHandler : Handler
+
+    init {
+        dbOpsThread.start()
+        dbOpsHandler = Handler(dbOpsThread.looper)
     }
 }

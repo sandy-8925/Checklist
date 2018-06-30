@@ -28,6 +28,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import org.sanpra.checklist.databinding.AddItemFragmentLayoutBinding
 import org.sanpra.checklist.dbhelper.ItemsDatabase
+import org.sanpra.checklist.dbhelper.ItemsDbThreadHelper
 
 class AddItemFragment : Fragment() {
 
@@ -71,7 +72,7 @@ class AddItemFragment : Fragment() {
         if (!TextUtils.isEmpty(itemText)) {
             val item = ChecklistItem()
             item.description = itemText
-            itemsDao.addItem(item)
+            ItemsDbThreadHelper.dbOpsHandler.post { itemsDao.addItem(item) }
             binding.newItemText.setText("")
         }
     }

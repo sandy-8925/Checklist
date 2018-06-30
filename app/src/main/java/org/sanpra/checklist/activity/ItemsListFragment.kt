@@ -31,6 +31,7 @@ import android.widget.PopupMenu
 import org.sanpra.checklist.R
 import org.sanpra.checklist.databinding.FragmentItemsListBinding
 import org.sanpra.checklist.dbhelper.ItemsDatabase
+import org.sanpra.checklist.dbhelper.ItemsDbThreadHelper
 
 /**
  * Displays checklist items
@@ -74,7 +75,7 @@ class ItemsListFragment : Fragment(),  LoaderManager.LoaderCallbacks<List<Checkl
         itemListAdapter = ChecklistItemRecyclerAdapter()
         itemListAdapter.setOnItemClickListener(object : ChecklistItemRecyclerAdapter.ItemClickListener() {
             internal override fun onClick(view: View, itemId: Long) {
-                itemsDao.flipStatus(itemId)
+                ItemsDbThreadHelper.dbOpsHandler.post { itemsDao.flipStatus(itemId) }
             }
         })
         itemListAdapter.setItemLongClickListener(object : ChecklistItemRecyclerAdapter.ItemLongClickListener() {
@@ -97,7 +98,7 @@ class ItemsListFragment : Fragment(),  LoaderManager.LoaderCallbacks<List<Checkl
         override fun onMenuItemClick(item: MenuItem): Boolean {
             when (item.itemId) {
                 R.id.context_menu_delete -> {
-                    itemsDao.deleteItem(itemId)
+                    ItemsDbThreadHelper.dbOpsHandler.post { itemsDao.deleteItem(itemId) }
                     return true
                 }
 
@@ -130,22 +131,22 @@ class ItemsListFragment : Fragment(),  LoaderManager.LoaderCallbacks<List<Checkl
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_delcheckeditems -> {
-                itemsDao.deleteCheckedItems()
+                ItemsDbThreadHelper.dbOpsHandler.post {  itemsDao.deleteCheckedItems() }
                 return true
             }
 
             R.id.menu_checkall -> {
-                itemsDao.checkAllItems()
+                ItemsDbThreadHelper.dbOpsHandler.post { itemsDao.checkAllItems() }
                 return true
             }
 
             R.id.menu_uncheckall -> {
-                itemsDao.uncheckAllItems()
+                ItemsDbThreadHelper.dbOpsHandler.post { itemsDao.uncheckAllItems() }
                 return true
             }
 
             R.id.menu_reverseall -> {
-                itemsDao.flipAllItems()
+                ItemsDbThreadHelper.dbOpsHandler.post { itemsDao.flipAllItems() }
                 return true
             }
         }
