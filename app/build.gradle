@@ -10,7 +10,7 @@ android {
         applicationId "org.sanpra.checklist"
         minSdkVersion 14
         targetSdkVersion 27
-        versionCode 2
+        versionCode 3
         versionName "1.99"
         multiDexEnabled true
         compileOptions {
