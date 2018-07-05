@@ -1,6 +1,10 @@
 Checklist for Android
 ---------------------
 
+<h1 align=center>
+<img src="Logo/horizontal.png" width=60%>
+</h1>
+
 DESCRIPTION
 -----------
 Basic checklist app for Android
@@ -21,5 +25,5 @@ Database description
 Table name - items
 Columns:
 
-item id   item description(string)     status(integer: 0-unchecked 1-checked)
--------   -----------------------      --------------------------------------
+item id  -  item description(string)     -   status(integer: 0-unchecked 1-checked)
+-------    -----------------------      --------------------------------------
