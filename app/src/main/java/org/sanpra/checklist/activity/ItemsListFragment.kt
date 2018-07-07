@@ -25,7 +25,12 @@ import android.support.annotation.UiThread
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.PopupMenu
 import org.sanpra.checklist.R
 import org.sanpra.checklist.databinding.FragmentItemsListBinding
