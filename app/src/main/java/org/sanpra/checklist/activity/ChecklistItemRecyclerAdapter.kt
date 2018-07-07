@@ -25,15 +25,12 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-import org.apache.commons.collections4.ListUtils
 import org.apache.commons.lang3.StringUtils
 import org.sanpra.checklist.R
 import org.sanpra.checklist.databinding.ItemRowBinding
 
 internal class ChecklistItemRecyclerAdapter @UiThread
 constructor() : ListAdapter<ChecklistItem, ChecklistItemViewHolder>(ChecklistDiffCallback()) {
-    private val DEFAULT_LIST = emptyList<ChecklistItem>()
     private var itemClickListener: View.OnClickListener? = null
     private var itemLongClickListener: View.OnLongClickListener? = null
 
