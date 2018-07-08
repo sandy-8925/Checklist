@@ -17,7 +17,6 @@ USAGE
 
 DEVELOPMENT
 -----------
-Requires Android Support Library v4, Appcompat v7 support library and cwac-loaderex peroject (https://github.com/commonsguy/cwac-loaderex)
 
 Database description
 --------------------
