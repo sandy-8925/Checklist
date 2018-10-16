@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.android.gms.oss-licenses-plugin'
+
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
@@ -64,7 +66,7 @@ android {
         implementation 'org.apache.commons:commons-collections4:4.1'
         implementation 'org.apache.commons:commons-lang3:3.7'
 
-        kapt 'com.android.databinding:compiler:3.2.1'
+//        kapt 'com.android.databinding:compiler:3.2.0'
 
         implementation "android.arch.lifecycle:extensions:${lifecycleVersion}"
         kapt "android.arch.lifecycle:compiler:${lifecycleVersion}"
@@ -73,6 +75,8 @@ android {
         kapt "android.arch.persistence.room:compiler:${roomVersion}"
 
         implementation 'com.android.support:multidex:1.0.3'
+
+        implementation 'com.google.android.gms:play-services-oss-licenses:16.0.1'
 
         debugImplementation "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}"
         releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}"

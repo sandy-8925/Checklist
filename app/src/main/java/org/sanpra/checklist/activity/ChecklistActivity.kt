@@ -17,9 +17,13 @@
 
 package org.sanpra.checklist.activity
 
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuItem
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 
 import org.sanpra.checklist.R
 import org.sanpra.checklist.databinding.ChecklistBinding
@@ -34,5 +38,20 @@ class ChecklistActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<ChecklistBinding>(this, R.layout.checklist)
         setSupportActionBar(binding.toolbar)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.menu_license_info -> {
+                startActivity(Intent(this, OssLicensesMenuActivity::class.java))
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
