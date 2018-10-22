@@ -18,5 +18,5 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="enter_new_item_text_here">Enter new item text here</string>
-    <string name="license_info">License Info</string>
+    <string name="license_info">Open source license info</string>
 </resources>
