@@ -20,7 +20,7 @@ android {
             targetCompatibility JavaVersion.VERSION_1_7
             incremental true
         }
-
+        resConfigs "en"
         testApplicationId "org.sanpra.checklist.test"
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
     }
