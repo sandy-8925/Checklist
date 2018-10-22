@@ -19,4 +19,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="enter_new_item_text_here">Enter new item text here</string>
     <string name="license_info">Open source license info</string>
+    <string name="about">About</string>
+    <string name="about_dlg_msg">This app is open source and available under the terms of GPLv3 license. License can be viewed at https://www.gnu.org/licenses/gpl-3.0.en.html Source code can be found at https://github.com/sandy-8925/Checklist</string>
 </resources>

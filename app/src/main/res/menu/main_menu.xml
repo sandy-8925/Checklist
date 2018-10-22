@@ -5,4 +5,9 @@
         android:id="@+id/menu_license_info"
         android:title="@string/license_info"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_about"
+        android:title="@string/about"
+        app:showAsAction="never" />
 </menu>

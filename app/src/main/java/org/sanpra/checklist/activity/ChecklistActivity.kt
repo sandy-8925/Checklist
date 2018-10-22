@@ -17,10 +17,17 @@
 
 package org.sanpra.checklist.activity
 
+import android.app.Dialog
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v4.app.DialogFragment
+import android.support.v4.text.util.LinkifyCompat
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.util.Linkify
 import android.view.Menu
 import android.view.MenuItem
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
@@ -51,7 +58,26 @@ class ChecklistActivity : AppCompatActivity() {
                 startActivity(Intent(this, OssLicensesMenuActivity::class.java))
                 return true
             }
+            R.id.menu_about -> {
+                val aboutDialog = AboutDialog()
+                aboutDialog.show(supportFragmentManager, aboutDialog.TAG)
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
+    }
+}
+
+class AboutDialog : DialogFragment() {
+    val TAG : String = "AboutDialog"
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val message : Spannable = SpannableString(getText(R.string.about_dlg_msg))
+        LinkifyCompat.addLinks(message, Linkify.WEB_URLS)
+        val builder = AlertDialog.Builder(requireContext())
+                        .setTitle(R.string.about)
+                        .setMessage(message)
+                        .setPositiveButton(android.R.string.ok, null)
+        return builder.create()
     }
 }
