@@ -17,6 +17,7 @@
 
 package org.sanpra.checklist.application
 
+import android.os.StrictMode
 import android.support.multidex.MultiDexApplication
 import com.squareup.leakcanary.LeakCanary
 
@@ -28,5 +29,9 @@ class ChecklistApp : MultiDexApplication() {
             return
         }
         LeakCanary.install(this)
+        if(org.sanpra.checklist.BuildConfig.DEBUG) {
+            StrictMode.setThreadPolicy(StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().penaltyFlashScreen().build())
+            StrictMode.setVmPolicy(StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build())
+        }
     }
 }
