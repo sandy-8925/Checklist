@@ -76,7 +76,7 @@ android {
 
         implementation 'com.android.support:multidex:1.0.3'
 
-        implementation 'com.google.android.gms:play-services-oss-licenses:16.0.1'
+        implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
 
         debugImplementation "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}"
         releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}"
