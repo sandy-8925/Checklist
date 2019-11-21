@@ -69,7 +69,7 @@ class ChecklistActivity : AppCompatActivity() {
 }
 
 class AboutDialog : DialogFragment() {
-    val TAG : String = "AboutDialog"
+    internal val TAG : String = "AboutDialog"
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val message : Spannable = SpannableString(getText(R.string.about_dlg_msg))

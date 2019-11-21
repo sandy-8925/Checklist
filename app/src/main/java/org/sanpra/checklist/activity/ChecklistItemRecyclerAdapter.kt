@@ -17,6 +17,7 @@
 
 package org.sanpra.checklist.activity
 
+import android.annotation.SuppressLint
 import android.databinding.DataBindingUtil
 import android.support.annotation.UiThread
 import android.support.v7.recyclerview.extensions.ListAdapter
@@ -86,7 +87,7 @@ constructor() : ListAdapter<ChecklistItem, ChecklistItemViewHolder>(ChecklistDif
     }
 
     companion object {
-        private val VIEWHOLDER_TAG = R.id.CursorItemId
+        private const val VIEWHOLDER_TAG = R.id.CursorItemId
     }
 }
 
@@ -96,6 +97,7 @@ constructor() : ListAdapter<ChecklistItem, ChecklistItemViewHolder>(ChecklistDif
 internal class ChecklistItemViewHolder(val binding: ItemRowBinding) : RecyclerView.ViewHolder(binding.root)
 
 private class ChecklistDiffCallback : DiffUtil.ItemCallback<ChecklistItem>() {
+    @SuppressLint("DiffUtilEquals")
     override fun areContentsTheSame(oldItem: ChecklistItem?, newItem: ChecklistItem?): Boolean {
         if(oldItem == newItem) return true
         oldItem?: return false

@@ -42,9 +42,9 @@ class ItemEditDialog : DialogFragment(), Observer<ChecklistItem> {
     }
 
     companion object {
-        const val EXTRA_KEY_ITEM_ID = "item_id"
-        const val TAG : String = "ItemEditDialog"
-        fun getArgs(itemId : Long) : Bundle {
+        private const val EXTRA_KEY_ITEM_ID = "item_id"
+        internal const val TAG : String = "ItemEditDialog"
+        internal fun getArgs(itemId : Long) : Bundle {
             val args = Bundle()
             args.putLong(EXTRA_KEY_ITEM_ID, itemId)
             return args

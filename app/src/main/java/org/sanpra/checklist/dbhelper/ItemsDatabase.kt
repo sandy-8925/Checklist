@@ -28,7 +28,7 @@ import android.os.HandlerThread
 import org.sanpra.checklist.activity.ChecklistItem
 import org.sanpra.checklist.activity.ItemsDao
 
-@Database(entities = arrayOf(ChecklistItem::class), version = 2)
+@Database(entities = [ChecklistItem::class], version = 2)
 abstract class ItemsDatabase : RoomDatabase() {
 
     abstract fun itemsDao(): ItemsDao
