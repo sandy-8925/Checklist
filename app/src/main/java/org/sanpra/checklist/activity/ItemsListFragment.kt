@@ -111,7 +111,7 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
                     return true
                 }
 
-                R.id.context_menu_edit -> {arguments
+                R.id.context_menu_edit -> {
                     val dialog : DialogFragment = ItemEditDialog()
                     dialog.arguments = ItemEditDialog.getArgs(itemId)
                     dialog.show(requireFragmentManager(), ItemEditDialog.TAG)
