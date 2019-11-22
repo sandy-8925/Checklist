@@ -103,12 +103,10 @@ interface ItemsDao {
 
 private val MIGRATION_1_2 = object : Migration(1, 2) {
     override fun migrate(database: SupportSQLiteDatabase) {
-        val CREATE_ITEMS_COPY_TABLE = "create table items_copy($COLUMN_ID integer, `$COLUMN_DESC` text, $COLUMN_CHECKED integer);"
-        database.execSQL(CREATE_ITEMS_COPY_TABLE)
+        database.execSQL("create table items_copy($COLUMN_ID integer, `$COLUMN_DESC` text, $COLUMN_CHECKED integer);")
         database.execSQL("insert into items_copy select * from $TABLE_NAME;")
         database.execSQL("drop table $TABLE_NAME;")
-        val RECREATE_ITEMS_TABLE = "create table $TABLE_NAME($COLUMN_ID integer primary key autoincrement not null, `$COLUMN_DESC` text, $COLUMN_CHECKED integer not null);"
-        database.execSQL(RECREATE_ITEMS_TABLE)
+        database.execSQL("create table $TABLE_NAME($COLUMN_ID integer primary key autoincrement not null, `$COLUMN_DESC` text, $COLUMN_CHECKED integer not null);")
         database.execSQL("insert into $TABLE_NAME select * from items_copy;")
         database.execSQL("drop table items_copy;")
     }
