@@ -18,12 +18,12 @@
 package org.sanpra.checklist.activity
 
 import android.app.Dialog
-import android.arch.lifecycle.Observer
 import android.content.DialogInterface
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
-import android.support.v7.app.AlertDialog
 import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Observer
 import org.apache.commons.lang3.StringUtils
 import org.sanpra.checklist.R
 import org.sanpra.checklist.dbhelper.ItemsDatabase

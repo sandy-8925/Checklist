@@ -18,13 +18,7 @@
 package org.sanpra.checklist.activity
 
 
-import android.arch.lifecycle.Observer
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.annotation.UiThread
-import android.support.v4.app.DialogFragment
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -32,6 +26,12 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.annotation.UiThread
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import org.sanpra.checklist.R
 import org.sanpra.checklist.databinding.FragmentItemsListBinding
 import org.sanpra.checklist.dbhelper.ItemsDatabase
@@ -111,7 +111,7 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
                 R.id.context_menu_edit -> {arguments
                     val dialog : DialogFragment = ItemEditDialog()
                     dialog.arguments = ItemEditDialog.getArgs(itemId)
-                    dialog.show(fragmentManager, ItemEditDialog.TAG)
+                    dialog.show(requireFragmentManager(), ItemEditDialog.TAG)
                     return true
                 }
             }
@@ -119,9 +119,9 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater?.inflate(R.menu.checklist_menu, menu)
+        inflater.inflate(R.menu.checklist_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

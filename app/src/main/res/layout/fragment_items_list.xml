@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-<android.support.v7.widget.RecyclerView
+<androidx.recyclerview.widget.RecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/items_list"
     android:layout_width="match_parent"
@@ -10,5 +10,5 @@
     android:background="?attr/defaultBackgroundColour"
     >
     <requestFocus />
-</android.support.v7.widget.RecyclerView>
+</androidx.recyclerview.widget.RecyclerView>
 </layout>

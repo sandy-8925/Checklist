@@ -17,18 +17,18 @@
 
 package org.sanpra.checklist.dbhelper
 
-import android.arch.persistence.db.SupportSQLiteDatabase
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.Room
-import android.arch.persistence.room.RoomDatabase
-import android.arch.persistence.room.migration.Migration
 import android.content.Context
 import android.os.Handler
 import android.os.HandlerThread
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import org.sanpra.checklist.activity.ChecklistItem
 import org.sanpra.checklist.activity.ItemsDao
 
-@Database(entities = [ChecklistItem::class], version = 2)
+@Database(entities = [ChecklistItem::class], version = 2, exportSchema = false)
 abstract class ItemsDatabase : RoomDatabase() {
 
     abstract fun itemsDao(): ItemsDao

@@ -19,17 +19,17 @@ package org.sanpra.checklist.activity
 
 import android.app.Dialog
 import android.content.Intent
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
-import android.support.v4.text.util.LinkifyCompat
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.util.Linkify
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.util.LinkifyCompat
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 
 import org.sanpra.checklist.R

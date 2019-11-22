@@ -18,7 +18,7 @@
 package org.sanpra.checklist.application
 
 import android.os.StrictMode
-import android.support.multidex.MultiDexApplication
+import androidx.multidex.MultiDexApplication
 import com.squareup.leakcanary.LeakCanary
 import org.sanpra.checklist.BuildConfig
 

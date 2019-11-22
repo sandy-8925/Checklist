@@ -51,30 +51,33 @@ android {
     ext {
         supportLibVersion = "28.0.0"
         leakCanaryVersion = "1.5.4"
-        roomVersion = "1.1.1"
-        lifecycleVersion = "1.1.1"
+        roomVersion = "2.2.2"
+        lifecycleVersion = "2.1.0"
     }
 
     dependencies {
-        implementation "com.android.support:support-compat:${supportLibVersion}"
-        implementation "com.android.support:support-v4:${supportLibVersion}"
-        implementation "com.android.support:support-core-ui:${supportLibVersion}"
-        implementation "com.android.support:support-fragment:${supportLibVersion}"
-        implementation "com.android.support:support-core-utils:${supportLibVersion}"
-        implementation "com.android.support:recyclerview-v7:${supportLibVersion}"
-        implementation "com.android.support:appcompat-v7:${supportLibVersion}"
+        implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+        implementation "androidx.core:core:1.1.0"
+        implementation "androidx.legacy:legacy-support-v4:1.0.0"
+        implementation "androidx.legacy:legacy-support-core-ui:1.0.0"
+        implementation "androidx.fragment:fragment:1.1.0"
+        implementation "androidx.legacy:legacy-support-core-utils:1.0.0"
+        implementation "androidx.recyclerview:recyclerview:1.1.0"
+        implementation "androidx.appcompat:appcompat:1.1.0"
+
         implementation 'org.apache.commons:commons-collections4:4.1'
         implementation 'org.apache.commons:commons-lang3:3.7'
 
-//        kapt 'com.android.databinding:compiler:3.2.0'
+        kapt 'com.android.databinding:compiler:3.2.0'
 
-        implementation "android.arch.lifecycle:extensions:${lifecycleVersion}"
-        kapt "android.arch.lifecycle:compiler:${lifecycleVersion}"
+        implementation "androidx.lifecycle:lifecycle-extensions:${lifecycleVersion}"
+        kapt "androidx.lifecycle:lifecycle-compiler:${lifecycleVersion}"
 
-        implementation "android.arch.persistence.room:runtime:${roomVersion}"
-        kapt "android.arch.persistence.room:compiler:${roomVersion}"
+        implementation "androidx.room:room-runtime:${roomVersion}"
+        kapt "androidx.room:room-compiler:${roomVersion}"
 
-        implementation 'com.android.support:multidex:1.0.3'
+        implementation 'androidx.multidex:multidex:2.0.1'
 
         implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
 
@@ -82,13 +85,6 @@ android {
         releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}"
         testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}"
     }
-}
-repositories {
-    mavenCentral()
-}
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:support-v4:27.1.1'
 }
 
 apply plugin: 'kotlin-android-extensions'

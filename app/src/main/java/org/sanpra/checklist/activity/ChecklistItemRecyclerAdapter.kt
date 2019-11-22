@@ -18,14 +18,14 @@
 package org.sanpra.checklist.activity
 
 import android.annotation.SuppressLint
-import android.databinding.DataBindingUtil
-import android.support.annotation.UiThread
-import android.support.v7.recyclerview.extensions.ListAdapter
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.UiThread
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import org.apache.commons.lang3.StringUtils
 import org.sanpra.checklist.R
 import org.sanpra.checklist.databinding.ItemRowBinding
@@ -98,17 +98,13 @@ internal class ChecklistItemViewHolder(val binding: ItemRowBinding) : RecyclerVi
 
 private class ChecklistDiffCallback : DiffUtil.ItemCallback<ChecklistItem>() {
     @SuppressLint("DiffUtilEquals")
-    override fun areContentsTheSame(oldItem: ChecklistItem?, newItem: ChecklistItem?): Boolean {
+    override fun areContentsTheSame(oldItem: ChecklistItem, newItem: ChecklistItem): Boolean {
         if(oldItem == newItem) return true
-        oldItem?: return false
-        newItem?: return false
         return oldItem.isChecked == newItem.isChecked && StringUtils.equals(oldItem.description, newItem.description)
     }
 
-    override fun areItemsTheSame(oldItem: ChecklistItem?, newItem: ChecklistItem?): Boolean {
+    override fun areItemsTheSame(oldItem: ChecklistItem, newItem: ChecklistItem): Boolean {
         if(oldItem == newItem) return true
-        oldItem?: return false
-        newItem?: return false
         return oldItem.id == newItem.id
     }
 }
