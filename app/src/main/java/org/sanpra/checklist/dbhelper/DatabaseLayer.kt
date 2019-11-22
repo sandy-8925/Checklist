@@ -101,39 +101,28 @@ interface ItemsDao {
     fun updateItem(item: ChecklistItem)
 }
 
+private val MIGRATION_1_2 = object : Migration(1, 2) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        val CREATE_ITEMS_COPY_TABLE = "create table items_copy($COLUMN_ID integer, `$COLUMN_DESC` text, $COLUMN_CHECKED integer);"
+        database.execSQL(CREATE_ITEMS_COPY_TABLE)
+        database.execSQL("insert into items_copy select * from $TABLE_NAME;")
+        database.execSQL("drop table $TABLE_NAME;")
+        val RECREATE_ITEMS_TABLE = "create table $TABLE_NAME($COLUMN_ID integer primary key autoincrement not null, `$COLUMN_DESC` text, $COLUMN_CHECKED integer not null);"
+        database.execSQL(RECREATE_ITEMS_TABLE)
+        database.execSQL("insert into $TABLE_NAME select * from items_copy;")
+        database.execSQL("drop table items_copy;")
+    }
+}
+
+internal fun getDbInstance(context: Context): ItemsDatabase =
+        Room.databaseBuilder(context.applicationContext, ItemsDatabase::class.java, DATABASE_NAME)
+                     .addMigrations(MIGRATION_1_2)
+                     .build()
+
 @Database(entities = [ChecklistItem::class], version = 2, exportSchema = false)
 abstract class ItemsDatabase : RoomDatabase() {
 
     abstract fun itemsDao(): ItemsDao
-
-    companion object {
-        private val MIGRATION_1_2 = object : Migration(1, 2) {
-            override fun migrate(database: SupportSQLiteDatabase) {
-                val CREATE_ITEMS_COPY_TABLE = "create table items_copy($COLUMN_ID integer, `$COLUMN_DESC` text, $COLUMN_CHECKED integer);"
-                database.execSQL(CREATE_ITEMS_COPY_TABLE)
-                database.execSQL("insert into items_copy select * from $TABLE_NAME;")
-                database.execSQL("drop table $TABLE_NAME;")
-                val RECREATE_ITEMS_TABLE = "create table $TABLE_NAME($COLUMN_ID integer primary key autoincrement not null, `$COLUMN_DESC` text, $COLUMN_CHECKED integer not null);"
-                database.execSQL(RECREATE_ITEMS_TABLE)
-                database.execSQL("insert into $TABLE_NAME select * from items_copy;")
-                database.execSQL("drop table items_copy;")
-            }
-        }
-
-        private var INSTANCE: ItemsDatabase? = null
-
-        @Synchronized
-        fun getInstance(context: Context): ItemsDatabase {
-            var localInstance = INSTANCE
-            if (localInstance == null) {
-                localInstance = Room.databaseBuilder(context.applicationContext, ItemsDatabase::class.java, DATABASE_NAME)
-                        .addMigrations(MIGRATION_1_2)
-                        .build()
-                INSTANCE = localInstance
-            }
-            return localInstance
-        }
-    }
 }
 
 object ItemsDbThreadHelper {

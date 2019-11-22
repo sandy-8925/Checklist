@@ -26,10 +26,10 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.annotation.UiThread
 import androidx.fragment.app.Fragment
+import org.sanpra.checklist.application.appDb
 import org.sanpra.checklist.databinding.AddItemFragmentLayoutBinding
 import org.sanpra.checklist.dbhelper.ChecklistItem
 import org.sanpra.checklist.dbhelper.ItemsDao
-import org.sanpra.checklist.dbhelper.ItemsDatabase
 import org.sanpra.checklist.dbhelper.ItemsDbThreadHelper
 
 class AddItemFragment : Fragment() {
@@ -52,7 +52,7 @@ class AddItemFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        itemsDao = ItemsDatabase.getInstance(requireContext()).itemsDao()
+        itemsDao = appDb.itemsDao()
         setupItemAddUI()
     }
 

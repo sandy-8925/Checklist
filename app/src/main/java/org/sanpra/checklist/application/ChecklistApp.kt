@@ -21,6 +21,8 @@ import android.os.StrictMode
 import androidx.multidex.MultiDexApplication
 import com.squareup.leakcanary.LeakCanary
 import org.sanpra.checklist.BuildConfig
+import org.sanpra.checklist.dbhelper.ItemsDatabase
+import org.sanpra.checklist.dbhelper.getDbInstance
 
 @Suppress("unused")
 class ChecklistApp : MultiDexApplication() {
@@ -34,5 +36,10 @@ class ChecklistApp : MultiDexApplication() {
             StrictMode.setThreadPolicy(StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().penaltyFlashScreen().build())
             StrictMode.setVmPolicy(StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build())
         }
+
+        appDb = getDbInstance(applicationContext)
     }
 }
+
+internal lateinit var appDb : ItemsDatabase
+    private set

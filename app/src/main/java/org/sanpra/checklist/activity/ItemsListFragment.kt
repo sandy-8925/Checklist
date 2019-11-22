@@ -33,10 +33,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.sanpra.checklist.R
+import org.sanpra.checklist.application.appDb
 import org.sanpra.checklist.databinding.FragmentItemsListBinding
 import org.sanpra.checklist.dbhelper.ChecklistItem
 import org.sanpra.checklist.dbhelper.ItemsDao
-import org.sanpra.checklist.dbhelper.ItemsDatabase
 import org.sanpra.checklist.dbhelper.ItemsDbThreadHelper
 
 /**
@@ -68,7 +68,7 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
 
         // create database helper object and fetch all checklist items from
         // database
-        itemsDao = ItemsDatabase.getInstance(requireContext()).itemsDao()
+        itemsDao = appDb.itemsDao()
         setupItemsListUI()
         registerForContextMenu(binding.itemsList)
         itemsDao.fetchAllItems().observe(this, this)

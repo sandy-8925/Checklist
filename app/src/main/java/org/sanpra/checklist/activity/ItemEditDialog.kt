@@ -26,9 +26,9 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import org.apache.commons.lang3.StringUtils
 import org.sanpra.checklist.R
+import org.sanpra.checklist.application.appDb
 import org.sanpra.checklist.dbhelper.ChecklistItem
 import org.sanpra.checklist.dbhelper.ItemsDao
-import org.sanpra.checklist.dbhelper.ItemsDatabase
 import org.sanpra.checklist.dbhelper.ItemsDbThreadHelper
 
 class ItemEditDialog : DialogFragment(), Observer<ChecklistItem> {
@@ -64,7 +64,7 @@ class ItemEditDialog : DialogFragment(), Observer<ChecklistItem> {
         val args = arguments
         args ?: return
         itemId = args.getLong(EXTRA_KEY_ITEM_ID, UNINIT_ITEM_ID)
-        itemsDao = ItemsDatabase.getInstance(requireContext()).itemsDao()
+        itemsDao = appDb.itemsDao()
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
