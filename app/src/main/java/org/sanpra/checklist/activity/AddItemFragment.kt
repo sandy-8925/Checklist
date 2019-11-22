@@ -29,7 +29,6 @@ import androidx.fragment.app.Fragment
 import org.sanpra.checklist.application.appDb
 import org.sanpra.checklist.databinding.AddItemFragmentLayoutBinding
 import org.sanpra.checklist.dbhelper.ChecklistItem
-import org.sanpra.checklist.dbhelper.ItemsDao
 import org.sanpra.checklist.dbhelper.ItemsDbThreadHelper
 
 class AddItemFragment : Fragment() {
@@ -48,11 +47,8 @@ class AddItemFragment : Fragment() {
         return binding.root
     }
 
-    private lateinit var itemsDao: ItemsDao
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        itemsDao = appDb.itemsDao()
         setupItemAddUI()
     }
 
@@ -74,7 +70,7 @@ class AddItemFragment : Fragment() {
         if (!TextUtils.isEmpty(itemText)) {
             val item = ChecklistItem()
             item.description = itemText
-            ItemsDbThreadHelper.dbOpsHandler.post { itemsDao.addItem(item) }
+            ItemsDbThreadHelper.dbOpsHandler.post { appDb.itemsDao().addItem(item) }
             binding.newItemText.setText("")
         }
     }

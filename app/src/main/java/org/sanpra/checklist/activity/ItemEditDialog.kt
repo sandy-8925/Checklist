@@ -57,14 +57,13 @@ class ItemEditDialog : DialogFragment(), Observer<ChecklistItem> {
     private var itemId : Long = UNINIT_ITEM_ID
     private lateinit var checklistItem: ChecklistItem
     private var editText: EditText? = null
-    private lateinit var itemsDao : ItemsDao
+    private val itemsDao : ItemsDao = appDb.itemsDao()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val args = arguments
         args ?: return
         itemId = args.getLong(EXTRA_KEY_ITEM_ID, UNINIT_ITEM_ID)
-        itemsDao = appDb.itemsDao()
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

@@ -61,14 +61,10 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
     }
 
 
-    private lateinit var itemsDao: ItemsDao
+    private val itemsDao: ItemsDao = appDb.itemsDao()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // create database helper object and fetch all checklist items from
-        // database
-        itemsDao = appDb.itemsDao()
         setupItemsListUI()
         registerForContextMenu(binding.itemsList)
         itemsDao.fetchAllItems().observe(this, this)
