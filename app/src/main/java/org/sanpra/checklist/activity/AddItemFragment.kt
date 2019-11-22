@@ -27,6 +27,8 @@ import android.widget.TextView
 import androidx.annotation.UiThread
 import androidx.fragment.app.Fragment
 import org.sanpra.checklist.databinding.AddItemFragmentLayoutBinding
+import org.sanpra.checklist.dbhelper.ChecklistItem
+import org.sanpra.checklist.dbhelper.ItemsDao
 import org.sanpra.checklist.dbhelper.ItemsDatabase
 import org.sanpra.checklist.dbhelper.ItemsDbThreadHelper
 

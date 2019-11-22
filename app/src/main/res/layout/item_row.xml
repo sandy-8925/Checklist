@@ -6,7 +6,7 @@
 	<data>
 		<variable
 			name="item"
-			type="org.sanpra.checklist.activity.ChecklistItem" />
+			type="org.sanpra.checklist.dbhelper.ChecklistItem" />
 	</data>
 <TextView
 	android:id="@+id/itemtext"

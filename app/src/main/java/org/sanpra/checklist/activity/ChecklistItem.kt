@@ -23,25 +23,3 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import org.apache.commons.lang3.BooleanUtils
-
-const val TABLE_NAME = "items"
-
-@Entity(tableName = TABLE_NAME)
-class ChecklistItem {
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "_id")
-    var id: Long = 0
-
-    @ColumnInfo(name = "desc")
-    var description: String? = null
-    @ColumnInfo(name = "checked")
-    @TypeConverters(Converter::class)
-    var isChecked: Boolean = false
-
-    class Converter {
-        @TypeConverter
-        fun fromInt(checked: Int): Boolean {
-            return BooleanUtils.toBoolean(checked)
-        }
-    }
-}

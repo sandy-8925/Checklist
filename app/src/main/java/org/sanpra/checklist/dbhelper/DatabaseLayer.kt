@@ -20,13 +20,81 @@ package org.sanpra.checklist.dbhelper
 import android.content.Context
 import android.os.Handler
 import android.os.HandlerThread
+import androidx.lifecycle.LiveData
+import androidx.room.ColumnInfo
+import androidx.room.Dao
 import androidx.room.Database
+import androidx.room.Entity
+import androidx.room.Insert
+import androidx.room.PrimaryKey
+import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverter
+import androidx.room.TypeConverters
+import androidx.room.Update
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import org.sanpra.checklist.activity.ChecklistItem
-import org.sanpra.checklist.activity.ItemsDao
+import org.apache.commons.lang3.BooleanUtils
+
+const val TABLE_NAME = "items"
+
+@Entity(tableName = TABLE_NAME)
+class ChecklistItem {
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "_id")
+    var id: Long = 0
+
+    @ColumnInfo(name = "desc")
+    var description: String? = null
+    @ColumnInfo(name = "checked")
+    @TypeConverters(Converter::class)
+    var isChecked: Boolean = false
+
+    class Converter {
+        @TypeConverter
+        fun fromInt(checked: Int): Boolean {
+            return BooleanUtils.toBoolean(checked)
+        }
+    }
+}
+
+
+@Dao
+interface ItemsDao {
+    @Query("select * from items")
+    fun fetchAllItems(): LiveData<List<ChecklistItem>>
+
+    @Query("select * from items where _id = :id")
+    fun fetchItem(id: Long): LiveData<ChecklistItem>
+
+    @Query("select `desc` from items where _id = :id")
+    fun fetchItemDescription(id: Long): String
+
+    @Insert
+    fun addItem(item: ChecklistItem)
+
+    @Query("update items set checked=1-checked where _id=:id")
+    fun flipStatus(id: Long)
+
+    @Query("delete from items where checked=1")
+    fun deleteCheckedItems()
+
+    @Query("update items set checked=1")
+    fun checkAllItems()
+
+    @Query("update items set checked=0")
+    fun uncheckAllItems()
+
+    @Query("update items set checked=1-checked")
+    fun flipAllItems()
+
+    @Query("delete from items where _id=:id")
+    fun deleteItem(id: Long)
+
+    @Update
+    fun updateItem(item: ChecklistItem)
+}
 
 @Database(entities = [ChecklistItem::class], version = 2, exportSchema = false)
 abstract class ItemsDatabase : RoomDatabase() {

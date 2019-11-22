@@ -34,6 +34,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.sanpra.checklist.R
 import org.sanpra.checklist.databinding.FragmentItemsListBinding
+import org.sanpra.checklist.dbhelper.ChecklistItem
+import org.sanpra.checklist.dbhelper.ItemsDao
 import org.sanpra.checklist.dbhelper.ItemsDatabase
 import org.sanpra.checklist.dbhelper.ItemsDbThreadHelper
 

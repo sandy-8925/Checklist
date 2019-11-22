@@ -26,6 +26,8 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import org.apache.commons.lang3.StringUtils
 import org.sanpra.checklist.R
+import org.sanpra.checklist.dbhelper.ChecklistItem
+import org.sanpra.checklist.dbhelper.ItemsDao
 import org.sanpra.checklist.dbhelper.ItemsDatabase
 import org.sanpra.checklist.dbhelper.ItemsDbThreadHelper
 

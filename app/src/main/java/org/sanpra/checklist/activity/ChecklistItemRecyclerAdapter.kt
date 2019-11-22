@@ -29,6 +29,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.apache.commons.lang3.StringUtils
 import org.sanpra.checklist.R
 import org.sanpra.checklist.databinding.ItemRowBinding
+import org.sanpra.checklist.dbhelper.ChecklistItem
 
 internal class ChecklistItemRecyclerAdapter @UiThread
 constructor() : ListAdapter<ChecklistItem, ChecklistItemViewHolder>(ChecklistDiffCallback()) {
