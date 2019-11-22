@@ -37,17 +37,22 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import org.apache.commons.lang3.BooleanUtils
 
-const val TABLE_NAME = "items"
+private const val DATABASE_NAME = "data"
+private const val TABLE_NAME = "items"
+
+private const val COLUMN_ID = "_id"
+private const val COLUMN_DESC = "desc"
+private const val COLUMN_CHECKED = "checked"
 
 @Entity(tableName = TABLE_NAME)
 class ChecklistItem {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "_id")
+    @ColumnInfo(name = COLUMN_ID)
     var id: Long = 0
 
-    @ColumnInfo(name = "desc")
+    @ColumnInfo(name = COLUMN_DESC)
     var description: String? = null
-    @ColumnInfo(name = "checked")
+    @ColumnInfo(name = COLUMN_CHECKED)
     @TypeConverters(Converter::class)
     var isChecked: Boolean = false
 
@@ -62,34 +67,34 @@ class ChecklistItem {
 
 @Dao
 interface ItemsDao {
-    @Query("select * from items")
+    @Query("select * from $TABLE_NAME")
     fun fetchAllItems(): LiveData<List<ChecklistItem>>
 
-    @Query("select * from items where _id = :id")
+    @Query("select * from $TABLE_NAME where $COLUMN_ID = :id")
     fun fetchItem(id: Long): LiveData<ChecklistItem>
 
-    @Query("select `desc` from items where _id = :id")
+    @Query("select `$COLUMN_DESC` from $TABLE_NAME where $COLUMN_ID = :id")
     fun fetchItemDescription(id: Long): String
 
     @Insert
     fun addItem(item: ChecklistItem)
 
-    @Query("update items set checked=1-checked where _id=:id")
+    @Query("update $TABLE_NAME set checked=1-checked where $COLUMN_ID=:id")
     fun flipStatus(id: Long)
 
-    @Query("delete from items where checked=1")
+    @Query("delete from $TABLE_NAME where checked=1")
     fun deleteCheckedItems()
 
-    @Query("update items set checked=1")
+    @Query("update $TABLE_NAME set checked=1")
     fun checkAllItems()
 
-    @Query("update items set checked=0")
+    @Query("update $TABLE_NAME set checked=0")
     fun uncheckAllItems()
 
-    @Query("update items set checked=1-checked")
+    @Query("update $TABLE_NAME set checked=1-checked")
     fun flipAllItems()
 
-    @Query("delete from items where _id=:id")
+    @Query("delete from $TABLE_NAME where $COLUMN_ID=:id")
     fun deleteItem(id: Long)
 
     @Update
@@ -104,13 +109,13 @@ abstract class ItemsDatabase : RoomDatabase() {
     companion object {
         private val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
-                val CREATE_ITEMS_COPY_TABLE = "create table items_copy(_id integer," + " desc text, checked integer);"
+                val CREATE_ITEMS_COPY_TABLE = "create table items_copy($COLUMN_ID integer, `$COLUMN_DESC` text, $COLUMN_CHECKED integer);"
                 database.execSQL(CREATE_ITEMS_COPY_TABLE)
-                database.execSQL("insert into items_copy select * from items;")
-                database.execSQL("drop table items;")
-                val RECREATE_ITEMS_TABLE = "create table items(_id integer primary key autoincrement not null," + " desc text, checked integer not null);"
+                database.execSQL("insert into items_copy select * from $TABLE_NAME;")
+                database.execSQL("drop table $TABLE_NAME;")
+                val RECREATE_ITEMS_TABLE = "create table $TABLE_NAME($COLUMN_ID integer primary key autoincrement not null, `$COLUMN_DESC` text, $COLUMN_CHECKED integer not null);"
                 database.execSQL(RECREATE_ITEMS_TABLE)
-                database.execSQL("insert into items select * from items_copy;")
+                database.execSQL("insert into $TABLE_NAME select * from items_copy;")
                 database.execSQL("drop table items_copy;")
             }
         }
@@ -128,8 +133,6 @@ abstract class ItemsDatabase : RoomDatabase() {
             }
             return localInstance
         }
-
-        private const val DATABASE_NAME = "data"
     }
 }
 
