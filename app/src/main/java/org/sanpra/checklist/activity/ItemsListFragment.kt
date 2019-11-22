@@ -30,7 +30,10 @@ import androidx.annotation.UiThread
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.sanpra.checklist.R
 import org.sanpra.checklist.application.appDb
@@ -55,11 +58,13 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
         return binding.root
     }
 
+    private lateinit var viewModel: ItemsListFragmentViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        viewModel = ViewModelProviders.of(this).get(ItemsListFragmentViewModel::class.java)
     }
-
 
     private val itemsDao: ItemsDao = appDb.itemsDao()
 
@@ -67,7 +72,7 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
         super.onViewCreated(view, savedInstanceState)
         setupItemsListUI()
         registerForContextMenu(binding.itemsList)
-        itemsDao.fetchAllItems().observe(this, this)
+        viewModel.itemsList.observe(this, this)
     }
 
     private lateinit var itemListAdapter: ChecklistItemRecyclerAdapter
@@ -146,4 +151,8 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
         }
         return super.onOptionsItemSelected(item)
     }
+}
+
+internal class ItemsListFragmentViewModel : ViewModel() {
+    val itemsList : LiveData<List<ChecklistItem>> = appDb.itemsDao().fetchAllItems()
 }
