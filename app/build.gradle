@@ -84,6 +84,9 @@ android {
         debugImplementation "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}"
         releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}"
         testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}"
+
+        implementation "io.reactivex.rxjava2:rxjava:2.2.12"
+        implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     }
 }
 
