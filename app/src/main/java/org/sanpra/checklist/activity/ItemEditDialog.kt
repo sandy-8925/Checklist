@@ -28,6 +28,7 @@ import io.reactivex.Completable
 import io.reactivex.schedulers.Schedulers
 import org.apache.commons.lang3.StringUtils
 import org.sanpra.checklist.R
+import org.sanpra.checklist.application.SystemObjects
 import org.sanpra.checklist.application.appDb
 import org.sanpra.checklist.dbhelper.ChecklistItem
 import org.sanpra.checklist.dbhelper.ItemsDao
@@ -60,7 +61,7 @@ class ItemEditDialog : DialogFragment(), Observer<ChecklistItem> {
     private var itemId : Long = UNINIT_ITEM_ID
     private lateinit var checklistItem: ChecklistItem
     private var editText: EditText? = null
-    private val itemsDao : ItemsDao = appDb.itemsDao()
+    private val itemsDao : ItemsDao = SystemObjects.appDb().itemsDao()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -38,6 +38,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import io.reactivex.Completable
 import io.reactivex.schedulers.Schedulers
 import org.sanpra.checklist.R
+import org.sanpra.checklist.application.SystemObjects
 import org.sanpra.checklist.application.appDb
 import org.sanpra.checklist.databinding.FragmentItemsListBinding
 import org.sanpra.checklist.dbhelper.ChecklistItem
@@ -67,7 +68,7 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
         viewModel = ViewModelProviders.of(this).get(ItemsListFragmentViewModel::class.java)
     }
 
-    private val itemsDao: ItemsDao = appDb.itemsDao()
+    private val itemsDao: ItemsDao = SystemObjects.appDb().itemsDao()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -167,5 +168,5 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
 }
 
 internal class ItemsListFragmentViewModel : ViewModel() {
-    val itemsList : LiveData<List<ChecklistItem>> = appDb.itemsDao().fetchAllItems()
+    val itemsList : LiveData<List<ChecklistItem>> = SystemObjects.appDb().itemsDao().fetchAllItems()
 }

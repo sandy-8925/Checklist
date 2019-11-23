@@ -28,6 +28,7 @@ import androidx.annotation.UiThread
 import androidx.fragment.app.Fragment
 import io.reactivex.Completable
 import io.reactivex.schedulers.Schedulers
+import org.sanpra.checklist.application.SystemObjects
 import org.sanpra.checklist.application.appDb
 import org.sanpra.checklist.databinding.AddItemFragmentLayoutBinding
 import org.sanpra.checklist.dbhelper.ChecklistItem
@@ -71,7 +72,7 @@ class AddItemFragment : Fragment() {
         if (!TextUtils.isEmpty(itemText)) {
             val item = ChecklistItem()
             item.description = itemText
-            Completable.fromRunnable { appDb.itemsDao().addItem(item) }
+            Completable.fromRunnable { SystemObjects.appDb().itemsDao().addItem(item) }
                     .subscribeOn(Schedulers.io())
                     .subscribe()
             binding.newItemText.setText("")
