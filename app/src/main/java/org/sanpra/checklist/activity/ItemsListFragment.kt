@@ -35,12 +35,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import io.reactivex.Completable
+import io.reactivex.schedulers.Schedulers
 import org.sanpra.checklist.R
 import org.sanpra.checklist.application.appDb
 import org.sanpra.checklist.databinding.FragmentItemsListBinding
 import org.sanpra.checklist.dbhelper.ChecklistItem
 import org.sanpra.checklist.dbhelper.ItemsDao
-import org.sanpra.checklist.dbhelper.ItemsDbThreadHelper
 
 /**
  * Displays checklist items
@@ -84,7 +85,9 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
         itemListAdapter = ChecklistItemRecyclerAdapter()
         itemListAdapter.setOnItemClickListener(object : ChecklistItemRecyclerAdapter.ItemClickListener() {
             override fun onClick(view: View, itemId: Long) {
-                ItemsDbThreadHelper.dbOpsHandler.post { itemsDao.flipStatus(itemId) }
+                Completable.fromRunnable { itemsDao.flipStatus(itemId) }
+                        .subscribeOn(Schedulers.io())
+                        .subscribe()
             }
         })
         itemListAdapter.setItemLongClickListener(object : ChecklistItemRecyclerAdapter.ItemLongClickListener() {
@@ -107,7 +110,9 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
         override fun onMenuItemClick(item: MenuItem): Boolean {
             when (item.itemId) {
                 R.id.context_menu_delete -> {
-                    ItemsDbThreadHelper.dbOpsHandler.post { itemsDao.deleteItem(itemId) }
+                    Completable.fromRunnable { itemsDao.deleteItem(itemId) }
+                            .subscribeOn(Schedulers.io())
+                            .subscribe()
                     return true
                 }
 
@@ -130,22 +135,30 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_delcheckeditems -> {
-                ItemsDbThreadHelper.dbOpsHandler.post {  itemsDao.deleteCheckedItems() }
+                Completable.fromRunnable {  itemsDao.deleteCheckedItems() }
+                        .subscribeOn(Schedulers.io())
+                        .subscribe()
                 return true
             }
 
             R.id.menu_checkall -> {
-                ItemsDbThreadHelper.dbOpsHandler.post { itemsDao.checkAllItems() }
+                Completable.fromRunnable { itemsDao.checkAllItems() }
+                        .subscribeOn(Schedulers.io())
+                        .subscribe()
                 return true
             }
 
             R.id.menu_uncheckall -> {
-                ItemsDbThreadHelper.dbOpsHandler.post { itemsDao.uncheckAllItems() }
+                Completable.fromRunnable { itemsDao.uncheckAllItems() }
+                        .subscribeOn(Schedulers.io())
+                        .subscribe()
                 return true
             }
 
             R.id.menu_reverseall -> {
-                ItemsDbThreadHelper.dbOpsHandler.post { itemsDao.flipAllItems() }
+                Completable.fromRunnable { itemsDao.flipAllItems() }
+                        .subscribeOn(Schedulers.io())
+                        .subscribe()
                 return true
             }
         }

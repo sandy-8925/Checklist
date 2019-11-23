@@ -26,10 +26,11 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.annotation.UiThread
 import androidx.fragment.app.Fragment
+import io.reactivex.Completable
+import io.reactivex.schedulers.Schedulers
 import org.sanpra.checklist.application.appDb
 import org.sanpra.checklist.databinding.AddItemFragmentLayoutBinding
 import org.sanpra.checklist.dbhelper.ChecklistItem
-import org.sanpra.checklist.dbhelper.ItemsDbThreadHelper
 
 class AddItemFragment : Fragment() {
 
@@ -70,7 +71,9 @@ class AddItemFragment : Fragment() {
         if (!TextUtils.isEmpty(itemText)) {
             val item = ChecklistItem()
             item.description = itemText
-            ItemsDbThreadHelper.dbOpsHandler.post { appDb.itemsDao().addItem(item) }
+            Completable.fromRunnable { appDb.itemsDao().addItem(item) }
+                    .subscribeOn(Schedulers.io())
+                    .subscribe()
             binding.newItemText.setText("")
         }
     }

@@ -122,13 +122,3 @@ abstract class ItemsDatabase : RoomDatabase() {
 
     abstract fun itemsDao(): ItemsDao
 }
-
-object ItemsDbThreadHelper {
-    private val dbOpsThread : HandlerThread = HandlerThread("database_ops")
-    val dbOpsHandler : Handler
-
-    init {
-        dbOpsThread.start()
-        dbOpsHandler = Handler(dbOpsThread.looper)
-    }
-}
