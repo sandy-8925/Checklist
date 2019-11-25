@@ -27,6 +27,9 @@ interface ItemsControllerInterface {
 
     @AnyThread
     fun itemListLiveData() : LiveData<List<ChecklistItem>>
+
+    @AnyThread
+    fun addItem(itemDesc : String)
 }
 
 internal object ItemsController : ItemsControllerInterface {
@@ -69,4 +72,11 @@ internal object ItemsController : ItemsControllerInterface {
     }
 
     override fun itemListLiveData(): LiveData<List<ChecklistItem>> = SystemObjects.appDb().itemsDao().fetchAllItems()
+
+    override fun addItem(itemDesc: String) {
+        val item = ChecklistItem().apply { description = itemDesc }
+        Completable.fromRunnable { itemsDb.itemsDao().addItem(item) }
+                .subscribeOn(Schedulers.io())
+                .subscribe()
+    }
 }

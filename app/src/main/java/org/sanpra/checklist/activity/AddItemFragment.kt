@@ -70,11 +70,7 @@ class AddItemFragment : Fragment() {
     private fun addNewItem() {
         val itemText = binding.newItemText.text.toString()
         if (!TextUtils.isEmpty(itemText)) {
-            val item = ChecklistItem()
-            item.description = itemText
-            Completable.fromRunnable { SystemObjects.appDb().itemsDao().addItem(item) }
-                    .subscribeOn(Schedulers.io())
-                    .subscribe()
+            SystemObjects.itemsController().addItem(itemText)
             binding.newItemText.setText("")
         }
     }
