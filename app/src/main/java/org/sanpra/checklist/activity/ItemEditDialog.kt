@@ -29,7 +29,6 @@ import io.reactivex.schedulers.Schedulers
 import org.apache.commons.lang3.StringUtils
 import org.sanpra.checklist.R
 import org.sanpra.checklist.application.SystemObjects
-import org.sanpra.checklist.application.appDb
 import org.sanpra.checklist.dbhelper.ChecklistItem
 import org.sanpra.checklist.dbhelper.ItemsDao
 
@@ -50,11 +49,7 @@ class ItemEditDialog : DialogFragment(), Observer<ChecklistItem> {
     companion object {
         private const val EXTRA_KEY_ITEM_ID = "item_id"
         internal const val TAG : String = "ItemEditDialog"
-        internal fun getArgs(itemId : Long) : Bundle {
-            val args = Bundle()
-            args.putLong(EXTRA_KEY_ITEM_ID, itemId)
-            return args
-        }
+        internal fun getArgs(itemId : Long) = Bundle().apply { putLong(EXTRA_KEY_ITEM_ID, itemId) }
     }
 
     private val UNINIT_ITEM_ID : Long = -23
