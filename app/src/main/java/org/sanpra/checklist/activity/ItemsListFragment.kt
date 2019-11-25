@@ -48,6 +48,8 @@ import org.sanpra.checklist.dbhelper.ItemsDao
  * Displays checklist items
  */
 class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
+    private val itemsController = SystemObjects.itemsController()
+
     override fun onChanged(t: List<ChecklistItem>?) {
         itemListAdapter.submitList(t)
     }
@@ -68,8 +70,6 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
         viewModel = ViewModelProviders.of(this).get(ItemsListFragmentViewModel::class.java)
     }
 
-    private val itemsDao: ItemsDao = SystemObjects.appDb().itemsDao()
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupItemsListUI()
@@ -86,9 +86,7 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
         itemListAdapter = ChecklistItemRecyclerAdapter()
         itemListAdapter.setOnItemClickListener(object : ChecklistItemRecyclerAdapter.ItemClickListener() {
             override fun onClick(view: View, itemId: Long) {
-                Completable.fromRunnable { itemsDao.flipStatus(itemId) }
-                        .subscribeOn(Schedulers.io())
-                        .subscribe()
+                itemsController.flipStatus(itemId)
             }
         })
         itemListAdapter.setItemLongClickListener(object : ChecklistItemRecyclerAdapter.ItemLongClickListener() {
@@ -111,9 +109,7 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
         override fun onMenuItemClick(item: MenuItem): Boolean {
             when (item.itemId) {
                 R.id.context_menu_delete -> {
-                    Completable.fromRunnable { itemsDao.deleteItem(itemId) }
-                            .subscribeOn(Schedulers.io())
-                            .subscribe()
+                    itemsController.deleteItem(itemId)
                     return true
                 }
 
@@ -136,30 +132,22 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_delcheckeditems -> {
-                Completable.fromRunnable {  itemsDao.deleteCheckedItems() }
-                        .subscribeOn(Schedulers.io())
-                        .subscribe()
+                itemsController.deleteCheckedItems()
                 return true
             }
 
             R.id.menu_checkall -> {
-                Completable.fromRunnable { itemsDao.checkAllItems() }
-                        .subscribeOn(Schedulers.io())
-                        .subscribe()
+                itemsController.checkAllItems()
                 return true
             }
 
             R.id.menu_uncheckall -> {
-                Completable.fromRunnable { itemsDao.uncheckAllItems() }
-                        .subscribeOn(Schedulers.io())
-                        .subscribe()
+                itemsController.uncheckAllItems()
                 return true
             }
 
             R.id.menu_reverseall -> {
-                Completable.fromRunnable { itemsDao.flipAllItems() }
-                        .subscribeOn(Schedulers.io())
-                        .subscribe()
+                itemsController.reverseAllItemStatus()
                 return true
             }
         }
@@ -168,5 +156,5 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
 }
 
 internal class ItemsListFragmentViewModel : ViewModel() {
-    val itemsList : LiveData<List<ChecklistItem>> = SystemObjects.appDb().itemsDao().fetchAllItems()
+    val itemsList : LiveData<List<ChecklistItem>> = SystemObjects.itemsController().itemListLiveData()
 }
