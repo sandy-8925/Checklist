@@ -41,9 +41,7 @@ class ItemEditDialog : DialogFragment(), Observer<ChecklistItem> {
 
     private val okClickListener: DialogInterface.OnClickListener = DialogInterface.OnClickListener { dialog, which ->
         checklistItem.description = StringUtils.defaultString(editText?.text.toString())
-        Completable.fromRunnable { itemsDao.updateItem(checklistItem) }
-                .subscribeOn(Schedulers.io())
-                .subscribe()
+        itemsController.updateItem(checklistItem)
     }
 
     companion object {
@@ -56,7 +54,7 @@ class ItemEditDialog : DialogFragment(), Observer<ChecklistItem> {
     private var itemId : Long = UNINIT_ITEM_ID
     private lateinit var checklistItem: ChecklistItem
     private var editText: EditText? = null
-    private val itemsDao : ItemsDao = SystemObjects.appDb().itemsDao()
+    private val itemsController = SystemObjects.itemsController()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,7 +72,7 @@ class ItemEditDialog : DialogFragment(), Observer<ChecklistItem> {
         val rootView = requireActivity().layoutInflater.inflate(R.layout.item_edit_dialog_layout, null)
         editText = rootView.findViewById(R.id.iedl_text) as EditText?
         builder.setView(rootView)
-        itemsDao.fetchItem(itemId).observe(this, this)
+        itemsController.fetchItem(itemId).observe(this, this)
         return builder.create()
     }
 }
