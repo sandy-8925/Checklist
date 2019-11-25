@@ -77,7 +77,7 @@ internal object ItemsController : ItemsControllerInterface {
                 .subscribe()
     }
 
-    override fun itemListLiveData(): LiveData<List<ChecklistItem>> = SystemObjects.appDb().itemsDao().fetchAllItems()
+    override fun itemListLiveData(): LiveData<List<ChecklistItem>> = itemsDb.itemsDao().fetchAllItems()
 
     override fun addItem(itemDesc: String) {
         val item = ChecklistItem().apply { description = itemDesc }
