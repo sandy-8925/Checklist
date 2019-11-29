@@ -70,9 +70,6 @@ interface ItemsDao {
     @Query("select * from $TABLE_NAME")
     fun fetchAllItems(): LiveData<List<ChecklistItem>>
 
-    @Query("select * from $TABLE_NAME")
-    fun fetchAllItemsSync(): List<ChecklistItem>
-
     @Query("select * from $TABLE_NAME where $COLUMN_ID = :id")
     fun fetchItem(id: Long): LiveData<ChecklistItem>
 

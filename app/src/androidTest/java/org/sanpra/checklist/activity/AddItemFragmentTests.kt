@@ -26,6 +26,7 @@ import java.util.concurrent.atomic.AtomicLong
 @RunWith(AndroidJUnit4::class)
 class AddItemFragmentTests {
     private lateinit var context : Context
+    private val mockItemsController = MockItemsController()
 
     @Before
     fun setup() {
@@ -36,7 +37,7 @@ class AddItemFragmentTests {
     private fun setupMockSystemObjects() {
         SystemObjects.applicationDb = Room.inMemoryDatabaseBuilder(context.applicationContext, ItemsDatabase::class.java)
                 .build()
-        SystemObjects.itemsCtrlr = MockItemsController()
+        SystemObjects.itemsCtrlr = mockItemsController
     }
 
     @Test
@@ -44,7 +45,7 @@ class AddItemFragmentTests {
         launchFragment()
         onView(withId(R.id.new_item_text)).perform(replaceText(""))
         onView(withId(R.id.new_item_add_button)).perform(click())
-        Assert.assertEquals(0, SystemObjects.itemsController().listItems().size)
+        Assert.assertEquals(0, mockItemsController.listItems().size)
     }
 
     @Test
@@ -53,8 +54,7 @@ class AddItemFragmentTests {
         val testString = "Hello world"
         onView(withId(R.id.new_item_text)).perform(replaceText(testString))
         onView(withId(R.id.new_item_add_button)).perform(click())
-        val itemList = SystemObjects.itemsController().listItems()
-        val item = IterableUtils.get(itemList, 0)
+        val item = IterableUtils.get(mockItemsController.listItems(), 0)
         Assert.assertEquals(testString, item.description)
     }
 
@@ -112,5 +112,5 @@ private class MockItemsController : ItemsControllerInterface {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun listItems(): Collection<ChecklistItem> = itemsMap.values
+    fun listItems(): Collection<ChecklistItem> = itemsMap.values
 }
