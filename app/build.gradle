@@ -22,7 +22,7 @@ android {
         }
         resConfigs "en"
         testApplicationId "org.sanpra.checklist.test"
-        testInstrumentationRunner "android.test.InstrumentationTestRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -87,6 +87,18 @@ android {
 
         implementation "io.reactivex.rxjava2:rxjava:2.2.12"
         implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+
+        testImplementation 'junit:junit:4.12'
+        debugImplementation 'androidx.test:core:1.2.0'
+        debugImplementation 'androidx.test:runner:1.2.0'
+        debugImplementation 'androidx.test:rules:1.2.0'
+        testImplementation 'androidx.test.ext:junit:1.1.1'
+        androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+        androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+        androidTestImplementation 'androidx.test.espresso:espresso-intents:3.2.0'
+        androidTestImplementation 'androidx.test.espresso.idling:idling-concurrent:3.2.0'
+        implementation 'androidx.test.espresso:espresso-idling-resource:3.2.0'
+        debugImplementation 'androidx.fragment:fragment-testing:1.1.0'
     }
 }
 

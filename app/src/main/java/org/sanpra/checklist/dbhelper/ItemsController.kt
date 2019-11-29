@@ -1,6 +1,7 @@
 package org.sanpra.checklist.dbhelper
 
 import androidx.annotation.AnyThread
+import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import io.reactivex.Completable
 import io.reactivex.schedulers.Schedulers
@@ -36,6 +37,9 @@ interface ItemsControllerInterface {
 
     @AnyThread
     fun updateItem(item : ChecklistItem)
+
+    @WorkerThread
+    fun listItems() : Collection<ChecklistItem>
 }
 
 internal object ItemsController : ItemsControllerInterface {
@@ -93,4 +97,6 @@ internal object ItemsController : ItemsControllerInterface {
                 .subscribeOn(Schedulers.io())
                 .subscribe()
     }
+
+    override fun listItems(): Collection<ChecklistItem> = itemsDb.itemsDao().fetchAllItemsSync()
 }
