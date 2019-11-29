@@ -1,4 +1,4 @@
-package org.sanpra.checklist.test.application
+package org.sanpra.checklist.application
 
 import org.sanpra.checklist.dbhelper.ItemsController
 import org.sanpra.checklist.dbhelper.ItemsControllerInterface

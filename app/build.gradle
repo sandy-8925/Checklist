@@ -21,7 +21,6 @@ android {
             incremental true
         }
         resConfigs "en"
-        testApplicationId "org.sanpra.checklist.test"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
