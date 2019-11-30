@@ -23,7 +23,7 @@ import org.sanpra.checklist.application.SystemObjects
 @RunWith(AndroidJUnit4::class)
 class AddItemFragmentTests {
     private lateinit var context : Context
-    private val mockItemsController = MockItemsController()
+    private lateinit var mockItemsController : MockItemsController
 
     @Before
     fun setup() {
@@ -34,6 +34,7 @@ class AddItemFragmentTests {
     private fun setupMockSystemObjects() {
         SystemObjects.applicationDb = Room.inMemoryDatabaseBuilder(context.applicationContext, ItemsDatabase::class.java)
                 .build()
+        mockItemsController = MockItemsController()
         SystemObjects.itemsCtrlr = mockItemsController
     }
 
