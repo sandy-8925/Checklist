@@ -1,13 +1,9 @@
 package org.sanpra.checklist.activity
 
 import android.content.Context
-import androidx.collection.ArrayMap
 import androidx.fragment.app.testing.FragmentScenario
-import androidx.lifecycle.LiveData
 import androidx.room.Room
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.pressImeActionButton
 import androidx.test.espresso.action.ViewActions.replaceText
@@ -21,11 +17,8 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.sanpra.checklist.R
-import org.sanpra.checklist.dbhelper.ChecklistItem
-import org.sanpra.checklist.dbhelper.ItemsControllerInterface
 import org.sanpra.checklist.dbhelper.ItemsDatabase
 import org.sanpra.checklist.application.SystemObjects
-import java.util.concurrent.atomic.AtomicLong
 
 @RunWith(AndroidJUnit4::class)
 class AddItemFragmentTests {
@@ -85,54 +78,3 @@ class AddItemFragmentTests {
     }
 }
 
-private class MockItemsController : ItemsControllerInterface {
-
-    private val itemsMap : MutableMap<Long, ChecklistItem> = ArrayMap()
-    private var nextId = AtomicLong(0)
-
-    override fun flipStatus(itemId: Long) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun deleteItem(itemId: Long) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun deleteCheckedItems() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun checkAllItems() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun uncheckAllItems() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun reverseAllItemStatus() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun itemListLiveData(): LiveData<List<ChecklistItem>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun addItem(itemDesc: String) {
-        val itemId = nextId.getAndIncrement()
-        itemsMap[itemId] = ChecklistItem().apply {
-            id = itemId
-            description = itemDesc
-        }
-    }
-
-    override fun fetchItem(itemId: Long): LiveData<ChecklistItem> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun updateItem(item: ChecklistItem) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    fun listItems(): Collection<ChecklistItem> = itemsMap.values
-}
