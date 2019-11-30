@@ -72,6 +72,14 @@ class AddItemFragmentTests {
         Assert.assertEquals(testString, item.description)
     }
 
+    @Test
+    fun testBlankText() {
+        launchFragment()
+        onView(withId(R.id.new_item_text)).perform(replaceText("          "))
+        onView(withId(R.id.new_item_add_button)).perform(click())
+        Assert.assertEquals(0, mockItemsController.listItems().size)
+    }
+
     private fun launchFragment() {
         FragmentScenario.launchInContainer(AddItemFragment::class.java, null, R.style.AppTheme, null)
     }
