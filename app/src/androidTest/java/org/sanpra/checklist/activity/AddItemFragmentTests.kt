@@ -5,9 +5,13 @@ import androidx.collection.ArrayMap
 import androidx.fragment.app.testing.FragmentScenario
 import androidx.lifecycle.LiveData
 import androidx.room.Room
+import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.pressImeActionButton
 import androidx.test.espresso.action.ViewActions.replaceText
+import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -54,6 +58,16 @@ class AddItemFragmentTests {
         val testString = "Hello world"
         onView(withId(R.id.new_item_text)).perform(replaceText(testString))
         onView(withId(R.id.new_item_add_button)).perform(click())
+        val item = IterableUtils.get(mockItemsController.listItems(), 0)
+        Assert.assertEquals(testString, item.description)
+    }
+
+    @Test
+    fun testAddItemWithImeAction() {
+        launchFragment()
+        val testString = "Test string"
+        onView(withId(R.id.new_item_text)).perform(typeText(testString))
+        onView(withId(R.id.new_item_text)).perform(pressImeActionButton())
         val item = IterableUtils.get(mockItemsController.listItems(), 0)
         Assert.assertEquals(testString, item.description)
     }
