@@ -1,8 +1,5 @@
 package org.sanpra.checklist.activity
 
-import android.content.Context
-import androidx.fragment.app.testing.FragmentScenario
-import androidx.room.Room
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.pressImeActionButton
@@ -10,37 +7,17 @@ import androidx.test.espresso.action.ViewActions.replaceText
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
 import org.apache.commons.collections4.IterableUtils
 import org.junit.Assert
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.sanpra.checklist.R
-import org.sanpra.checklist.dbhelper.ItemsDatabase
-import org.sanpra.checklist.application.SystemObjects
 
 @RunWith(AndroidJUnit4::class)
-class AddItemFragmentTests {
-    private lateinit var context : Context
-    private lateinit var mockItemsController : MockItemsController
-
-    @Before
-    fun setup() {
-        context = InstrumentationRegistry.getInstrumentation().targetContext
-        setupMockSystemObjects()
-    }
-
-    private fun setupMockSystemObjects() {
-        SystemObjects.applicationDb = Room.inMemoryDatabaseBuilder(context.applicationContext, ItemsDatabase::class.java)
-                .build()
-        mockItemsController = MockItemsController()
-        SystemObjects.itemsCtrlr = mockItemsController
-    }
-
+class AddItemFragmentTests : BaseTests() {
     @Test
     fun testEmptyText() {
-        launchFragment()
+        launchFragment(AddItemFragment::class.java)
         onView(withId(R.id.new_item_text)).perform(replaceText(""))
         onView(withId(R.id.new_item_add_button)).perform(click())
         Assert.assertEquals(0, mockItemsController.listItems().size)
@@ -48,7 +25,7 @@ class AddItemFragmentTests {
 
     @Test
     fun testAddItemWithButton() {
-        launchFragment()
+        launchFragment(AddItemFragment::class.java)
         val testString = "Hello world"
         onView(withId(R.id.new_item_text)).perform(replaceText(testString))
         onView(withId(R.id.new_item_add_button)).perform(click())
@@ -58,7 +35,7 @@ class AddItemFragmentTests {
 
     @Test
     fun testAddItemWithImeAction() {
-        launchFragment()
+        launchFragment(AddItemFragment::class.java)
         val testString = "Test string"
         onView(withId(R.id.new_item_text)).perform(typeText(testString))
         onView(withId(R.id.new_item_text)).perform(pressImeActionButton())
@@ -68,14 +45,10 @@ class AddItemFragmentTests {
 
     @Test
     fun testBlankText() {
-        launchFragment()
+        launchFragment(AddItemFragment::class.java)
         onView(withId(R.id.new_item_text)).perform(replaceText("          "))
         onView(withId(R.id.new_item_add_button)).perform(click())
         Assert.assertEquals(0, mockItemsController.listItems().size)
-    }
-
-    private fun launchFragment() {
-        FragmentScenario.launchInContainer(AddItemFragment::class.java, null, R.style.AppTheme, null)
     }
 }
 

@@ -6,7 +6,7 @@ import org.sanpra.checklist.dbhelper.ChecklistItem
 import org.sanpra.checklist.dbhelper.ItemsControllerInterface
 import java.util.concurrent.atomic.AtomicLong
 
-internal class MockItemsController : ItemsControllerInterface {
+class MockItemsController : ItemsControllerInterface {
 
     private val itemsMap : MutableMap<Long, ChecklistItem> = ArrayMap()
     private var nextId = AtomicLong(0)
