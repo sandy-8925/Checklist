@@ -1,12 +1,12 @@
 package org.sanpra.checklist.activity
 
 import android.content.Context
+import androidx.annotation.StyleRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.testing.FragmentScenario
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Before
-import org.sanpra.checklist.R
 import org.sanpra.checklist.application.SystemObjects
 import org.sanpra.checklist.dbhelper.ItemsDatabase
 
@@ -27,8 +27,6 @@ abstract class BaseTests {
         SystemObjects.itemsCtrlr = mockItemsController
     }
 
-    protected fun launchFragment(fragmentClass: Class<out Fragment>) {
-        FragmentScenario.launchInContainer(fragmentClass, null, R.style.AppTheme, null)
-    }
+    protected fun launchFragment(fragmentClass: Class<out Fragment>, @StyleRes themeId: Int) = FragmentScenario.launchInContainer(fragmentClass, null, themeId, null)
 
 }

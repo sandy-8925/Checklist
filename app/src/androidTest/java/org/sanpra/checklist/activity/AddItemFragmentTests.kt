@@ -17,7 +17,7 @@ import org.sanpra.checklist.R
 class AddItemFragmentTests : BaseTests() {
     @Test
     fun testEmptyText() {
-        launchFragment(AddItemFragment::class.java)
+        launchFragment()
         onView(withId(R.id.new_item_text)).perform(replaceText(""))
         onView(withId(R.id.new_item_add_button)).perform(click())
         Assert.assertEquals(0, mockItemsController.listItems().size)
@@ -25,7 +25,7 @@ class AddItemFragmentTests : BaseTests() {
 
     @Test
     fun testAddItemWithButton() {
-        launchFragment(AddItemFragment::class.java)
+        launchFragment()
         val testString = "Hello world"
         onView(withId(R.id.new_item_text)).perform(replaceText(testString))
         onView(withId(R.id.new_item_add_button)).perform(click())
@@ -35,7 +35,7 @@ class AddItemFragmentTests : BaseTests() {
 
     @Test
     fun testAddItemWithImeAction() {
-        launchFragment(AddItemFragment::class.java)
+        launchFragment()
         val testString = "Test string"
         onView(withId(R.id.new_item_text)).perform(typeText(testString))
         onView(withId(R.id.new_item_text)).perform(pressImeActionButton())
@@ -45,10 +45,14 @@ class AddItemFragmentTests : BaseTests() {
 
     @Test
     fun testBlankText() {
-        launchFragment(AddItemFragment::class.java)
+        launchFragment()
         onView(withId(R.id.new_item_text)).perform(replaceText("          "))
         onView(withId(R.id.new_item_add_button)).perform(click())
         Assert.assertEquals(0, mockItemsController.listItems().size)
+    }
+
+    private fun launchFragment() {
+        launchFragment(AddItemFragment::class.java, R.style.AppTheme)
     }
 }
 

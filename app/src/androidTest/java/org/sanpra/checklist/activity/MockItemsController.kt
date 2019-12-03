@@ -2,6 +2,7 @@ package org.sanpra.checklist.activity
 
 import androidx.collection.ArrayMap
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import org.sanpra.checklist.dbhelper.ChecklistItem
 import org.sanpra.checklist.dbhelper.ItemsControllerInterface
 import java.util.concurrent.atomic.AtomicLong
@@ -17,12 +18,23 @@ class MockItemsController : ItemsControllerInterface {
         item.isChecked = !item.isChecked
     }
 
+    private val itemsLiveData = MutableLiveData(listItems().toList())
+
+    private fun updateLiveData() {
+        itemsLiveData.postValue(listItems().toList())
+    }
+
     override fun deleteItem(itemId: Long) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun deleteCheckedItems() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val iterator = itemsMap.entries.iterator()
+        while(iterator.hasNext()) {
+            val entry = iterator.next()
+            if(entry.value.isChecked) iterator.remove()
+        }
+        updateLiveData()
     }
 
     override fun checkAllItems() {
@@ -37,9 +49,7 @@ class MockItemsController : ItemsControllerInterface {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun itemListLiveData(): LiveData<List<ChecklistItem>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun itemListLiveData(): LiveData<List<ChecklistItem>> = itemsLiveData
 
     override fun addItem(itemDesc: String) {
         val itemId = nextId.getAndIncrement()
@@ -58,4 +68,10 @@ class MockItemsController : ItemsControllerInterface {
     }
 
     fun listItems(): Collection<ChecklistItem> = itemsMap.values
+
+    fun addItems(items : Collection<ChecklistItem>) {
+        for(item in items) {
+            itemsMap.put(item.id, item)
+        }
+    }
 }
