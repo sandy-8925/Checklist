@@ -84,16 +84,16 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
         val context = requireContext()
         binding.itemsList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         itemListAdapter = ChecklistItemRecyclerAdapter()
-        itemListAdapter.setOnItemClickListener(object : ChecklistItemRecyclerAdapter.ItemClickListener() {
+        itemListAdapter.itemClickListener = object : ChecklistItemRecyclerAdapter.ItemClickListener() {
             override fun onClick(view: View, itemId: Long) {
                 itemsController.flipStatus(itemId)
             }
-        })
-        itemListAdapter.setItemLongClickListener(object : ChecklistItemRecyclerAdapter.ItemLongClickListener() {
+        }
+        itemListAdapter.itemLongClickListener = object : ChecklistItemRecyclerAdapter.ItemLongClickListener() {
             override fun onLongClick(view: View, itemId: Long) {
                 showItemPopupMenu(view, itemId)
             }
-        })
+        }
         binding.itemsList.adapter = itemListAdapter
     }
 

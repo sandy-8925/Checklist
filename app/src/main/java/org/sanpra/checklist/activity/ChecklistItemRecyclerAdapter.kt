@@ -33,8 +33,8 @@ import org.sanpra.checklist.dbhelper.ChecklistItem
 
 internal class ChecklistItemRecyclerAdapter @UiThread
 constructor() : ListAdapter<ChecklistItem, ChecklistItemViewHolder>(ChecklistDiffCallback()) {
-    private var itemClickListener: View.OnClickListener? = null
-    private var itemLongClickListener: View.OnLongClickListener? = null
+    internal var itemClickListener: View.OnClickListener? = null
+    internal var itemLongClickListener: View.OnLongClickListener? = null
 
     init {
         setHasStableIds(true)
@@ -54,21 +54,9 @@ constructor() : ListAdapter<ChecklistItem, ChecklistItemViewHolder>(ChecklistDif
         holder.itemView.setOnLongClickListener(itemLongClickListener)
     }
 
-    override fun getItemId(position: Int): Long {
-        return getItem(position).id
-    }
-
-    @UiThread
-    fun setOnItemClickListener(onClickListener: ItemClickListener) {
-        this.itemClickListener = onClickListener
-    }
-
-    fun setItemLongClickListener(itemLongClickListener: View.OnLongClickListener) {
-        this.itemLongClickListener = itemLongClickListener
-    }
+    override fun getItemId(position: Int) = getItem(position).id
 
     internal abstract class ItemClickListener : View.OnClickListener {
-
         override fun onClick(v: View) {
             val itemId = v.getTag(VIEWHOLDER_TAG) as Long
             onClick(v, itemId)
