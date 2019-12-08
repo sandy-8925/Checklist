@@ -4,5 +4,4 @@
     <dimen name="new_entry_input_padding">6dp</dimen>
     <dimen name="toolbar_elevation">4dp</dimen>
     <dimen name="defaultMarginTop">20dp</dimen>
-    <dimen name="aif_btn_textsize">25sp</dimen>
 </resources>

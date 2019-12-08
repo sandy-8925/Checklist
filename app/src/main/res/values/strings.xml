@@ -4,7 +4,6 @@
     <string name="app_name">Checklist</string>
     <string name="list_empty">No items</string>
     <string name="menu_new_item">New Item</string>
-    <string name="itemdesc">Item description</string>
     <string name="menu_delcheckitems">Delete checked items</string>
     <string name="menu_checkallstring">Check all</string>
     <string name="menu_uncheckallstring">Uncheck all</string>
@@ -15,7 +14,6 @@
     <string name="ok">OK</string>
     <string name="edit_item_desc">Edit item description</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="enter_new_item_text_here">Enter new item text here</string>
     <string name="license_info">Open source license info</string>

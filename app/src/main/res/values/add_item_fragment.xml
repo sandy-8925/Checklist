@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="aif_btn_textsize">25sp</dimen>
+    <string name="itemdesc">Item description</string>
+</resources>
