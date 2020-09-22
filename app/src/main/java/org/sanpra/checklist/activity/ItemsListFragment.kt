@@ -33,7 +33,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.sanpra.checklist.R
 import org.sanpra.checklist.application.SystemObjects
@@ -63,7 +63,7 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        viewModel = ViewModelProviders.of(this).get(ItemsListFragmentViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ItemsListFragmentViewModel::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
