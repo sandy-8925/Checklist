@@ -18,7 +18,6 @@
 package org.sanpra.checklist.activity
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,13 +25,9 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.annotation.UiThread
 import androidx.fragment.app.Fragment
-import io.reactivex.Completable
-import io.reactivex.schedulers.Schedulers
 import org.apache.commons.lang3.StringUtils
 import org.sanpra.checklist.application.SystemObjects
-import org.sanpra.checklist.application.appDb
 import org.sanpra.checklist.databinding.AddItemFragmentLayoutBinding
-import org.sanpra.checklist.dbhelper.ChecklistItem
 
 class AddItemFragment : Fragment() {
 

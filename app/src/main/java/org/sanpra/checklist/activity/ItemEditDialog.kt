@@ -24,13 +24,10 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
-import io.reactivex.Completable
-import io.reactivex.schedulers.Schedulers
 import org.apache.commons.lang3.StringUtils
 import org.sanpra.checklist.R
 import org.sanpra.checklist.application.SystemObjects
 import org.sanpra.checklist.dbhelper.ChecklistItem
-import org.sanpra.checklist.dbhelper.ItemsDao
 
 class ItemEditDialog : DialogFragment(), Observer<ChecklistItem> {
     override fun onChanged(result: ChecklistItem?) {

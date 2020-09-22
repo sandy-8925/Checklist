@@ -35,14 +35,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import io.reactivex.Completable
-import io.reactivex.schedulers.Schedulers
 import org.sanpra.checklist.R
 import org.sanpra.checklist.application.SystemObjects
-import org.sanpra.checklist.application.appDb
 import org.sanpra.checklist.databinding.FragmentItemsListBinding
 import org.sanpra.checklist.dbhelper.ChecklistItem
-import org.sanpra.checklist.dbhelper.ItemsDao
 
 /**
  * Displays checklist items
