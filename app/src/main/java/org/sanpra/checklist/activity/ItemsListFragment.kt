@@ -74,7 +74,7 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
         super.onViewCreated(view, savedInstanceState)
         setupItemsListUI()
         registerForContextMenu(binding.itemsList)
-        viewModel.itemsList.observe(this, this)
+        viewModel.itemsList.observe(viewLifecycleOwner, this)
     }
 
     private lateinit var itemListAdapter: ChecklistItemRecyclerAdapter
