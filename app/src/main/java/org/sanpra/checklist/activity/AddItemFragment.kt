@@ -33,7 +33,7 @@ class AddItemFragment : Fragment() {
 
     private lateinit var binding: AddItemFragmentLayoutBinding
 
-    private val inputEntryTextDoneListener = TextView.OnEditorActionListener { v, actionId, event ->
+    private val inputEntryTextDoneListener = TextView.OnEditorActionListener { _, actionId, _ ->
         if (actionId == EditorInfo.IME_ACTION_DONE) {
             addNewItem()
         }

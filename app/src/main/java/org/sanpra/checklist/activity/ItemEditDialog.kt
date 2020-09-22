@@ -36,7 +36,7 @@ class ItemEditDialog : DialogFragment(), Observer<ChecklistItem> {
         editText?.setText(checklistItem.description)
     }
 
-    private val okClickListener: DialogInterface.OnClickListener = DialogInterface.OnClickListener { dialog, which ->
+    private val okClickListener: DialogInterface.OnClickListener = DialogInterface.OnClickListener { _, _ ->
         checklistItem.description = StringUtils.defaultString(editText?.text.toString())
         itemsController.updateItem(checklistItem)
     }

@@ -18,8 +18,6 @@
 package org.sanpra.checklist.dbhelper
 
 import android.content.Context
-import android.os.Handler
-import android.os.HandlerThread
 import androidx.lifecycle.LiveData
 import androidx.room.ColumnInfo
 import androidx.room.Dao

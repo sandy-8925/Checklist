@@ -101,7 +101,7 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
         popupMenu.show()
     }
 
-    private inner class ItemPopupMenuClickListener internal constructor(private val itemId: Long) : PopupMenu.OnMenuItemClickListener {
+    private inner class ItemPopupMenuClickListener(private val itemId: Long) : PopupMenu.OnMenuItemClickListener {
         override fun onMenuItemClick(item: MenuItem): Boolean {
             when (item.itemId) {
                 R.id.context_menu_delete -> {

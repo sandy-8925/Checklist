@@ -1,7 +1,6 @@
 package org.sanpra.checklist.dbhelper
 
 import androidx.annotation.AnyThread
-import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import io.reactivex.Completable
 import io.reactivex.schedulers.Schedulers
