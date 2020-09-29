@@ -22,7 +22,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.UiThread
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -42,7 +41,7 @@ constructor() : ListAdapter<ChecklistItem, ChecklistItemViewHolder>(ChecklistDif
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChecklistItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = DataBindingUtil.inflate<ItemRowBinding>(inflater, R.layout.item_row, parent, false)
+        val binding = ItemRowBinding.inflate(inflater, parent, false)
         return ChecklistItemViewHolder(binding)
     }
 
