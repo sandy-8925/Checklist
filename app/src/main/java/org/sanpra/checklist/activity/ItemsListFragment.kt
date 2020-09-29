@@ -27,7 +27,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.annotation.UiThread
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -54,7 +53,7 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_items_list, container, false)
+        binding = FragmentItemsListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
