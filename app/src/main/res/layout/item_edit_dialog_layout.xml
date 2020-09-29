@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
 <EditText xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/iedl_text"
     android:layout_width="match_parent"
@@ -13,3 +14,4 @@
     android:importantForAutofill="no"
     android:layout_margin="@dimen/new_entry_input_padding"
     />
+</layout>

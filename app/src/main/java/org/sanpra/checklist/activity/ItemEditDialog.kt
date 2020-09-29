@@ -20,24 +20,24 @@ package org.sanpra.checklist.activity
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import org.apache.commons.lang3.StringUtils
 import org.sanpra.checklist.R
 import org.sanpra.checklist.application.SystemObjects
+import org.sanpra.checklist.databinding.ItemEditDialogLayoutBinding
 import org.sanpra.checklist.dbhelper.ChecklistItem
 
 class ItemEditDialog : DialogFragment(), Observer<ChecklistItem> {
     override fun onChanged(result: ChecklistItem?) {
         result?: return
         checklistItem = result
-        editText?.setText(checklistItem.description)
+        binding.iedlText.setText(checklistItem.description)
     }
 
     private val okClickListener: DialogInterface.OnClickListener = DialogInterface.OnClickListener { _, _ ->
-        checklistItem.description = StringUtils.defaultString(editText?.text.toString())
+        checklistItem.description = StringUtils.defaultString(binding.iedlText.text.toString())
         itemsController.updateItem(checklistItem)
     }
 
@@ -50,8 +50,8 @@ class ItemEditDialog : DialogFragment(), Observer<ChecklistItem> {
     private val UNINIT_ITEM_ID : Long = -23
     private var itemId : Long = UNINIT_ITEM_ID
     private lateinit var checklistItem: ChecklistItem
-    private var editText: EditText? = null
     private val itemsController = SystemObjects.itemsController()
+    private lateinit var binding : ItemEditDialogLayoutBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,9 +66,8 @@ class ItemEditDialog : DialogFragment(), Observer<ChecklistItem> {
         val builder : AlertDialog.Builder = AlertDialog.Builder(context, R.style.EditDialogTheme)
                 .setPositiveButton(android.R.string.ok, okClickListener)
                 .setNegativeButton(android.R.string.cancel, null)
-        val rootView = requireActivity().layoutInflater.inflate(R.layout.item_edit_dialog_layout, null)
-        editText = rootView.findViewById(R.id.iedl_text) as EditText?
-        builder.setView(rootView)
+        binding = ItemEditDialogLayoutBinding.inflate(layoutInflater)
+        builder.setView(binding.root)
         itemsController.fetchItem(itemId).observe(this, this)
         return builder.create()
     }
