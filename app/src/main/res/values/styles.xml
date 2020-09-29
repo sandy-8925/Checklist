@@ -6,11 +6,18 @@
         <item name="android:paddingRight">@dimen/new_entry_input_padding</item>
         <item name="android:paddingEnd">@dimen/new_entry_input_padding</item>
         <item name="android:inputType">text|textAutoCorrect|textCapSentences</item>
-        <item name="android:maxLines">1</item>
         <item name="android:textColor">@android:color/primary_text_dark</item>
         <item name="android:background">@color/edittext_background</item>
         <item name="android:imeOptions">actionDone</item>
         <item name="android:minHeight">@dimen/editTextMinhHeight</item>
+    </style>
+
+    <style name="add_item_input_style" parent="description_input_style">
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="edit_item_input_style" parent="description_input_style">
+        <item name="android:inputType">text|textAutoCorrect|textCapSentences|textMultiLine</item>
     </style>
 
     <dimen name="editTextMinhHeight">30dp</dimen>

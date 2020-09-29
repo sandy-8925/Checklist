@@ -23,7 +23,7 @@
         android:id="@+id/new_item_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        style="@style/description_input_style"
+        style="@style/add_item_input_style"
         android:hint="@string/itemdesc"
         android:importantForAutofill="no" />
 

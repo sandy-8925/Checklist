@@ -2,6 +2,7 @@
 <resources>
     <dimen name="checklist_item_textsize">20sp</dimen>
     <dimen name="new_entry_input_padding">6dp</dimen>
+    <dimen name="edit_item_input_padding">12dp</dimen>
     <dimen name="toolbar_elevation">4dp</dimen>
     <dimen name="defaultMarginTop">20dp</dimen>
 </resources>
