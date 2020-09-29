@@ -10,5 +10,6 @@
     android:textSize="@dimen/checklist_item_textsize"
     xmlns:tools="http://schemas.android.com/tools"
     tools:text="Editable item text"
+    android:importantForAutofill="no"
     android:layout_margin="@dimen/new_entry_input_padding"
     />
