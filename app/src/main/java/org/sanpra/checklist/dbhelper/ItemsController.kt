@@ -81,7 +81,7 @@ internal object ItemsController : ItemsControllerInterface {
 
     override fun addItem(itemDesc: String) {
         val item = ChecklistItem().apply { description = itemDesc }
-        Completable.fromRunnable { itemsDb.itemsDao().addItem(item) }
+        itemsDb.itemsDao().addItem(item)
                 .subscribeOn(Schedulers.io())
                 .subscribe()
     }
@@ -89,7 +89,7 @@ internal object ItemsController : ItemsControllerInterface {
     override fun fetchItem(itemId: Long): LiveData<ChecklistItem> = itemsDb.itemsDao().fetchItem(itemId)
 
     override fun updateItem(item: ChecklistItem) {
-        Completable.fromRunnable { itemsDb.itemsDao().updateItem(item) }
+        itemsDb.itemsDao().updateItem(item)
                 .subscribeOn(Schedulers.io())
                 .subscribe()
     }

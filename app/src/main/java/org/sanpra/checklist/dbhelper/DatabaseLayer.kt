@@ -33,6 +33,7 @@ import androidx.room.TypeConverters
 import androidx.room.Update
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import io.reactivex.Completable
 import org.apache.commons.lang3.BooleanUtils
 
 private const val DATABASE_NAME = "data"
@@ -75,7 +76,7 @@ interface ItemsDao {
     fun fetchItemDescription(id: Long): String
 
     @Insert
-    fun addItem(item: ChecklistItem)
+    fun addItem(item: ChecklistItem) : Completable
 
     @Query("update $TABLE_NAME set checked=1-checked where $COLUMN_ID=:id")
     fun flipStatus(id: Long)
@@ -96,7 +97,7 @@ interface ItemsDao {
     fun deleteItem(id: Long)
 
     @Update
-    fun updateItem(item: ChecklistItem)
+    fun updateItem(item: ChecklistItem) : Completable
 }
 
 private val MIGRATION_1_2 = object : Migration(1, 2) {
