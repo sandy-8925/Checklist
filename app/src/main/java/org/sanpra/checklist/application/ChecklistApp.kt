@@ -19,7 +19,6 @@ package org.sanpra.checklist.application
 
 import android.os.StrictMode
 import androidx.multidex.MultiDexApplication
-import com.squareup.leakcanary.LeakCanary
 import org.sanpra.checklist.BuildConfig
 import org.sanpra.checklist.dbhelper.ItemsDatabase
 import org.sanpra.checklist.dbhelper.getDbInstance
@@ -28,10 +27,6 @@ import org.sanpra.checklist.dbhelper.getDbInstance
 class ChecklistApp : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return
-        }
-        LeakCanary.install(this)
         if(BuildConfig.DEBUG) {
             StrictMode.setThreadPolicy(StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().penaltyFlashScreen().build())
             StrictMode.setVmPolicy(StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build())
