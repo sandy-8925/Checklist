@@ -5,3 +5,5 @@ local.properties
 app/app.iml
 Checklist.iml
 app/release
+.gradle
+captures
