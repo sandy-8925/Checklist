@@ -18,6 +18,7 @@
 package org.sanpra.checklist.activity
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,6 +54,13 @@ class AddItemFragment : Fragment() {
     @UiThread
     private fun setupItemAddUI() {
         binding.newItemText.setOnEditorActionListener(inputEntryTextDoneListener)
+        binding.newItemText.setOnKeyListener { _, keyCode, keyEvent ->
+            if(keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP) {
+                addNewItem()
+                return@setOnKeyListener true
+            }
+            return@setOnKeyListener false
+        }
         binding.newItemAddButton.setOnClickListener { addNewItem() }
     }
 
