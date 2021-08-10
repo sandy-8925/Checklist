@@ -53,13 +53,7 @@ class AddItemFragment : Fragment() {
     @UiThread
     private fun setupItemAddUI() {
         binding.newItemText.setOnEditorActionListener(inputEntryTextDoneListener)
-        binding.newItemAddButton.setOnClickListener(AddItemOnClickListener())
-    }
-
-    private inner class AddItemOnClickListener : View.OnClickListener {
-        override fun onClick(clickedView: View) {
-            addNewItem()
-        }
+        binding.newItemAddButton.setOnClickListener { addNewItem() }
     }
 
     @UiThread
