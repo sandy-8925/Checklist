@@ -48,9 +48,11 @@ constructor() : ListAdapter<ChecklistItem, ChecklistItemViewHolder>(ChecklistDif
     override fun onBindViewHolder(holder: ChecklistItemViewHolder, position: Int) {
         val item = getItem(position)
         holder.binding.item = item
-        holder.itemView.setTag(VIEWHOLDER_TAG, getItemId(position))
-        holder.itemView.setOnClickListener(itemClickListener)
-        holder.itemView.setOnLongClickListener(itemLongClickListener)
+        holder.itemView.apply {
+            setTag(VIEWHOLDER_TAG, getItemId(position))
+            setOnClickListener(itemClickListener)
+            setOnLongClickListener(itemLongClickListener)
+        }
     }
 
     override fun getItemId(position: Int) = getItem(position).id
