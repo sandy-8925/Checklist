@@ -13,5 +13,6 @@
     tools:text="Editable item text"
     android:importantForAutofill="no"
     android:layout_margin="@dimen/new_entry_input_padding"
+    android:background="@drawable/edit_dialog_background"
     />
 </layout>
