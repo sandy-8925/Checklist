@@ -25,7 +25,9 @@
         android:layout_height="match_parent"
         style="@style/add_item_input_style"
         android:hint="@string/itemdesc"
-        android:importantForAutofill="no" />
+        android:importantForAutofill="no"
+        android:imeOptions="actionDone"
+        />
 
 </LinearLayout>
 </layout>
