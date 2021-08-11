@@ -87,7 +87,18 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
     private inner class TextDropListener : View.OnDragListener {
         override fun onDrag(view: View, event: DragEvent): Boolean {
             when(event.action) {
-                DragEvent.ACTION_DRAG_STARTED -> return event.clipDescription.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)
+                DragEvent.ACTION_DRAG_STARTED -> {
+                    val isText = event.clipDescription.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)
+                    if(isText) {
+                        binding.itemsList.visibility = View.INVISIBLE
+                        binding.dropLayout.visibility = View.VISIBLE
+                    }
+                    return isText
+                }
+                DragEvent.ACTION_DRAG_ENDED -> {
+                    binding.itemsList.visibility = View.VISIBLE
+                    binding.dropLayout.visibility = View.INVISIBLE
+                }
                 DragEvent.ACTION_DROP -> {
                     if(!event.clipDescription.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) return false
                     val items = event.clipData.getTextItems()

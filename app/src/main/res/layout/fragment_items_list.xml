@@ -1,14 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-<androidx.recyclerview.widget.RecyclerView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/items_list"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:scrollbars="vertical"
-    android:background="?attr/defaultBackgroundColour"
-    >
-    <requestFocus />
-</androidx.recyclerview.widget.RecyclerView>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/drop_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray"
+            android:visibility="invisible"
+            >
+
+            <ImageView
+                android:id="@+id/drop_image"
+                android:src="@android:drawable/stat_sys_download"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/drop_text"
+                app:layout_constraintVertical_chainStyle="packed"
+                android:layout_marginBottom="20dp"
+                app:tint="?attr/dropThemeColour"
+                android:contentDescription="@string/drop_explanation"
+                />
+
+            <TextView
+                android:id="@+id/drop_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/drop_explanation"
+                android:textColor="?attr/dropThemeColour"
+                android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/drop_image"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/items_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:scrollbars="vertical"
+            android:background="?attr/defaultBackgroundColour"
+            >
+            <requestFocus />
+        </androidx.recyclerview.widget.RecyclerView>
+    </FrameLayout>
 </layout>
