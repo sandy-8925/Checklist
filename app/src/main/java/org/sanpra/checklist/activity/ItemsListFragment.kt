@@ -18,7 +18,10 @@
 package org.sanpra.checklist.activity
 
 
+import android.content.ClipData
+import android.content.ClipDescription
 import android.os.Bundle
+import android.view.DragEvent
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -38,6 +41,12 @@ import org.sanpra.checklist.R
 import org.sanpra.checklist.application.SystemObjects
 import org.sanpra.checklist.databinding.FragmentItemsListBinding
 import org.sanpra.checklist.dbhelper.ChecklistItem
+
+private fun ClipData.getTextItems() : List<String> {
+    val result = mutableListOf<String>()
+    for(pos in 0 until itemCount)  result.add(getItemAt(pos).text.toString())
+    return result
+}
 
 /**
  * Displays checklist items
@@ -70,6 +79,24 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
         setupItemsListUI()
         registerForContextMenu(binding.itemsList)
         viewModel.itemsList.observe(viewLifecycleOwner, this)
+        binding.itemsList.setOnDragListener(textDropListener)
+    }
+
+    private val textDropListener = TextDropListener()
+
+    private inner class TextDropListener : View.OnDragListener {
+        override fun onDrag(view: View, event: DragEvent): Boolean {
+            when(event.action) {
+                DragEvent.ACTION_DRAG_STARTED -> return event.clipDescription.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)
+                DragEvent.ACTION_DROP -> {
+                    if(!event.clipDescription.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) return false
+                    val items = event.clipData.getTextItems()
+                    for(item in items) itemsController.addItem(item)
+                    return true
+                }
+            }
+            return false
+        }
     }
 
     private lateinit var itemListAdapter: ChecklistItemRecyclerAdapter
