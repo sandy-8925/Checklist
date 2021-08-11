@@ -61,7 +61,7 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
     private lateinit var binding : FragmentItemsListBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
         binding = FragmentItemsListBinding.inflate(inflater, container, false)
         return binding.root
     }
