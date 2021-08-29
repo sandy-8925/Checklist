@@ -21,13 +21,8 @@ package org.sanpra.checklist.activity
 import android.content.ClipData
 import android.content.ClipDescription
 import android.os.Bundle
-import android.view.DragEvent
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.util.TypedValue
+import android.view.*
 import android.widget.PopupMenu
 import androidx.annotation.UiThread
 import androidx.fragment.app.DialogFragment
@@ -105,9 +100,22 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
                     for(item in items) itemsController.addItem(item)
                     return true
                 }
+                DragEvent.ACTION_DRAG_ENTERED -> {
+                    binding.dropLayout.setBackgroundColor(getColour(R.attr.dropInProgressColourActive, android.R.color.holo_green_light))
+                }
+                DragEvent.ACTION_DRAG_EXITED -> {
+                    binding.dropLayout.setBackgroundColor(getColour(R.attr.dropInProgressColourInactive, android.R.color.darker_gray))
+                }
             }
             return false
         }
+    }
+
+    private fun getColour(attrId: Int, defaultValue: Int): Int {
+        val typedValue = TypedValue()
+        val found = requireContext().theme.resolveAttribute(attrId, typedValue, true)
+        if(found) return typedValue.data
+        return defaultValue
     }
 
     private lateinit var itemListAdapter: ChecklistItemRecyclerAdapter

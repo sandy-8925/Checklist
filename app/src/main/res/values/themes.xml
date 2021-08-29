@@ -7,7 +7,8 @@
         <item name="colorControlNormal">@android:color/white</item>
         <item name="defaultBackgroundColour">@android:color/background_dark</item>
         <item name="dropThemeColour">@android:color/white</item>
-        <item name="dropInProgressColour">@android:color/darker_gray</item>
+        <item name="dropInProgressColourInactive">@android:color/darker_gray</item>
+        <item name="dropInProgressColourActive">@android:color/holo_green_light</item>
     </style>
 
     <style name="EditDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
@@ -22,5 +23,6 @@
     </style>
 
     <attr name="dropThemeColour" format="color" />
-    <attr name="dropInProgressColour" format="color" />
+    <attr name="dropInProgressColourInactive" format="color" />
+    <attr name="dropInProgressColourActive" format="color" />
 </resources>
