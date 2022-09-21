@@ -22,6 +22,7 @@ Database description
 --------------------
 
 Table name - items
+
 Columns:
 
 item id  -  item description(string)     -   status(integer: 0-unchecked 1-checked)
