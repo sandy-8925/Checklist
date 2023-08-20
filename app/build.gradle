@@ -12,7 +12,7 @@ android {
     defaultConfig {
         applicationId "org.sanpra.checklist"
         minSdkVersion 14
-        targetSdkVersion 30
+        targetSdkVersion 33
         versionCode 6
         versionName "2.2"
         multiDexEnabled true
