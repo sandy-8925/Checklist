@@ -22,7 +22,13 @@ import android.content.ClipData
 import android.content.ClipDescription
 import android.os.Bundle
 import android.util.TypedValue
-import android.view.*
+import android.view.DragEvent
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.annotation.UiThread
 import androidx.fragment.app.DialogFragment
@@ -49,8 +55,8 @@ private fun ClipData.getTextItems() : List<String> {
 class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
     private val itemsController = SystemObjects.itemsController()
 
-    override fun onChanged(t: List<ChecklistItem>?) {
-        itemListAdapter.submitList(t)
+    override fun onChanged(value: List<ChecklistItem>) {
+        itemListAdapter.submitList(value)
     }
 
     private lateinit var binding : FragmentItemsListBinding

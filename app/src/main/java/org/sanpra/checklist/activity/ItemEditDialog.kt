@@ -30,9 +30,8 @@ import org.sanpra.checklist.databinding.ItemEditDialogLayoutBinding
 import org.sanpra.checklist.dbhelper.ChecklistItem
 
 class ItemEditDialog : DialogFragment(), Observer<ChecklistItem> {
-    override fun onChanged(result: ChecklistItem?) {
-        result?: return
-        checklistItem = result
+    override fun onChanged(value: ChecklistItem) {
+        checklistItem = value
         binding.iedlText.setText(checklistItem.description)
     }
 
