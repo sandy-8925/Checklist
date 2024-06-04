@@ -6,8 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-    tools:context=".activity.ChecklistActivity"
-    >
+        tools:context=".activity.ChecklistActivity">
 
         <Button
             android:id="@+id/new_item_add_button"
