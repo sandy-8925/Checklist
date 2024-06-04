@@ -22,12 +22,13 @@
 
     <EditText
         android:id="@+id/new_item_text"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         style="@style/add_item_input_style"
         android:hint="@string/itemdesc"
         android:importantForAutofill="no"
         android:imeOptions="actionDone"
+        android:layout_weight="1"
         />
 
 </LinearLayout>
