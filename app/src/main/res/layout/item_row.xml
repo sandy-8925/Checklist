@@ -18,5 +18,8 @@
 	android:padding="5dp"
 	android:text="@{item.description}"
 	android:longClickable="true"
-	tools:text="Checklist item" />
+	tools:text="Checklist item"
+	tools:textColor="@android:color/white"
+	android:minHeight="@dimen/min_touch_target_size"
+	/>
 </layout>
