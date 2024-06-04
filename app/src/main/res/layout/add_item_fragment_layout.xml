@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
     tools:context=".activity.ChecklistActivity"
     >
 
-    <Button
-        android:id="@+id/new_item_add_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="@dimen/min_touch_target_size"
-        android:text="+"
-        android:textSize="@dimen/aif_btn_textsize"
-        android:textColor="@android:color/primary_text_dark"
-        android:background="?attr/colorPrimary"
-        tools:ignore="HardcodedText" />
+        <Button
+            android:id="@+id/new_item_add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/min_touch_target_size"
+            android:text="+"
+            android:textSize="@dimen/aif_btn_textsize"
+            android:textColor="@android:color/primary_text_dark"
+            android:background="?attr/colorPrimary"
+            tools:ignore="HardcodedText" />
 
-    <EditText
-        android:id="@+id/new_item_text"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        style="@style/add_item_input_style"
-        android:hint="@string/itemdesc"
-        android:importantForAutofill="no"
-        android:imeOptions="actionDone"
-        android:layout_weight="1"
-        />
+        <EditText
+            android:id="@+id/new_item_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            style="@style/add_item_input_style"
+            android:hint="@string/itemdesc"
+            android:importantForAutofill="no"
+            android:imeOptions="actionDone"
+            android:layout_weight="1"
+            android:inputType="textCapSentences" />
 
 </LinearLayout>
 </layout>
