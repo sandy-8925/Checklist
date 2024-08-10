@@ -25,7 +25,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.UiThread
-import androidx.core.text.toSpannable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -49,16 +48,14 @@ constructor() : ListAdapter<ChecklistItem, ChecklistItemViewHolder>(ChecklistDif
         return ChecklistItemViewHolder(binding)
     }
 
-    private val strikethroughSpan = StrikethroughSpan()
-
     override fun onBindViewHolder(holder: ChecklistItemViewHolder, position: Int) {
         val item = getItem(position)
         holder.binding.item = item
         if(item.isChecked)
             holder.binding.itemtext.text = SpannableString(item.description).apply {
-                setSpan(strikethroughSpan, 0, length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+                setSpan(StrikethroughSpan(), 0, length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
             }
-        else holder.binding.itemtext.text.toSpannable().removeSpan(strikethroughSpan)
+        else holder.binding.itemtext.text = item.description
         holder.itemView.apply {
             setTag(VIEWHOLDER_TAG, getItemId(position))
             setOnClickListener(itemClickListener)

@@ -16,7 +16,6 @@
 	android:textColor="@{item.checked ? @color/grey : @color/white}"
 	android:background="@android:color/background_dark"
 	android:padding="5dp"
-	android:text="@{item.description}"
 	android:longClickable="true"
 	tools:text="Checklist item"
 	tools:textColor="@android:color/white"
