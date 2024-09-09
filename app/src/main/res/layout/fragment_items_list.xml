@@ -51,6 +51,8 @@
             android:orientation="vertical"
             android:scrollbars="vertical"
             android:background="?attr/defaultBackgroundColour"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:reverseLayout="false"
             >
             <requestFocus />
         </androidx.recyclerview.widget.RecyclerView>

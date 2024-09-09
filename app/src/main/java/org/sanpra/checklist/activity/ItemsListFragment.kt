@@ -37,7 +37,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.LinearLayoutManager
 import org.sanpra.checklist.R
 import org.sanpra.checklist.application.SystemObjects
 import org.sanpra.checklist.databinding.FragmentItemsListBinding
@@ -127,8 +126,6 @@ class ItemsListFragment : Fragment() {
 
     @UiThread
     private fun setupItemsListUI(binding: FragmentItemsListBinding) {
-        val context = requireContext()
-        binding.itemsList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         itemListAdapter.itemClickListener = object : ChecklistItemRecyclerAdapter.ItemClickListener() {
             override fun onClick(view: View, itemId: Long) {
                 itemsController.flipStatus(itemId)
