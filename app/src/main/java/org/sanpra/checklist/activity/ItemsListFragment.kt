@@ -33,10 +33,9 @@ import android.widget.PopupMenu
 import androidx.annotation.UiThread
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.sanpra.checklist.R
 import org.sanpra.checklist.application.SystemObjects
@@ -52,12 +51,8 @@ private fun ClipData.getTextItems() : List<String> {
 /**
  * Displays checklist items
  */
-class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
+class ItemsListFragment : Fragment() {
     private val itemsController = SystemObjects.itemsController()
-
-    override fun onChanged(value: List<ChecklistItem>) {
-        itemListAdapter.submitList(value)
-    }
 
     private lateinit var binding : FragmentItemsListBinding
 
@@ -67,19 +62,18 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
         return binding.root
     }
 
-    private lateinit var viewModel: ItemsListFragmentViewModel
+    private val viewModel: ItemsListFragmentViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        viewModel = ViewModelProvider(this).get(ItemsListFragmentViewModel::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupItemsListUI()
         registerForContextMenu(binding.itemsList)
-        viewModel.itemsList.observe(viewLifecycleOwner, this)
+        viewModel.itemsList.observe(viewLifecycleOwner) { itemListAdapter.submitList(it) }
         binding.itemsList.setOnDragListener(textDropListener)
     }
 
@@ -124,13 +118,12 @@ class ItemsListFragment : Fragment(), Observer<List<ChecklistItem>> {
         return defaultValue
     }
 
-    private lateinit var itemListAdapter: ChecklistItemRecyclerAdapter
+    private val itemListAdapter = ChecklistItemRecyclerAdapter()
 
     @UiThread
     private fun setupItemsListUI() {
         val context = requireContext()
         binding.itemsList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        itemListAdapter = ChecklistItemRecyclerAdapter()
         itemListAdapter.itemClickListener = object : ChecklistItemRecyclerAdapter.ItemClickListener() {
             override fun onClick(view: View, itemId: Long) {
                 itemsController.flipStatus(itemId)
