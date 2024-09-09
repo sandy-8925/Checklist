@@ -35,6 +35,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.sanpra.checklist.R
@@ -70,40 +71,46 @@ class ItemsListFragment : Fragment() {
         setupItemsListUI(binding)
         registerForContextMenu(binding.itemsList)
         viewModel.itemsList.observe(viewLifecycleOwner) { itemListAdapter.submitList(it) }
-        textDropListener = TextDropListener(binding)
-        binding.itemsList.setOnDragListener(textDropListener)
-    }
 
-    private lateinit var textDropListener: TextDropListener
-
-    //TODO: Icky, will fix up later
-    private inner class TextDropListener(private val binding: FragmentItemsListBinding) : View.OnDragListener {
-        override fun onDrag(view: View, event: DragEvent): Boolean {
-            when(event.action) {
+        dragEventLiveData.observe(viewLifecycleOwner) {
+            when(it) {
                 DragEvent.ACTION_DRAG_STARTED -> {
-                    val isText = event.clipDescription.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)
-                    if(isText) {
-                        binding.itemsList.visibility = View.INVISIBLE
-                        binding.dropLayout.visibility = View.VISIBLE
-                    }
-                    return isText
+                    binding.itemsList.visibility = View.INVISIBLE
+                    binding.dropLayout.visibility = View.VISIBLE
                 }
                 DragEvent.ACTION_DRAG_ENDED -> {
                     binding.itemsList.visibility = View.VISIBLE
                     binding.dropLayout.visibility = View.INVISIBLE
                 }
+                DragEvent.ACTION_DRAG_ENTERED -> binding.dropLayout.setBackgroundColor(getColour(R.attr.dropInProgressColourActive, android.R.color.holo_green_light))
+                DragEvent.ACTION_DRAG_EXITED ->  binding.dropLayout.setBackgroundColor(getColour(R.attr.dropInProgressColourInactive, android.R.color.darker_gray))
+            }
+        }
+        textDropListener = TextDropListener()
+        binding.itemsList.setOnDragListener(textDropListener)
+    }
+
+    private lateinit var textDropListener: TextDropListener
+
+    private val dragEventLiveData = MutableLiveData<Int>()
+
+    private inner class TextDropListener : View.OnDragListener {
+        override fun onDrag(view: View, event: DragEvent): Boolean {
+            when(event.action) {
+                DragEvent.ACTION_DRAG_STARTED -> {
+                    val isText = event.clipDescription.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)
+                    if(isText) dragEventLiveData.postValue(event.action)
+                    return isText
+                }
+                DragEvent.ACTION_DRAG_ENDED -> dragEventLiveData.postValue(event.action)
                 DragEvent.ACTION_DROP -> {
                     if(!event.clipDescription.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) return false
                     val items = event.clipData.getTextItems()
                     for(item in items) itemsController.addItem(item)
                     return true
                 }
-                DragEvent.ACTION_DRAG_ENTERED -> {
-                    binding.dropLayout.setBackgroundColor(getColour(R.attr.dropInProgressColourActive, android.R.color.holo_green_light))
-                }
-                DragEvent.ACTION_DRAG_EXITED -> {
-                    binding.dropLayout.setBackgroundColor(getColour(R.attr.dropInProgressColourInactive, android.R.color.darker_gray))
-                }
+                DragEvent.ACTION_DRAG_ENTERED -> dragEventLiveData.postValue(event.action)
+                DragEvent.ACTION_DRAG_EXITED -> dragEventLiveData.postValue(event.action)
             }
             return false
         }
