@@ -54,13 +54,8 @@ private fun ClipData.getTextItems() : List<String> {
 class ItemsListFragment : Fragment() {
     private val itemsController = SystemObjects.itemsController()
 
-    private lateinit var binding : FragmentItemsListBinding
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
-        binding = FragmentItemsListBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+                              savedInstanceState: Bundle?) = inflater.inflate(R.layout.fragment_items_list, container, false)
 
     private val viewModel: ItemsListFragmentViewModel by viewModels()
 
@@ -71,15 +66,18 @@ class ItemsListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupItemsListUI()
+        val binding = FragmentItemsListBinding.bind(view)
+        setupItemsListUI(binding)
         registerForContextMenu(binding.itemsList)
         viewModel.itemsList.observe(viewLifecycleOwner) { itemListAdapter.submitList(it) }
+        textDropListener = TextDropListener(binding)
         binding.itemsList.setOnDragListener(textDropListener)
     }
 
-    private val textDropListener = TextDropListener()
+    private lateinit var textDropListener: TextDropListener
 
-    private inner class TextDropListener : View.OnDragListener {
+    //TODO: Icky, will fix up later
+    private inner class TextDropListener(private val binding: FragmentItemsListBinding) : View.OnDragListener {
         override fun onDrag(view: View, event: DragEvent): Boolean {
             when(event.action) {
                 DragEvent.ACTION_DRAG_STARTED -> {
@@ -121,7 +119,7 @@ class ItemsListFragment : Fragment() {
     private val itemListAdapter = ChecklistItemRecyclerAdapter()
 
     @UiThread
-    private fun setupItemsListUI() {
+    private fun setupItemsListUI(binding: FragmentItemsListBinding) {
         val context = requireContext()
         binding.itemsList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         itemListAdapter.itemClickListener = object : ChecklistItemRecyclerAdapter.ItemClickListener() {
